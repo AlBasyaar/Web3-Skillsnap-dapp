@@ -1,0 +1,21 @@
+{
+  "canisters": {
+    "skillsnap_backend": {
+      "main": "src/skillsnap_backend/main.mo",
+      "type": "motoko"
+    },
+    "skillsnap_frontend": {
+      "type": "assets",
+      "source": ["src/skillsnap_frontend/dist"],
+      "dependencies": ["skillsnap_backend"]
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}

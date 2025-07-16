@@ -1,0 +1,15 @@
+services:
+  icp-dev-env:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: icp-dev-env-mac:latest
+    container_name: icp-dev-env
+    platform: linux/amd64
+    working_dir: /root/app/skillsnap
+    volumes:
+      - .:/root/app
+    ports:
+      - "4943:4943"
+      - "3000:3000"
+    command: tail -f /dev/null
