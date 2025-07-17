@@ -18,14 +18,16 @@ Proyek ini terdiri dari backend **Motoko** dan frontend **React**, yang berjalan
 Jalankan perintah berikut untuk membangun container:
 
 ```bash
-docker-compose up --build -d 
+docker-compose up --build -d
+```
 
 ## 🐳 2. Masuk ke Dalam Container
 
 Gunakan perintah ini untuk masuk ke dalam container:
 
 ```bash
-docker container exec -it icp-dev-env /bin/bash 
+docker container exec -it icp-dev-env /bin/bash
+```
 
 ---
 
@@ -35,7 +37,8 @@ Posisikan direktori ke dalam folder proyek:
 
 ```bash
 cd /root/app/skillsnap 
-dfx start --background --host 0.0.0.0:4943 
+dfx start --background --host 0.0.0.0:4943
+```
 
 ---
 
@@ -44,7 +47,8 @@ dfx start --background --host 0.0.0.0:4943
 Jika terjadi error, abaikan saja (karena lingkungan frontend mungkin belum sepenuhnya siap):
 
 ```bash
-dfx deploy 
+dfx deploy
+```
 
 ---
 
@@ -53,7 +57,8 @@ dfx deploy
 Pindah ke direktori frontend React:
 
 ```bash
-cd src/skillsnap_frontend 
+cd src/skillsnap_frontend
+```
 
 ---
 
@@ -62,7 +67,8 @@ cd src/skillsnap_frontend
 Pasang semua dependensi:
 
 ```bash
-npm install 
+npm install
+```
 
 ---
 
@@ -71,12 +77,14 @@ npm install
 Bangun aplikasi React:
 
 ```bash
-npm run build 
+npm run build
+```
 
 Jika terjadi error karena dependensi belum terinstal, jalankan:
 
 ```bash
-npm install html-webpack-plugin --save-dev 
+npm install html-webpack-plugin --save-dev
+```
 
 ---
 
@@ -85,7 +93,8 @@ npm install html-webpack-plugin --save-dev
 Pindah kembali ke direktori proyek utama:
 
 ```bash
-cd /root/app/skillsnap 
+cd /root/app/skillsnap
+```
 
 ---
 
@@ -94,7 +103,8 @@ cd /root/app/skillsnap
 Jalankan perintah berikut untuk menghasilkan binding canister:
 
 ```bash
-dfx generate 
+dfx generate
+```
 
 ---
 
@@ -103,13 +113,17 @@ dfx generate
 Pindah lagi ke folder frontend dan jalankan server React:
 
 ```bash
-cd src/skillsnap_frontend 
-npm run start 
+cd src/skillsnap_frontend
+
+npm run start
+```
 
 ---
 
 ## 🚀 11. Deploy Ulang DFX (Jika Dibutuhkan)
 
 ```bash
-cd /root/app/skillsnap 
+cd /root/app/skillsnap
+
 dfx deploy
+```
