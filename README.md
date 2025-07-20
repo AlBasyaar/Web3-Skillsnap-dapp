@@ -31,7 +31,23 @@ docker container exec -it icp-dev-env /bin/bash
 
 ---
 
-## ⚙️ 3. Memulai DFX
+## ⚙️ 3. Konfigurasi
+
+Salin file `.env.example` menjadi `.env` dan isi sesuai kebutuhan:
+
+```bash
+cp .env.example .env
+```
+
+Salin file `.env.gemini.example` menjadi `.env.gemini` dan isi sesuai kebutuhan:
+
+```bash
+cp .env.gemini.example .env.gemini
+```
+
+---
+
+## 🔧 4. Menjalankan DFX
 
 Posisikan direktori ke dalam folder proyek:
 
@@ -42,17 +58,19 @@ dfx start --background --host 0.0.0.0:4943
 
 ---
 
-## 🚀 4. Deploy DFX
+## 🚀 5. Deploy DFX
 
 Jika terjadi error, abaikan saja (karena lingkungan frontend mungkin belum sepenuhnya siap):
 
 ```bash
 dfx deploy
+
+dfx generate
 ```
 
 ---
 
-## 📁 5. Masuk ke Direktori Frontend
+## 📁 6. Masuk ke Direktori Frontend
 
 Pindah ke direktori frontend React:
 
@@ -62,7 +80,7 @@ cd src/skillsnap_frontend
 
 ---
 
-## 📦 6. Install Dependensi Frontend
+## 📦 7. Install Dependensi Frontend
 
 Pasang semua dependensi:
 
@@ -72,7 +90,7 @@ npm install
 
 ---
 
-## 🏗️ 7. Build Struktur Frontend
+## 🏗️ 8. Build Struktur Frontend
 
 Bangun aplikasi React:
 
@@ -88,7 +106,7 @@ npm install html-webpack-plugin --save-dev
 
 ---
 
-## 🔙 8. Kembali ke Direktori Utama
+## 🔙 9. Kembali ke Direktori Utama
 
 Pindah kembali ke direktori proyek utama:
 
@@ -98,7 +116,7 @@ cd /root/app/skillsnap
 
 ---
 
-## 🔄 9. Generate DFX Bindings
+## 🔄 10. Generate DFX Bindings
 
 Jalankan perintah berikut untuk menghasilkan binding canister:
 
@@ -108,7 +126,7 @@ dfx generate
 
 ---
 
-## ▶️ 10. Jalankan Aplikasi React
+## ▶️ 11. Jalankan Aplikasi React
 
 Pindah lagi ke folder frontend dan jalankan server React:
 
@@ -120,10 +138,43 @@ npm run start
 
 ---
 
-## 🚀 11. Deploy Ulang DFX (Jika Dibutuhkan)
+## 🚀 12. Deploy Ulang DFX (Jika Dibutuhkan)
 
 ```bash
 cd /root/app/skillsnap
 
 dfx deploy
 ```
+
+## 🐍 13. Membuat Virtual Environment (Python)
+
+Posisikan ke direktori proyek:
+
+```bash
+cd /src/skillsnap_frontend/
+
+python3 -m venv venv
+
+source venv/bin/activate
+```
+
+---
+
+## 📄 14. Instalasi Dependensi Python
+
+Instal dependensi untuk kelancaran program python
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+## ⚡ 15. Menjalankan Proksi AI (Gemini)
+
+```bash
+python gemini_proxy.py
+```
+
+---
+
+## 🔄 16. Lakukan Deploy dan Generate Ulang DFX, Restart Proxy AI dan Frontend
