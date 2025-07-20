@@ -23,3 +23,7 @@ dist/
 
 # environment variables
 .env
+src/skillsnap_frontend/src/AI/.env.gemini
+
+#venv
+**/venv/

@@ -1,4 +1,6 @@
 import Array "mo:base/Array";
+import Debug "mo:base/Debug";
+import Nat "mo:base/Nat";
 
 actor {
     // Struktur data proyek
@@ -19,6 +21,8 @@ actor {
         lokasiKerja: Text;
 
         kepribadian: [Text];
+
+        aiRekomendasi: ?Text; // Menyimpan hasil rekomendasi oleh AI
     };
 
     // Penyimpanan proyek
@@ -41,6 +45,7 @@ actor {
             tipeKerja = tipeKerja;
             lokasiKerja = lokasiKerja;
             kepribadian = kepribadian;
+            aiRekomendasi = null; // Inisialisasi rekomendasi AI sebagai null
         };
         projects := Array.append<Project>(projects, [project]);
         nextId += 1;
@@ -82,6 +87,7 @@ actor {
                     tipeKerja = tipeKerja;
                     lokasiKerja = lokasiKerja;
                     kepribadian = kepribadian;
+                    aiRekomendasi = project.aiRekomendasi; // Tetap simpan rekomendasi AI yang ada
                 }
             } else {
                 project
@@ -97,4 +103,68 @@ actor {
         let afterLen = projects.size();
         return afterLen < beforeLen;
     };
+
+    // Fungsi untuk menyimpan hasil rekomendasi oleh AI
+    public func saveAIRecommendation(projectId: Nat, hasil: Text): async () {
+        // Custom findIndex karena Array.findIndex tidak tersedia di Motoko
+        func findIndex<T>(arr: [T], pred: T -> Bool): ?Nat {
+            var i = 0;
+            label l for (item in arr.vals()) {
+                if (pred(item)) {
+                    return ?i;
+                };
+                i += 1;
+            };
+            return null;
+        };
+
+        let maybeIndex = findIndex<Project>(projects, func (project) { project.id == projectId });
+
+        switch (maybeIndex) {
+            case (?idx) {
+                let updated = Array.tabulate<Project>(
+                    projects.size(),
+                    func(i) {
+                        if (i == idx) {
+                            let old = projects[i];
+                            {
+                                id = old.id;
+                                bidangMinat = old.bidangMinat;
+                                aktifitasSuka = old.aktifitasSuka;
+                                toolsDikuasai = old.toolsDikuasai;
+                                kerjaTim = old.kerjaTim;
+                                strukturKerja = old.strukturKerja;
+                                tantanganStabil = old.tantanganStabil;
+                                variasiKerja = old.variasiKerja;
+                                pendidikanTerakhir = old.pendidikanTerakhir;
+                                bersediaBelajar = old.bersediaBelajar;
+                                tipeKerja = old.tipeKerja;
+                                lokasiKerja = old.lokasiKerja;
+                                kepribadian = old.kepribadian;
+                                aiRekomendasi = ?hasil; // simpan hasil AI
+                            }
+                        } else {
+                            projects[i]
+                        }
+                    }
+                );
+                projects := updated;
+            };
+            case null {
+                Debug.print("Project with id " # Nat.toText(projectId) # " not found.");
+            }
+        };
+    };
+
+    //Fungsi untuk menmbaca hasil rekomendasi AI
+    public func getAIRecommendation(projectId: Nat): async ?Text {
+    for (project in projects.vals()) {
+        if (project.id == projectId) {
+            return project.aiRekomendasi;
+        };
+    };
+        return null;
+    }
+
+
 }

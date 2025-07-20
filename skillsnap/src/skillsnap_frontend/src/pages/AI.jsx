@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   createActor,
   canisterId,
@@ -12,6 +12,8 @@ const skillsnap_backend = createActor(canisterId, {
 
 export default function AI() {
   const [formData, setFormData] = useState({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [projectId, setProjectId] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,16 +24,18 @@ export default function AI() {
     e.preventDefault();
     try {
       const kepribadianKeys = [
-        "waktuLuang",
-        "percayaPada",
-        "gayaMasalah",
-        "gayaKerja",
-        "sosialEvent",
-        "jenisPekerjaan",
-        "pengambilanKeputusan",
-        "kerjaNyaman",
-        "gayaKomunikasi",
-        "gayaBelajar",
+        "bidangMinat",
+        "aktivitasSuka",
+        "toolsDikuasai",
+        "kerjaTim",
+        "strukturKerja",
+        "tantanganStabil",
+        "variasiKerja",
+        "pendidikanTerakhir",
+        "bersediaBelajar",
+        "tipeKerja",
+        "lokasiKerja",
+        "kepribadian",
       ];
 
       const kepribadianArray = kepribadianKeys.map(
@@ -54,12 +58,102 @@ export default function AI() {
       );
 
       alert(`Project berhasil dibuat dengan ID: ${result}`);
+      setIsSubmitted(true);
+      setProjectId(result);
+      console.log("Project ID:", result);
     } catch (err) {
       console.error("Gagal mengirim ke backend:", err);
       alert("Gagal mengirim data.");
     }
   };
-  console.log(formData); // submit logic
+
+  // Update formData on submit
+  const handleUpdate = async () => {
+    try {
+      if (!projectId) return alert("Project ID tidak ditemukan.");
+      const kepribadianKeys = [
+        "bidangMinat",
+        "aktivitasSuka",
+        "toolsDikuasai",
+        "kerjaTim",
+        "strukturKerja",
+        "tantanganStabil",
+        "variasiKerja",
+        "pendidikanTerakhir",
+        "bersediaBelajar",
+        "tipeKerja",
+        "lokasiKerja",
+        "kepribadian",
+      ];
+      const kepribadianArray = kepribadianKeys.map(
+        (key) => formData[key] || ""
+      );
+
+      const result = await skillsnap_backend.updateProject(
+        projectId,
+        formData.bidangMinat || "",
+        formData.aktivitasSuka || "",
+        formData.toolsDikuasai || "",
+        formData.kerjaTim || "",
+        formData.strukturKerja || "",
+        formData.tantanganStabil || "",
+        formData.variasiKerja || "",
+        formData.pendidikanTerakhir || "",
+        formData.bersediaBelajar || "",
+        formData.tipeKerja || "",
+        formData.lokasiKerja || "",
+        kepribadianArray
+      );
+      alert(`Project berhasil diupdate dengan ID: ${result}`);
+    } catch (err) {
+      console.error("Gagal mengupdate ke backend:", err);
+      alert("Gagal mengupdate data.");
+    }
+  };
+
+  // AI Analysis
+  //Handle analisis AI
+  const handleAIAnalysis = async () => {
+    const kepribadianKeys = [
+      "bidangMinat",
+      "aktivitasSuka",
+      "toolsDikuasai",
+      "kerjaTim",
+      "strukturKerja",
+      "tantanganStabil",
+      "variasiKerja",
+      "pendidikanTerakhir",
+      "bersediaBelajar",
+      "tipeKerja",
+      "lokasiKerja",
+      "kepribadian",
+    ];
+
+    const kepribadianArray = kepribadianKeys.map(
+      (key) => `${key}: ${formData[key] || ""} `
+    );
+
+    const response = await fetch("http://127.0.0.1:5000/ai/rekomendasi", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...formData,
+        kepribadian: kepribadianArray.join("\n"),
+      }),
+    });
+
+    const data = await response.json();
+    const hasil = data.rekomendasi;
+    alert("Berhasil mendapatkan rekomendasi: ");
+    console.log("Hasil analisis AI:", hasil);
+    await skillsnap_backend.saveAIRecommendation(projectId, hasil);
+  };
+
+  useEffect(() => {
+    console.log(formData); // submit logic
+  }, [formData]);
 
   return (
     <div className="p-6 max-w-4xl mx-auto bg-gray-900 text-white min-h-screen">
@@ -78,6 +172,7 @@ export default function AI() {
           </label>
           <input
             name="bidangMinat"
+            value={formData.bidangMinat || ""}
             onChange={handleChange}
             className="w-full bg-gray-700 text-white border border-gray-600 rounded p-2"
           />
@@ -87,6 +182,7 @@ export default function AI() {
           </label>
           <textarea
             name="aktivitasSuka"
+            value={formData.aktivitasSuka || ""}
             onChange={handleChange}
             className="w-full bg-gray-700 text-white border border-gray-600 rounded p-2"
           />
@@ -96,6 +192,7 @@ export default function AI() {
           </label>
           <input
             name="toolsDikuasai"
+            value={formData.toolsDikuasai || ""}
             onChange={handleChange}
             className="w-full bg-gray-700 text-white border border-gray-600 rounded p-2"
           />
@@ -110,6 +207,7 @@ export default function AI() {
                   type="radio"
                   name="kerjaTim"
                   value={opt}
+                  checked={formData.kerjaTim === opt}
                   onChange={handleChange}
                   className="mr-2"
                 />
@@ -128,6 +226,7 @@ export default function AI() {
                   type="radio"
                   name="strukturKerja"
                   value={opt}
+                  checked={formData.strukturKerja === opt}
                   onChange={handleChange}
                   className="mr-2"
                 />
@@ -141,6 +240,7 @@ export default function AI() {
           </label>
           <input
             name="tantanganStabil"
+            value={formData.tantanganStabil || ""}
             onChange={handleChange}
             className="w-full bg-gray-700 text-white border border-gray-600 rounded p-2"
           />
@@ -155,6 +255,7 @@ export default function AI() {
                   type="radio"
                   name="variasiKerja"
                   value={opt}
+                  checked={formData.variasiKerja === opt}
                   onChange={handleChange}
                   className="mr-2"
                 />
@@ -175,6 +276,7 @@ export default function AI() {
           </label>
           <input
             name="pendidikanTerakhir"
+            value={formData.pendidikanTerakhir || ""}
             onChange={handleChange}
             className="w-full bg-gray-700 text-white border border-gray-600 rounded p-2"
           />
@@ -189,6 +291,7 @@ export default function AI() {
                   type="radio"
                   name="bersediaBelajar"
                   value={opt}
+                  checked={formData.bersediaBelajar === opt}
                   onChange={handleChange}
                   className="mr-2"
                 />
@@ -212,6 +315,7 @@ export default function AI() {
                   type="radio"
                   name="tipeKerja"
                   value={opt}
+                  checked={formData.tipeKerja === opt}
                   onChange={handleChange}
                   className="mr-2"
                 />
@@ -225,6 +329,7 @@ export default function AI() {
           </label>
           <input
             name="lokasiKerja"
+            value={formData.lokasiKerja || ""}
             onChange={handleChange}
             className="w-full bg-gray-700 text-white border border-gray-600 rounded p-2"
           />
@@ -297,6 +402,7 @@ export default function AI() {
                       type="radio"
                       name={item.name}
                       value={opt}
+                      checked={formData[item.name] === opt}
                       onChange={handleChange}
                       className="mr-2"
                     />
@@ -308,12 +414,31 @@ export default function AI() {
           ))}
         </fieldset>
 
-        <button
-          type="submit"
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded shadow"
-        >
-          Submit
-        </button>
+        {!isSubmitted ? (
+          <button
+            type="submit"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded shadow"
+          >
+            Submit
+          </button>
+        ) : (
+          <div className="flex justify-between">
+            <button
+              type="button"
+              className="bg-yellow-600 hover:bg-yellow-700 text-white font-semibold px-6 py-2 rounded shadow"
+              onClick={handleUpdate}
+            >
+              Update
+            </button>
+            <button
+              type="button"
+              className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded shadow"
+              onClick={handleAIAnalysis}
+            >
+              Analisis AI
+            </button>
+          </div>
+        )}
       </form>
     </div>
   );
