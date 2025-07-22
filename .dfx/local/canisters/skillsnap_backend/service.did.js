@@ -1,0 +1,63 @@
+export const idlFactory = ({ IDL }) => {
+  const Project = IDL.Record({
+    'id' : IDL.Nat,
+    'variasiKerja' : IDL.Text,
+    'tipeKerja' : IDL.Text,
+    'bersediaBelajar' : IDL.Text,
+    'tantanganStabil' : IDL.Text,
+    'kerjaTim' : IDL.Text,
+    'aiRekomendasi' : IDL.Opt(IDL.Text),
+    'strukturKerja' : IDL.Text,
+    'toolsDikuasai' : IDL.Text,
+    'lokasiKerja' : IDL.Text,
+    'aktifitasSuka' : IDL.Text,
+    'pendidikanTerakhir' : IDL.Text,
+    'kepribadian' : IDL.Vec(IDL.Text),
+    'bidangMinat' : IDL.Text,
+  });
+  return IDL.Service({
+    'createProject' : IDL.Func(
+        [
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Vec(IDL.Text),
+        ],
+        [IDL.Nat],
+        [],
+      ),
+    'deleteProject' : IDL.Func([IDL.Nat], [IDL.Bool], []),
+    'getAIRecommendation' : IDL.Func([IDL.Nat], [IDL.Opt(IDL.Text)], []),
+    'getProjectById' : IDL.Func([IDL.Nat], [IDL.Opt(Project)], ['query']),
+    'getProjects' : IDL.Func([], [IDL.Vec(Project)], ['query']),
+    'saveAIRecommendation' : IDL.Func([IDL.Nat, IDL.Text], [], []),
+    'updateProject' : IDL.Func(
+        [
+          IDL.Nat,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Vec(IDL.Text),
+        ],
+        [IDL.Bool],
+        [],
+      ),
+  });
+};
+export const init = ({ IDL }) => { return []; };

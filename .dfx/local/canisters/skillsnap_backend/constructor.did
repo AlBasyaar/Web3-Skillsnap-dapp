@@ -1,0 +1,28 @@
+type Project = 
+ record {
+   aiRekomendasi: opt text;
+   aktifitasSuka: text;
+   bersediaBelajar: text;
+   bidangMinat: text;
+   id: nat;
+   kepribadian: vec text;
+   kerjaTim: text;
+   lokasiKerja: text;
+   pendidikanTerakhir: text;
+   strukturKerja: text;
+   tantanganStabil: text;
+   tipeKerja: text;
+   toolsDikuasai: text;
+   variasiKerja: text;
+ };
+service : {
+  createProject: (text, text, text, text, text, text, text, text, text, 
+   text, text, vec text) -> (nat);
+  deleteProject: (nat) -> (bool);
+  getAIRecommendation: (nat) -> (opt text);
+  getProjectById: (nat) -> (opt Project) query;
+  getProjects: () -> (vec Project) query;
+  saveAIRecommendation: (nat, text) -> ();
+  updateProject: (nat, text, text, text, text, text, text, text, text, 
+   text, text, text, vec text) -> (bool);
+}

@@ -1,0 +1,22 @@
+// Version: 1.0.0
+type Project =
+  {
+    aiRekomendasi : ?Text;
+    aktifitasSuka : Text;
+    bersediaBelajar : Text;
+    bidangMinat : Text;
+    id : Nat;
+    kepribadian : [Text];
+    kerjaTim : Text;
+    lokasiKerja : Text;
+    pendidikanTerakhir : Text;
+    strukturKerja : Text;
+    tantanganStabil : Text;
+    tipeKerja : Text;
+    toolsDikuasai : Text;
+    variasiKerja : Text
+  };
+actor {
+  stable var nextId : Nat;
+  stable var projects : [Project]
+};
