@@ -22,20 +22,31 @@ CORS(app)
 def rekomendasi_karir():
     user_input = request.json
 
-    prompt = f"""Buatkan rekomendasi pekerjaan untuk data berikut:
-Minat: {user_input.get('bidangMinat')}
-Aktivitas: {user_input.get('aktivitasSuka')}
-Tools: {user_input.get('toolsDikuasai')}
-Tim: {user_input.get('kerjaTim')}
-Struktur: {user_input.get('strukturKerja')}
-Tantangan Stabil: {user_input.get('tantanganStabil')}
-Variasi Kerja: {user_input.get('variasiKerja')}
-Pendidikan: {user_input.get('pendidikanTerakhir')}
-Kesediaan Belajar: {user_input.get('bersediaBelajar')}
-Tipe Kerja: {user_input.get('tipeKerja')}
-Lokasi: {user_input.get('lokasiKerja')}
-Kepribadian: {user_input.get('kepribadian')}
-Berikan 1-3 jenis pekerjaan yang cocok, dengan alasan singkat."""
+    prompt = f"""Provide job recommendations based on the following data:
+Field: {user_input.get('bidang')}
+Activities: {user_input.get('aktifitas')}
+Skills: {user_input.get('keterampilan')}
+Work Preferences: {user_input.get('preferensiKerja')}
+Job Type: {user_input.get('tipePekerjaan')}
+Challenges: {user_input.get('tantangan')}
+Job Variety: {user_input.get('variasiPekerjaan')}
+Education: {user_input.get('pendidikan')}
+Willingness to Learn New Skills: {user_input.get('belajarSkillBaru')}
+Workplace Type: {user_input.get('tipeTempatKerja')}
+Work Location: {user_input.get('lokasiKerja')}
+Free Time: {user_input.get('waktuLuang')}
+Confidence: {user_input.get('kepercayaan')}
+Problem Solving: {user_input.get('pemecahanMasalah')}
+Work Style: {user_input.get('gayaKerja')}
+Social Events: {user_input.get('acaraSosial')}
+Job Preferences: {user_input.get('preferensiPekerjaan')}
+Decision Making: {user_input.get('pengambilanKeputusan')}
+Work Comfort: {user_input.get('kenyamananKerja')}
+Communication Style: {user_input.get('gayaKomunikasi')}
+Learning Style: {user_input.get('gayaBelajar')}
+
+Suggest 1 to 3 suitable job types for this person, with a brief explanation for each recommendation.
+"""
 
     try:
         model = genai.GenerativeModel(model_name="models/gemini-1.5-flash-002")
@@ -46,6 +57,7 @@ Berikan 1-3 jenis pekerjaan yang cocok, dengan alasan singkat."""
         rekomendasi = "Gagal mengambil rekomendasi dari Gemini"
 
     return jsonify({"rekomendasi": rekomendasi})
+
 
 # Jalankan Flask
 if __name__ == "__main__":

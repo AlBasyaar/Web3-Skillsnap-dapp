@@ -16,7 +16,10 @@
     "src/skillsnap_frontend"
   ],
   "devDependencies": {
-    "html-webpack-plugin": "^5.6.3"
+    "copy-webpack-plugin": "^13.0.0",
+    "html-webpack-plugin": "^5.6.3",
+    "postcss": "^8.5.6",
+    "postcss-loader": "^8.1.1"
   },
   "dependencies": {
     "@dfinity/agent": "^2.4.1",

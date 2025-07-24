@@ -6,21 +6,30 @@ actor {
     // Struktur data proyek
     public type Project = {
         id: Nat;
-        bidangMinat: Text;
-        aktifitasSuka: Text;
-        toolsDikuasai: Text;
-        kerjaTim: Text;
-        strukturKerja: Text;
-        tantanganStabil: Text;
-        variasiKerja: Text;
+        bidang: Text;
+        aktifitas: Text;
+        keterampilan: Text;
+        preferensiKerja: Text;
+        tipePekerjaan: Text;
+        tantangan: Text;
+        variasiPekerjaan: Text;
 
-        pendidikanTerakhir: Text;
-        bersediaBelajar: Text;
+        pendidikan: Text;
+        belajarSkillBaru: Text;
 
-        tipeKerja: Text;
+        tipeTempatKerja: Text;
         lokasiKerja: Text;
 
-        kepribadian: [Text];
+        waktuLuang: Text;
+        kepercayaan: Text;
+        pemecahanMasalah: Text;
+        gayaKerja: Text;
+        acaraSosial: Text;
+        preferensiPekerjaan: Text;
+        pengambilanKeputusan: Text;
+        kenyamananKerja: Text;
+        gayaKomunikasi: Text;
+        gayaBelajar: Text;
 
         aiRekomendasi: ?Text; // Menyimpan hasil rekomendasi oleh AI
     };
@@ -30,21 +39,30 @@ actor {
     stable var nextId : Nat = 1;
 
     // CREATE
-    public func createProject(bidangMinat: Text, aktifitasSuka: Text, toolsDikuasai: Text, kerjaTim: Text, strukturKerja: Text, tantanganStabil: Text, variasiKerja: Text, pendidikanTerakhir: Text, bersediaBelajar: Text, tipeKerja: Text, lokasiKerja: Text, kepribadian: [Text]) : async Nat {
+    public func createProject(bidang: Text, aktifitas: Text, keterampilan: Text, preferensiKerja: Text, tipePekerjaan: Text, tantangan: Text, variasiPekerjaan: Text, pendidikan: Text, belajarSkillBaru: Text, tipeTempatKerja: Text, lokasiKerja: Text, waktuLuang:Text, kepercayaan:Text, pemecahanMasalah:Text, gayaKerja:Text, acaraSosial:Text, preferensiPekerjaan:Text, pengambilanKeputusan:Text, kenyamananKerja:Text, gayaKomunikasi:Text, gayaBelajar:Text) : async Nat {
         let project : Project = {
             id = nextId;
-            bidangMinat = bidangMinat;
-            aktifitasSuka = aktifitasSuka;
-            toolsDikuasai = toolsDikuasai;
-            kerjaTim = kerjaTim;
-            strukturKerja = strukturKerja;
-            tantanganStabil = tantanganStabil;
-            variasiKerja = variasiKerja;
-            pendidikanTerakhir = pendidikanTerakhir;
-            bersediaBelajar = bersediaBelajar;
-            tipeKerja = tipeKerja;
+            bidang = bidang;
+            aktifitas = aktifitas;
+            keterampilan = keterampilan;
+            preferensiKerja = preferensiKerja;
+            tipePekerjaan = tipePekerjaan;
+            tantangan = tantangan;
+            variasiPekerjaan = variasiPekerjaan;
+            pendidikan = pendidikan;
+            belajarSkillBaru = belajarSkillBaru;
+            tipeTempatKerja = tipeTempatKerja;
             lokasiKerja = lokasiKerja;
-            kepribadian = kepribadian;
+            waktuLuang = waktuLuang;
+            kepercayaan = kepercayaan;
+            pemecahanMasalah = pemecahanMasalah;
+            gayaKerja = gayaKerja;
+            acaraSosial = acaraSosial;
+            preferensiPekerjaan = preferensiPekerjaan;
+            pengambilanKeputusan = pengambilanKeputusan;
+            kenyamananKerja = kenyamananKerja;
+            gayaKomunikasi = gayaKomunikasi;
+            gayaBelajar = gayaBelajar;
             aiRekomendasi = null; // Inisialisasi rekomendasi AI sebagai null
         };
         projects := Array.append<Project>(projects, [project]);
@@ -68,25 +86,34 @@ actor {
     };
 
     // UPDATE
-    public func updateProject(id: Nat, bidangMinat: Text, aktifitasSuka: Text, toolsDikuasai: Text, kerjaTim: Text, strukturKerja: Text, tantanganStabil: Text, variasiKerja: Text, pendidikanTerakhir: Text, bersediaBelajar: Text, tipeKerja: Text, lokasiKerja: Text, kepribadian: [Text]) : async Bool {
+    public func updateProject(id: Nat, bidang: Text, aktifitas: Text, keterampilan: Text, preferensiKerja: Text, tipePekerjaan: Text, tantangan: Text, variasiPekerjaan: Text, pendidikan: Text, belajarSkillBaru: Text, tipeTempatKerja: Text, lokasiKerja: Text, waktuLuang:Text, kepercayaan:Text, pemecahanMasalah:Text, gayaKerja:Text, acaraSosial:Text, preferensiPekerjaan:Text, pengambilanKeputusan:Text, kenyamananKerja:Text, gayaKomunikasi:Text, gayaBelajar:Text) : async Bool {
         var found = false;
         projects := Array.map<Project, Project>(projects, func (project) {
             if (project.id == id) {
                 found := true;
                 {
                     id = id;
-                    bidangMinat = bidangMinat;
-                    aktifitasSuka = aktifitasSuka;
-                    toolsDikuasai = toolsDikuasai;
-                    kerjaTim = kerjaTim;
-                    strukturKerja = strukturKerja;
-                    tantanganStabil = tantanganStabil;
-                    variasiKerja = variasiKerja;
-                    pendidikanTerakhir = pendidikanTerakhir;
-                    bersediaBelajar = bersediaBelajar;
-                    tipeKerja = tipeKerja;
+                    bidang = bidang;
+                    aktifitas = aktifitas;
+                    keterampilan = keterampilan;
+                    preferensiKerja = preferensiKerja;
+                    tipePekerjaan = tipePekerjaan;
+                    tantangan = tantangan;
+                    variasiPekerjaan = variasiPekerjaan;
+                    pendidikan = pendidikan;
+                    belajarSkillBaru = belajarSkillBaru;
+                    tipeTempatKerja = tipeTempatKerja;
                     lokasiKerja = lokasiKerja;
-                    kepribadian = kepribadian;
+                    waktuLuang = waktuLuang;
+                    kepercayaan = kepercayaan;
+                    pemecahanMasalah = pemecahanMasalah;
+                    gayaKerja = gayaKerja;
+                    acaraSosial = acaraSosial;
+                    preferensiPekerjaan = preferensiPekerjaan;
+                    pengambilanKeputusan = pengambilanKeputusan;
+                    kenyamananKerja = kenyamananKerja;
+                    gayaKomunikasi = gayaKomunikasi;
+                    gayaBelajar = gayaBelajar;
                     aiRekomendasi = project.aiRekomendasi; // Tetap simpan rekomendasi AI yang ada
                 }
             } else {
@@ -129,18 +156,27 @@ actor {
                             let old = projects[i];
                             {
                                 id = old.id;
-                                bidangMinat = old.bidangMinat;
-                                aktifitasSuka = old.aktifitasSuka;
-                                toolsDikuasai = old.toolsDikuasai;
-                                kerjaTim = old.kerjaTim;
-                                strukturKerja = old.strukturKerja;
-                                tantanganStabil = old.tantanganStabil;
-                                variasiKerja = old.variasiKerja;
-                                pendidikanTerakhir = old.pendidikanTerakhir;
-                                bersediaBelajar = old.bersediaBelajar;
-                                tipeKerja = old.tipeKerja;
+                                bidang = old.bidang;
+                                aktifitas = old.aktifitas;
+                                keterampilan = old.keterampilan;
+                                preferensiKerja = old.preferensiKerja;
+                                tipePekerjaan = old.tipePekerjaan;
+                                tantangan = old.tantangan;
+                                variasiPekerjaan = old.variasiPekerjaan;
+                                pendidikan = old.pendidikan;
+                                belajarSkillBaru = old.belajarSkillBaru;
+                                tipeTempatKerja = old.tipeTempatKerja;
                                 lokasiKerja = old.lokasiKerja;
-                                kepribadian = old.kepribadian;
+                                waktuLuang = old.waktuLuang;
+                                kepercayaan = old.kepercayaan;
+                                pemecahanMasalah = old.pemecahanMasalah;
+                                gayaKerja = old.gayaKerja;
+                                acaraSosial = old.acaraSosial;
+                                preferensiPekerjaan = old.preferensiPekerjaan;
+                                pengambilanKeputusan = old.pengambilanKeputusan;
+                                kenyamananKerja = old.kenyamananKerja;
+                                gayaKomunikasi = old.gayaKomunikasi;
+                                gayaBelajar = old.gayaBelajar;
                                 aiRekomendasi = ?hasil; // simpan hasil AI
                             }
                         } else {

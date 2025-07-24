@@ -1,20 +1,16 @@
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
-
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  devtool: 'cheap-module-source-map',
-  entry: './src/index.jsx',
+  entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
     clean: true,
-    publicPath: '/',
-  },
-  resolve: {
-    extensions: ['.js', '.jsx'],
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -23,17 +19,22 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-        },
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react']
+          }
+        }
       },
       {
         test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
+        use: [MiniCssExtractPlugin.loader,
           'css-loader',
-          'postcss-loader'
-        ],
+          'postcss-loader']
       },
-    ],
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
+    ]
   },
   plugins: [
     new MiniCssExtractPlugin({
@@ -45,20 +46,31 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env.CANISTER_ID_SKILLSNAP_BACKEND': JSON.stringify(
-        require(path.resolve(__dirname, '../../.dfx/local/canister_ids.json')).skillsnap_backend.local
+        require(path.resolve(__dirname, '../../.dfx/local/canister_ids.json'))['skillsnap_backend'].local
       ),
       'process.env.DFX_NETWORK': JSON.stringify('local'),
     }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'public/favicon.ico'),
+          to: 'favicon.ico',
+        },
+      ],
+    }),
   ],
-
   devServer: {
     static: {
       directory: path.join(__dirname, 'public'),
     },
-    historyApiFallback: true,
+    compress: true,
     port: 3000,
-    host: '0.0.0.0', // 🧠 penting agar bisa diakses dari luar container
+    historyApiFallback: true,
+    host: '0.0.0.0',
+    hot: true,
     open: true,
   },
-
+  resolve: {
+    extensions: ['.js', '.jsx']
+  }
 };
