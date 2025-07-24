@@ -1,12 +1,12 @@
 {
   "canisters": {
     "skillsnap_backend": {
-      "main": "skillsnap/src/skillsnap_backend/main.mo",
+      "main": "src/skillsnap_backend/main.mo",
       "type": "motoko"
     },
     "skillsnap_frontend": {
       "type": "assets",
-      "source": ["skillsnap/src/skillsnap_frontend/dist"],
+      "source": ["src/skillsnap_frontend/dist"],
       "dependencies": ["skillsnap_backend"]
     }
   },

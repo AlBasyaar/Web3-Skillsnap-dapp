@@ -6,7 +6,7 @@ services:
     image: icp-dev-env-mac:latest
     container_name: icp-dev-env
     platform: linux/amd64
-    working_dir: /root/app/skillsnap
+    working_dir: /root/app
     volumes:
       - .:/root/app
     ports:
