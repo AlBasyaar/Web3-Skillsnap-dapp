@@ -1,29 +1,29 @@
-# 🚀 Panduan Proyek Internet Computer + Frontend Containerized
+# 🚀 Internet Computer Project Guide + Frontend Containerized
 
-Proyek ini terdiri dari backend **Motoko** dan frontend **React**, yang berjalan di dalam container **Docker**. Panduan ini membantu Anda membangun, masuk, dan menjalankan seluruh sistem secara lokal menggunakan `dfx` di dalam container melalui Docker Desktop.
-
----
-
-## 🛠️ Prasyarat
-
-- [Docker](https://www.docker.com/) sudah terinstal
-- Folder proyek sudah diclone dari repositori ini
-- File `Dockerfile` dan `docker-compose.yaml` berada di root
-- Port **3000** (untuk frontend) dan **4943** (untuk DFX) tidak sedang digunakan
+This project consists of a **Motoko** backend and a **React** frontend, running inside a **Docker** container. This guide helps you build, log in, and run the entire system locally using `dfx` inside a container via Docker Desktop.
 
 ---
 
-## 🧱 1. Build Container
+## 🛠️ Requirements
 
-Jalankan perintah berikut untuk membangun container:
+- [Docker](https://www.docker.com/) is already installed
+- The project folder has been cloned from this repository
+- The `Dockerfile` and `docker-compose.yaml` files are located in the root directory
+- Ports **3000** (for the frontend) and **4943** (for DFX) are not currently in use
+
+---
+
+## 🧱 1. Building Containers
+
+Run the following command to build the container:
 
 ```bash
 docker-compose up --build -d
 ```
 
-## 🐳 2. Masuk ke Dalam Container
+## 🐳 2. Enter the Container
 
-Gunakan perintah ini untuk masuk ke dalam container:
+Use this command to enter the container:
 
 ```bash
 docker container exec -it icp-dev-env /bin/bash
@@ -31,15 +31,15 @@ docker container exec -it icp-dev-env /bin/bash
 
 ---
 
-## ⚙️ 3. Konfigurasi
+## ⚙️ 3. Configuration
 
-Salin file `.env.example` menjadi `.env` dan isi sesuai kebutuhan:
+Copy the `.env.example` file to `.env` and fill it in as needed:
 
 ```bash
 cp .env.example .env
 ```
 
-Salin file `.env.gemini.example` menjadi `.env.gemini` dan isi sesuai kebutuhan:
+Copy the `.env.gemini.example` file to `.env.gemini` and fill it in as needed:
 
 ```bash
 cp .env.gemini.example .env.gemini
@@ -47,9 +47,9 @@ cp .env.gemini.example .env.gemini
 
 ---
 
-## 🔧 4. Menjalankan DFX
+## 🔧 4. Running DFX
 
-Posisikan direktori ke dalam folder proyek:
+Place the directory into the project folder:
 
 ```bash
 cd /root/app/skillsnap 
@@ -58,9 +58,9 @@ dfx start --background --host 0.0.0.0:4943
 
 ---
 
-## 🚀 5. Deploy DFX
+## 🚀 5. Deploying DFX
 
-Jika terjadi error, abaikan saja (karena lingkungan frontend mungkin belum sepenuhnya siap):
+If an error occurs, just ignore it (because the frontend environment may not be fully ready):
 
 ```bash
 dfx deploy
@@ -70,9 +70,9 @@ dfx generate
 
 ---
 
-## 📁 6. Masuk ke Direktori Frontend
+## 📁 6. Go to the Frontend Directory
 
-Pindah ke direktori frontend React:
+Move to the React frontend directory:
 
 ```bash
 cd src/skillsnap_frontend
@@ -80,9 +80,9 @@ cd src/skillsnap_frontend
 
 ---
 
-## 📦 7. Install Dependensi Frontend
+## 📦 7. Install Frontend Dependencies
 
-Pasang semua dependensi:
+Install all dependencies:
 
 ```bash
 npm install
@@ -90,15 +90,15 @@ npm install
 
 ---
 
-## 🏗️ 8. Build Struktur Frontend
+## 🏗️ 8. Build the frontend structure
 
-Bangun aplikasi React:
+Build a React app:
 
 ```bash
 npm run build
 ```
 
-Jika terjadi error karena dependensi belum terinstal, jalankan:
+If an error occurs because dependencies are not installed, run:
 
 ```bash
 npm install html-webpack-plugin --save-dev
@@ -106,9 +106,9 @@ npm install html-webpack-plugin --save-dev
 
 ---
 
-## 🔙 9. Kembali ke Direktori Utama
+## 🔙 9. Back to Main Directory
 
-Pindah kembali ke direktori proyek utama:
+Return to the main project directory:
 
 ```bash
 cd /root/app/skillsnap
@@ -118,7 +118,7 @@ cd /root/app/skillsnap
 
 ## 🔄 10. Generate DFX Bindings
 
-Jalankan perintah berikut untuk menghasilkan binding canister:
+Run the following command to generate the binding canister:
 
 ```bash
 dfx generate
@@ -126,9 +126,9 @@ dfx generate
 
 ---
 
-## ▶️ 11. Jalankan Aplikasi React
+## ▶️ 11. Run the React Application
 
-Pindah lagi ke folder frontend dan jalankan server React:
+Move back to the frontend folder and run the React server:
 
 ```bash
 cd src/skillsnap_frontend
@@ -138,7 +138,7 @@ npm run start
 
 ---
 
-## 🚀 12. Deploy Ulang DFX (Jika Dibutuhkan)
+## 🚀 12. Redeploy DFX (if necessary)
 
 ```bash
 cd /root/app/skillsnap
@@ -146,9 +146,9 @@ cd /root/app/skillsnap
 dfx deploy
 ```
 
-## 🐍 13. Membuat Virtual Environment (Python)
+## 🐍 13. Creating a Virtual Environment (Python)
 
-Posisikan ke direktori proyek:
+Place it in the project directory:
 
 ```bash
 cd /src/skillsnap_frontend/
@@ -160,16 +160,16 @@ source venv/bin/activate
 
 ---
 
-## 📄 14. Instalasi Dependensi Python
+## 📄 14. Installing Python Dependencies
 
-Instal dependensi untuk kelancaran program python
+Install dependencies for smooth Python program execution
 
 ```bash
 pip install -r requirements.txt
 ```
 
 ---
-## ⚡ 15. Menjalankan Proksi AI (Gemini)
+## ⚡ 15. Running the AI Proxy (Gemini)
 
 ```bash
 python gemini_proxy.py
@@ -177,4 +177,4 @@ python gemini_proxy.py
 
 ---
 
-## 🔄 16. Lakukan Deploy dan Generate Ulang DFX, Restart Proxy AI dan Frontend
+## 🔄 16. Deploy and regenerate DFX, restart AI proxy and frontend
