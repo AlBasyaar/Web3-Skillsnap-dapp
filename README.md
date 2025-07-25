@@ -8,14 +8,14 @@ This project consists of a **Motoko** backend and a **React** frontend, running 
 
 - [Docker](https://www.docker.com/) is already installed
 - The project folder has been cloned from this repository
-- The `Dockerfile` and `docker-compose.yaml` files are located in the root directory
+- If you are using Windows, we recommend using Windows PowerShell or Git Bash.
 - Ports **3000** (for the frontend) and **4943** (for DFX) are not currently in use
 
 ---
 
 ## 🧱 1. Building Containers
 
-Run the following command to build the container:
+Go to the cloned folder and run the following command to build the container:
 
 ```bash
 docker-compose up --build -d
@@ -29,6 +29,8 @@ Use this command to enter the container:
 docker container exec -it icp-dev-env /bin/bash
 ```
 
+If you are using Linux OS, you can run the above command directly, whereas if you are using Docker Desktop, you must first open it and enter the terminal from Docker.
+
 ---
 
 ## ⚙️ 3. Configuration
@@ -39,11 +41,19 @@ Copy the `.env.example` file to `.env` and fill it in as needed:
 cp .env.example .env
 ```
 
+go to the gemini proxy configuration folder.
+
+```bash
+cd src/skillsnap_frontend/src/AI/
+```
+
 Copy the `.env.gemini.example` file to `.env.gemini` and fill it in as needed:
 
 ```bash
 cp .env.gemini.example .env.gemini
 ```
+
+Open and edit the .env.gemini file by adding the gemini token.
 
 ---
 
@@ -52,7 +62,10 @@ cp .env.gemini.example .env.gemini
 Place the directory into the project folder:
 
 ```bash
-cd /root/app/skillsnap 
+cd /root/app
+
+npm install
+
 dfx start --background --host 0.0.0.0:4943
 ```
 
@@ -98,12 +111,6 @@ Build a React app:
 npm run build
 ```
 
-If an error occurs because dependencies are not installed, run:
-
-```bash
-npm install html-webpack-plugin --save-dev
-```
-
 ---
 
 ## 🔙 9. Back to Main Directory
@@ -111,7 +118,7 @@ npm install html-webpack-plugin --save-dev
 Return to the main project directory:
 
 ```bash
-cd /root/app/skillsnap
+cd /root/app
 ```
 
 ---
@@ -141,7 +148,7 @@ npm run start
 ## 🚀 12. Redeploy DFX (if necessary)
 
 ```bash
-cd /root/app/skillsnap
+cd /root/app
 
 dfx deploy
 ```
@@ -153,6 +160,10 @@ Place it in the project directory:
 ```bash
 cd /src/skillsnap_frontend/
 
+apt-get update
+
+apt install python3.11-venv
+
 python3 -m venv venv
 
 source venv/bin/activate
@@ -161,6 +172,12 @@ source venv/bin/activate
 ---
 
 ## 📄 14. Installing Python Dependencies
+
+Run this command to enter the appropriate folder:
+
+```bash
+cd src/AI/
+```
 
 Install dependencies for smooth Python program execution
 
