@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
+import "./Animations.css";
 import EarthWithOrbit from "../components/EarthWithOrbit";
 import dadu from "../assets/images/home-design/dadu.png";
 import telepon from "../assets/images/home-design/telepon.png";
@@ -11,12 +12,28 @@ import com from "../assets/images/com.png";
 import jam2 from "../assets/images/jam-2.png";
 
 const Home = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div className="relative min-h-screen overflow-hidden z-10">
+    <div className="relative min-h-screen overflow-hidden z-10 bg-gradient-to-br from-gray-900 to-gray-800">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
+        <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
+        <div className="absolute bottom-1/4 left-1/2 w-96 h-96 bg-indigo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-4000"></div>
+      </div>
       {/* Decorative Elements */}
-      <div className="absolute inset-0 overflow-hidden z-0">
+      <div className={`absolute inset-0 overflow-hidden z-0 transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
         {/* Left Book */}
-        <div className="absolute top-8 left-8 md:left-16 lg:left-24 z-10 transition-all duration-500 hover:scale-110">
+        <div className="absolute top-8 left-8 md:left-16 lg:left-24 z-10 transition-all duration-500 hover:scale-110 animate-float" style={{ animationDelay: '0.5s' }}>
           <img
             src={buku1}
             alt="Book"
@@ -27,29 +44,31 @@ const Home = () => {
 
         {/* Right Side Decorative Elements */}
         <div className="absolute top-8 right-8 md:right-16 lg:right-24 z-10 flex flex-col items-end space-y-4 md:space-y-6">
-          <img
-            src={buku2}
-            alt="Book"
-            className="w-16 h-auto md:w-24 lg:w-28 drop-shadow-lg hover:scale-110 transition-transform duration-300"
-            loading="lazy"
-          />
-          <img
-            src={com}
-            alt="Computer"
-            className="w-14 h-auto md:w-20 lg:w-24 -mr-4 md:-mr-6 -mb-2 drop-shadow-lg hover:scale-110 transition-transform duration-300"
-            loading="lazy"
-          />
-          <img
-            src={jam2}
-            alt="Clock"
-            className="w-12 h-auto md:w-16 lg:w-20 -mr-2 md:-mr-4 drop-shadow-lg hover:scale-110 transition-transform duration-300"
-            loading="lazy"
-          />
+          <div className="animate-float" style={{ animationDelay: '0.7s' }}>
+            <img
+              src={buku2}
+              alt="Book"
+              className="w-16 h-auto md:w-24 lg:w-28 drop-shadow-lg hover:scale-110 transition-transform duration-300"
+              loading="lazy"
+            />
+            <img
+              src={com}
+              alt="Computer"
+              className="w-14 h-auto md:w-20 lg:w-24 -mr-4 md:-mr-6 -mb-2 drop-shadow-lg hover:scale-110 transition-transform duration-300"
+              loading="lazy"
+            />
+            <img
+              src={jam2}
+              alt="Clock"
+              className="w-12 h-auto md:w-16 lg:w-20 -mr-2 md:-mr-4 drop-shadow-lg hover:scale-110 transition-transform duration-300"
+              loading="lazy"
+            />
+          </div>
         </div>
       </div>
 
       {/* Earth with orbiting human images - External Component */}
-      <div className="relative z-10">
+      <div className={`py-16 relative z-10 transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
         <EarthWithOrbit />
       </div>
 
@@ -133,7 +152,7 @@ const Home = () => {
 
       {/* CTA Section */}
       <section className="py-20 relative overflow-hidden z-10">
-        <div className="container mx-auto px-4 text-center">
+        <div className={`container mx-auto px-4 pt-24 md:pt-32 pb-16 relative z-10 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <h2 className="text-3xl font-bold mb-6 text-white">
             Stop wasting time on job applications that don't fit you
           </h2>
