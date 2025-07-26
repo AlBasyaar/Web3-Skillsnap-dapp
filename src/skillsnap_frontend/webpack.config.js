@@ -46,9 +46,9 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env.CANISTER_ID_SKILLSNAP_BACKEND': JSON.stringify(
-        require(path.resolve(__dirname, '../../.dfx/local/canister_ids.json'))['skillsnap_backend'].local
+        process.env.CANISTER_ID_SKILLSNAP_BACKEND || 'ryjl3-tyaaa-aaaaa-aaaba-cai' // Default canister ID for local development
       ),
-      'process.env.DFX_NETWORK': JSON.stringify('local'),
+      'process.env.DFX_NETWORK': JSON.stringify(process.env.DFX_NETWORK || 'local'),
     }),
     new CopyWebpackPlugin({
       patterns: [

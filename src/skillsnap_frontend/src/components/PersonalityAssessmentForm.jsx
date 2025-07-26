@@ -1,17 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import html2canvas from "html2canvas";
 import { saveAs } from "file-saver";
-import {
-  createActor,
-  canisterId,
-} from "../../../declarations/skillsnap_backend";
 import AI from "../pages/AI";
-
-const skillsnap_backend = createActor(canisterId, {
-  agentOptions: {
-    host: "http://127.0.0.1:4943",
-  },
-});
 
 const PersonalityAssessmentForm = () => {
   const [currentSection, setCurrentSection] = useState(0);

@@ -1,0 +1,470 @@
+import React, { useState } from 'react';
+
+const FeatureCard = ({ icon, title, description, buttonText, onClick, disabled = false }) => (
+  <div className="bg-gray-900/80 backdrop-blur-sm p-6 rounded-xl border border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:border-purple-500/50">
+    <div className="text-4xl mb-4 text-purple-400">{icon}</div>
+    <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
+    <p className="text-gray-300 mb-4">{description}</p>
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={`px-4 py-2 rounded-lg font-medium transition-all ${
+        disabled 
+          ? 'bg-gray-700 text-gray-500 cursor-not-allowed' 
+          : 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:opacity-90'
+      }`}
+    >
+      {buttonText}
+    </button>
+  </div>
+);
+
+const Web3 = () => {
+  const [connected, setConnected] = useState(false);
+  const [walletAddress, setWalletAddress] = useState('');
+  const [activeTab, setActiveTab] = useState('skills');
+  const [skills, setSkills] = useState([
+    { id: 1, name: 'React', level: 85, verified: true },
+    { id: 2, name: 'Solidity', level: 70, verified: true },
+    { id: 3, name: 'Web3.js', level: 65, verified: false },
+    { id: 4, name: 'Smart Contracts', level: 78, verified: true },
+    { id: 5, name: 'Ethereum', level: 82, verified: true },
+    { id: 6, name: 'IPFS', level: 60, verified: false },
+  ]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [activities, setActivities] = useState([
+    { 
+      id: 1,
+      type: 'skill_verified', 
+      title: 'Solidity Skill Verified', 
+      description: 'Your Solidity skill has been verified on the blockchain',
+      time: '2 hours ago',
+      icon: '📜'
+    },
+    { 
+      id: 2,
+      type: 'endorsement', 
+      title: 'New Endorsement', 
+      description: 'Alex Johnson endorsed your Smart Contracts skill',
+      time: '1 day ago',
+      icon: '✅'
+    },
+    { 
+      id: 3,
+      type: 'nft_minted', 
+      title: 'NFT Minted', 
+      description: 'Successfully minted your Web3.js skill as an NFT',
+      time: '3 days ago',
+      icon: '🪙'
+    },
+    { 
+      id: 4,
+      type: 'reputation', 
+      title: 'Reputation Increased', 
+      description: 'Your reputation score increased by 25 points',
+      time: '1 week ago',
+      icon: '📈'
+    },
+  ]);
+
+  // Connect to wallet function
+  const connectWallet = async () => {
+    try {
+      setConnected(true);
+      const demoAddress = '0x1a2b...3c4d';
+      setWalletAddress(demoAddress);
+      
+      const newActivity = {
+        id: activities.length + 1,
+        type: 'wallet_connected',
+        title: 'Wallet Connected',
+        description: `Connected wallet: ${demoAddress}`,
+        time: 'Just now',
+        icon: '🔗'
+      };
+      setActivities([newActivity, ...activities]);
+    } catch (error) {
+      console.error('Failed to connect wallet:', error);
+      alert('Failed to connect wallet. Please try again.');
+    }
+  };
+
+  // Mint skill as NFT
+  const mintSkillNFT = (skillName) => {
+    if (!connected) {
+      alert('Please connect your wallet first');
+      return;
+    }
+    
+    // Simulate minting process
+    alert(`Minting ${skillName} as an NFT...`);
+    
+    // Update skill status
+    setSkills(skills.map(skill => 
+      skill.name === skillName ? { ...skill, verified: true } : skill
+    ));
+    
+    // Add activity
+    const newActivity = {
+      id: activities.length + 1,
+      type: 'nft_minted',
+      title: 'Skill NFT Minted',
+      description: `Successfully minted ${skillName} as an NFT`,
+      time: 'Just now',
+      icon: '🪙'
+    };
+    setActivities([newActivity, ...activities]);
+  };
+
+  // Verify skill
+  const verifySkill = (skillName) => {
+    if (!connected) {
+      alert('Please connect your wallet first');
+      return;
+    }
+    
+    // Simulate verification process
+    alert(`Verifying ${skillName}...`);
+    
+    // Update skill status
+    setSkills(skills.map(skill => 
+      skill.name === skillName ? { ...skill, verified: true } : skill
+    ));
+    
+    // Add activity
+    const newActivity = {
+      id: activities.length + 1,
+      type: 'skill_verified',
+      title: 'Skill Verified',
+      description: `${skillName} has been verified on the blockchain`,
+      time: 'Just now',
+      icon: '✅'
+    };
+    setActivities([newActivity, ...activities]);
+  };
+
+  // Filter skills based on search term
+  const filteredSkills = skills.filter(skill => 
+    skill.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  return (
+    <div className="min-h-screen bg-gray-950 py-16 px-4">
+      {/* Header */}
+      <div className="max-w-6xl mx-auto text-center mb-16">
+        <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          Your Web3 <span className="bg-gradient-to-r from-purple-400 to-blue-500 text-transparent bg-clip-text">Skills Identity</span>
+        </h1>
+        <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          Verify, showcase, and own your professional skills on the blockchain
+        </p>
+        
+        {/* Wallet Connection */}
+        <div className="mt-8">
+          {!connected ? (
+            <button
+              onClick={connectWallet}
+              className="px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-medium hover:opacity-90 transition-all flex items-center mx-auto"
+            >
+              <span className="mr-2">🔗</span> Connect Wallet
+            </button>
+          ) : (
+            <div className="inline-flex items-center bg-gray-900/50 backdrop-blur-sm px-6 py-3 rounded-xl border border-gray-700/50">
+              <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+              <span className="text-green-400 font-medium">Connected: {walletAddress}</span>
+              <button 
+                onClick={() => setConnected(false)}
+                className="ml-4 text-gray-400 hover:text-white"
+              >
+                Disconnect
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Features Grid */}
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        <FeatureCard
+          icon="📜"
+          title="Skill NFTs"
+          description="Mint your verified skills as NFTs on the blockchain for permanent, tamper-proof credentials."
+          buttonText="View My NFTs"
+          onClick={() => setActiveTab('nfts')}
+          disabled={!connected}
+        />
+        
+        <FeatureCard
+          icon="🛡️"
+          title="Decentralized Verification"
+          description="Verify your skills through decentralized oracles and smart contracts, removing central points of failure."
+          buttonText="Verify Skills"
+          onClick={() => setActiveTab('skills')}
+          disabled={!connected}
+        />
+        
+        <FeatureCard
+          icon="🔗"
+          title="Cross-Platform Reputation"
+          description="Build a portable, blockchain-based professional identity that works across platforms and applications."
+          buttonText="View Reputation"
+          onClick={() => setActiveTab('reputation')}
+          disabled={!connected}
+        />
+      </div>
+
+      {/* Dashboard Section */}
+      <div className="max-w-6xl mx-auto bg-gray-900/50 backdrop-blur-sm rounded-2xl border border-gray-800 overflow-hidden">
+        <div className="border-b border-gray-800">
+          <nav className="flex -mb-px">
+            <button
+              onClick={() => setActiveTab('skills')}
+              className={`py-4 px-6 text-center border-b-2 font-medium text-sm ${
+                activeTab === 'skills' 
+                  ? 'border-purple-500 text-purple-400' 
+                  : 'border-transparent text-gray-400 hover:text-gray-200'
+              }`}
+            >
+              My Skills
+            </button>
+            <button
+              onClick={() => setActiveTab('reputation')}
+              className={`py-4 px-6 text-center border-b-2 font-medium text-sm ${
+                activeTab === 'reputation' 
+                  ? 'border-purple-500 text-purple-400' 
+                  : 'border-transparent text-gray-400 hover:text-gray-200'
+              }`}
+            >
+              Reputation
+            </button>
+            <button
+              onClick={() => setActiveTab('activity')}
+              className={`py-4 px-6 text-center border-b-2 font-medium text-sm ${
+                activeTab === 'activity' 
+                  ? 'border-purple-500 text-purple-400' 
+                  : 'border-transparent text-gray-400 hover:text-gray-200'
+              }`}
+            >
+              Activity
+            </button>
+          </nav>
+        </div>
+        
+        <div className="p-6">
+          {!connected ? (
+            <div className="text-center py-12">
+              <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-purple-600/20 to-blue-600/20 mb-6">
+                <span className="text-4xl">🔒</span>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-4">Connect Your Wallet</h3>
+              <p className="text-gray-400 max-w-md mx-auto mb-8">
+                Please connect your Web3 wallet to view and manage your skills, reputation, and activity.
+              </p>
+              <button 
+                onClick={connectWallet}
+                className="px-6 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium hover:opacity-90 transition-all flex items-center mx-auto gap-2"
+              >
+                <span className="text-xl">🦊</span>
+                Connect with MetaMask
+              </button>
+            </div>
+          ) : activeTab === 'skills' ? (
+            <div>
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-xl font-semibold text-white">Your Skills</h3>
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">🔍</span>
+                  <input
+                    type="text"
+                    placeholder="Search skills..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="bg-gray-800/50 border border-gray-700 rounded-lg pl-10 pr-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  />
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {filteredSkills.length > 0 ? (
+                  filteredSkills.map((skill) => (
+                    <div key={skill.id} className="bg-gray-800/50 rounded-xl p-4 border border-gray-700/50 hover:border-purple-500/50 transition-colors">
+                      <div className="flex justify-between items-start mb-2">
+                        <h4 className="font-medium text-white">{skill.name}</h4>
+                        {skill.verified ? (
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-900/50 text-green-300 border border-green-800">
+                            ✅ Verified
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-900/50 text-yellow-300 border border-yellow-800">
+                            Pending
+                          </span>
+                        )}
+                      </div>
+                      <div className="w-full bg-gray-700 rounded-full h-2 mb-2">
+                        <div 
+                          className="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full" 
+                          style={{ width: `${skill.level}%` }}
+                        ></div>
+                      </div>
+                      <div className="flex justify-between text-xs text-gray-400">
+                        <span>Proficiency: {skill.level}%</span>
+                        {skill.verified ? (
+                          <div className="flex space-x-2">
+                            <button 
+                              onClick={() => mintSkillNFT(skill.name)}
+                              className="text-purple-400 hover:text-purple-300 flex items-center"
+                            >
+                              🪙 Mint NFT
+                            </button>
+                            <button 
+                              onClick={() => alert(`Viewing ${skill.name} on blockchain...`)}
+                              className="text-purple-400 hover:text-purple-300 flex items-center"
+                            >
+                              🔗 View
+                            </button>
+                          </div>
+                        ) : (
+                          <button 
+                            onClick={() => verifySkill(skill.name)}
+                            className="text-purple-400 hover:text-purple-300 flex items-center"
+                            disabled={!connected}
+                          >
+                            {connected ? 'Verify Skill' : 'Connect Wallet'}
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="col-span-3 text-center py-8">
+                    <p className="text-gray-400">No skills found matching "{searchTerm}"</p>
+                    <button 
+                      onClick={() => setSearchTerm('')}
+                      className="mt-2 text-purple-400 hover:text-purple-300"
+                    >
+                      Clear search
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : activeTab === 'reputation' ? (
+            <div className="text-center py-12">
+              <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-purple-600/20 to-blue-600/20 mb-6">
+                <span className="text-4xl">📊</span>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-2">Your Web3 Reputation</h3>
+              <p className="text-gray-400 max-w-md mx-auto mb-8">
+                Your decentralized reputation score is calculated based on your verified skills, endorsements, and contributions to the ecosystem.
+              </p>
+              
+              <div className="max-w-md mx-auto bg-gray-800/50 rounded-xl p-6 border border-gray-700/50">
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-gray-300">Reputation Score</span>
+                  <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">
+                    745 <span className="text-sm text-green-400">+12%</span>
+                  </span>
+                </div>
+                
+                <div className="space-y-3">
+                  {[
+                    { label: 'Skills Verified', value: 8, max: 10 },
+                    { label: 'Endorsements', value: 14, max: 20 },
+                    { label: 'Projects', value: 5, max: 10 },
+                    { label: 'Community', value: 3, max: 5 },
+                  ].map((item, index) => (
+                    <div key={index} className="space-y-1">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-400">{item.label}</span>
+                        <span className="text-gray-200">{item.value}/{item.max}</span>
+                      </div>
+                      <div className="w-full bg-gray-700 rounded-full h-2">
+                        <div 
+                          className="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full" 
+                          style={{ width: `${(item.value / item.max) * 100}%` }}
+                        ></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-gray-800/50 p-4 rounded-xl border border-gray-700/50">
+                  <div className="text-2xl font-bold text-white mb-1">3</div>
+                  <div className="text-sm text-gray-400">Skill Badges</div>
+                </div>
+                <div className="bg-gray-800/50 p-4 rounded-xl border border-gray-700/50">
+                  <div className="text-2xl font-bold text-white mb-1">2.4k</div>
+                  <div className="text-sm text-gray-400">Reputation Rank</div>
+                </div>
+                <div className="bg-gray-800/50 p-4 rounded-xl border border-gray-700/50">
+                  <div className="text-2xl font-bold text-white mb-1">12</div>
+                  <div className="text-sm text-gray-400">Total Endorsements</div>
+                </div>
+              </div>
+            </div>
+          ) : activeTab === 'activity' ? (
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold text-white mb-6">Recent Activity</h3>
+              
+              {activities.map((activity) => (
+                <div key={activity.id} className="flex items-start p-4 bg-gray-800/30 rounded-xl border border-gray-700/50 hover:bg-gray-800/50 transition-colors">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gray-700/50 flex items-center justify-center mr-4 mt-1 text-xl">
+                    {activity.icon}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="text-base font-medium text-white">{activity.title}</h4>
+                    <p className="text-sm text-gray-400">{activity.description}</p>
+                    <div className="mt-1 text-xs text-gray-500">{activity.time}</div>
+                  </div>
+                  <button className="text-sm text-purple-400 hover:text-purple-300">
+                    View
+                  </button>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-purple-600/20 to-blue-600/20 mb-6">
+                <span className="text-4xl">🚀</span>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-4">Coming Soon</h3>
+              <p className="text-gray-400 max-w-md mx-auto mb-8">
+                We're working hard to bring you more amazing features. Stay tuned!
+              </p>
+              <button 
+                onClick={() => setActiveTab('skills')}
+                className="px-6 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium hover:opacity-90 transition-all"
+              >
+                Back to Skills
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+      
+      {/* Call to Action */}
+      <div className="max-w-4xl mx-auto mt-16 text-center">
+        <h2 className="text-3xl font-bold text-white mb-6">
+          {connected 
+            ? 'Ready to take control of your professional identity?'
+            : 'Connect Your Wallet to Get Started'}
+        </h2>
+        <p className="text-xl text-gray-300 mb-8">
+          {connected
+            ? 'Join thousands of professionals who are already building their Web3 reputation with SkillSnap'
+            : 'Connect your wallet to start verifying skills and building your Web3 identity'}
+        </p>
+        <button 
+          onClick={connected ? () => setActiveTab('skills') : connectWallet}
+          className="px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-medium hover:opacity-90 transition-all"
+        >
+          {connected ? 'Explore Your Skills' : 'Connect Wallet'}
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Web3;
