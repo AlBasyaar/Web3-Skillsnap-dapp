@@ -4,6 +4,14 @@ This project consists of a **Motoko** backend and a **React** frontend, running 
 
 ---
 
+## 🛠️ Complete Resources
+
+- Basic Documentation : https://drive.google.com/drive/folders/1y3KtvmFWUei_SZQ3RYBmHrDNe6mz8_Dj
+- Pitch Deck : https://drive.google.com/drive/folders/1GC1exH2SivdmdTGboEZH6waDzLq_xmt7
+- Demo Video : https://drive.google.com/drive/folders/1V_R0owWebW1_WZ7VQ_DfHG4B4am8wMS0
+
+---
+
 ## 🛠️ Requirements
 
 - [Docker](https://www.docker.com/) is already installed
