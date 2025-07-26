@@ -4,7 +4,7 @@ This project consists of a **Motoko** backend and a **React** frontend, running 
 
 ---
 
-## � Project Screenshots
+
 
 ### Home Page
 ![Home Page 1](./src/asset/Home.png)
