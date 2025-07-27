@@ -15,7 +15,6 @@ const Commitments = () => {
     const timer = setTimeout(() => {
       setIsVisible(true);
     }, 100);
-    
     return () => clearTimeout(timer);
   }, []);
 
@@ -81,6 +80,7 @@ const Commitments = () => {
                 src={member.image} 
                 alt={member.name}
                 className="w-full h-96 object-cover transition-transform duration-700 group-hover:scale-110"
+                style={index === 3 ? { objectPosition: 'center 20%' } : {}}
               />
               <div className="absolute bottom-0 left-0 right-0 p-6 z-20 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                 <h3 className="text-2xl font-bold mb-1">{member.name}</h3>
