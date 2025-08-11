@@ -151,15 +151,17 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 relative overflow-hidden z-10">
-        <div className={`container mx-auto px-4 pt-24 md:pt-32 pb-16 relative z-10 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <h2 className="text-3xl font-bold mb-6 text-white">
-            Stop wasting time on job applications that don't fit you
-          </h2>
-          <p className="text-lg text-white max-w-2xl mx-auto mb-12">
-            Tell us what you're interested in. Our agents will match it with the
-            right skills and job paths companies are actually hiring for.
-          </p>
+      <section className="py-16 md:py-24 relative overflow-hidden z-10 bg-gradient-to-b from-gray-900 to-gray-800">
+        <div className={`container mx-auto px-4 text-center relative z-10 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white leading-tight">
+              Stop wasting time on job applications that don't fit you
+            </h2>
+            <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed">
+              Tell us what you're interested in. Our agents will match it with the
+              right skills and job paths companies are actually hiring for.
+            </p>
+          </div>
 
           {/* Video Demo Section - Vertical Rectangle */}
           <div className="rounded-lg p-8 max-w-2xl mx-auto">

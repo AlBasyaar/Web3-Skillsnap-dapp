@@ -1,46 +1,50 @@
-/* Base star styles */
+/* Optimized star styles with hardware acceleration */
 .star {
   position: absolute;
   background-color: #fff;
   border-radius: 50%;
   pointer-events: none;
   will-change: transform, opacity;
-  box-shadow: 0 0 15px 2px rgba(255, 255, 255, 0.8);
+  /* Using box-shadow sparingly as it's performance-heavy */
+  box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.6);
+  /* Force GPU acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
 }
 
-/* Twinkling animation */
+/* Optimized twinkling animation */
 @keyframes twinkle {
   0%, 100% {
     opacity: 0.3;
     transform: scale(0.8);
-    box-shadow: 0 0 5px 1px rgba(255, 255, 255, 0.5);
   }
   50% {
     opacity: 1;
-    transform: scale(1.2);
-    box-shadow: 0 0 20px 3px rgba(255, 255, 255, 1);
+    transform: scale(1.1);
   }
 }
 
-/* Shooting star trail */
+/* Optimized shooting star animation */
 @keyframes shooting {
   0% {
-    transform: translateX(0) translateY(0) scale(0);
+    transform: translate3d(0, 0, 0) scale(0);
     opacity: 0;
   }
-  10% {
-    opacity: 1;
+  5% {
+    opacity: 0.8;
   }
   90% {
-    opacity: 1;
+    opacity: 0.8;
   }
   100% {
-    transform: translateX(1000%) translateY(1000%) scale(1);
+    transform: translate3d(1000%, 1000%, 0) scale(1);
     opacity: 0;
   }
 }
 
-/* Container for the starry background */
+/* Optimized container */
 .starry-container {
   position: fixed;
   top: 0;

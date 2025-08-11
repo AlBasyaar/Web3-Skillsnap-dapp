@@ -1,7 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import StarryBackground from './components/StarryBackground';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Features from './pages/Features';
@@ -9,10 +8,9 @@ import Web3 from './pages/Web3';
 import AI from './pages/AI';
 import Commitments from './pages/Commitments';
 
-// Layout component with StarryBackground and common structure
+// Layout component with common structure
 const Layout = ({ children }) => (
-  <div className="relative min-h-screen flex flex-col">
-    <StarryBackground />
+  <div className="relative min-h-screen flex flex-col bg-gray-900">
     <Navbar />
     <main className="flex-grow relative z-10 pt-16">
       {children}
