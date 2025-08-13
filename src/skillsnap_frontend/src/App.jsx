@@ -7,6 +7,7 @@ import Features from './pages/Features';
 import Web3 from './pages/Web3';
 import AI from './pages/AI';
 import Commitments from './pages/Commitments';
+import LoginRegisterPage from "./pages/LoginRegisterPage";
 
 // Layout component with common structure
 const Layout = ({ children }) => (
@@ -30,28 +31,33 @@ function App() {
             <Home />
           </Layout>
         } />
-        
+
         <Route path="/features" element={
           <Layout>
             <Features />
           </Layout>
         } />
-        
+
         <Route path="/web3" element={
           <Layout>
             <Web3 />
           </Layout>
         } />
-        
+
         <Route path="/ai" element={
           <Layout>
             <AI />
           </Layout>
         } />
-        
+
         <Route path="/commitments" element={
           <Layout>
             <Commitments />
+          </Layout>
+        } />
+        <Route path="/LoginRegisterPage" element={
+          <Layout>
+            <LoginRegisterPage />
           </Layout>
         } />
       </Routes>

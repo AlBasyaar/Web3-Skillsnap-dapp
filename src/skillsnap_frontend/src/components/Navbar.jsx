@@ -188,8 +188,17 @@ const Navbar = () => {
             </div>
           </div>
           
-          {/* Right side - Wallet & Profile */}
+          {/* Right side - Login/Register, Wallet & Profile */}
           <div className="hidden md:flex items-center space-x-4">
+            {/* Login/Register Button */}
+            <Link 
+              to="/LoginRegisterPage"
+              className="flex items-center px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg font-medium hover:opacity-90 transition-all duration-200 text-sm shadow-lg shadow-purple-500/20"
+            >
+              <UserIcon />
+              <span className="ml-2">Login/Register</span>
+            </Link>
+
             {/* Wallet Connection Button */}
             {isWalletConnected ? (
               <div className="flex items-center space-x-4">
@@ -338,38 +347,49 @@ const Navbar = () => {
             </Link>
           ))}
           <div className="pt-2 border-t border-gray-700">
-            {isWalletConnected ? (
-              <div className="px-3 py-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <div className="h-2 w-2 rounded-full bg-green-500 mr-2"></div>
-                    <span className="text-sm font-medium">Wallet Connected</span>
+            {/* Login/Register Button */}
+            <Link 
+              to="/LoginRegisterPage"
+              className="w-full flex items-center justify-center px-4 py-2 text-center rounded-md text-base font-medium text-white bg-gradient-to-r from-green-500 to-emerald-500 hover:opacity-90 transition-opacity mb-2"
+              onClick={() => setIsOpen(false)}
+            >
+              <UserIcon />
+              <span className="ml-2">Login/Register</span>
+            </Link>
+            <div className="mt-2">
+              {isWalletConnected ? (
+                <div className="px-3 py-2">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <div className="h-2 w-2 rounded-full bg-green-500 mr-2"></div>
+                      <span className="text-sm font-medium">Wallet Connected</span>
+                    </div>
+                    <button 
+                      onClick={() => {
+                        disconnectWallet();
+                        setIsOpen(false);
+                      }}
+                      className="text-sm text-primary hover:text-opacity-80"
+                    >
+                      Disconnect
+                    </button>
                   </div>
-                  <button 
-                    onClick={() => {
-                      disconnectWallet();
-                      setIsOpen(false);
-                    }}
-                    className="text-sm text-primary hover:text-opacity-80"
-                  >
-                    Disconnect
-                  </button>
                 </div>
-              </div>
-            ) : (
-              <button 
-                onClick={() => {
-                  connectWallet();
-                  setIsOpen(false);
-                }}
-                className="w-full flex items-center justify-center px-4 py-2 text-center rounded-md text-base font-medium text-black bg-white hover:bg-gray-200 transition-colors duration-200"
-              >
-                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                </svg>
-                Connect Wallet
-              </button>
-            )}
+              ) : (
+                <button 
+                  onClick={() => {
+                    connectWallet();
+                    setIsOpen(false);
+                  }}
+                  className="w-full flex items-center justify-center px-4 py-2 text-center rounded-md text-base font-medium text-white bg-gradient-to-r from-purple-500 to-blue-500 hover:opacity-90 transition-opacity"
+                >
+                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                  </svg>
+                  Connect Wallet
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>
