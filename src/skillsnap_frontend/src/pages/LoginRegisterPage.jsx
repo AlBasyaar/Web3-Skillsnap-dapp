@@ -48,7 +48,6 @@ const LoginRegisterPage = () => {
 
   return (
     <div className="login-page-container relative min-h-screen flex items-center justify-center">
-      {/* Background Stars */}
       <div className="stars-container absolute top-0 left-0 w-full h-full overflow-hidden z-0">
         {[...Array(100)].map((_, i) => (
           <div
@@ -64,7 +63,6 @@ const LoginRegisterPage = () => {
         ))}
       </div>
 
-      {/* Earth with Orbit */}
       <div
         className={`absolute inset-0 flex items-center justify-center z-5 transition-opacity duration-1000 ${
           isVisible ? "opacity-50" : "opacity-0"
@@ -73,14 +71,12 @@ const LoginRegisterPage = () => {
         <EarthWithOrbit />
       </div>
 
-      {/* Main Login/Register Form */}
       <div
         className={`login-form-container fade-in relative z-10 max-w-md w-full ${
           isVisible ? "visible" : ""
         }`}
       >
         <div className="login-form">
-          {/* Form Header */}
           <div className="form-header">
             <h2 className="form-title">
               {isLogin ? "Selamat Datang!" : "Daftar Akun"}
@@ -92,7 +88,6 @@ const LoginRegisterPage = () => {
             </p>
           </div>
 
-          {/* Form Content */}
           <form onSubmit={handleSubmit}>
             <div className="input-group">
               <label className="input-label">Email</label>
@@ -173,7 +168,6 @@ const LoginRegisterPage = () => {
         </div>
       </div>
 
-      {/* Styles */}
       <style jsx>{`
         .stars-container {
           position: absolute;
