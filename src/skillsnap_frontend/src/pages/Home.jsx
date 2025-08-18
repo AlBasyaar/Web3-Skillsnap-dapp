@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // Use this for icons instead of image URLs
 const SVG = {
@@ -48,6 +48,16 @@ const SVG = {
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
     </svg>
   ),
+  ChevronLeft: () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+    </svg>
+  ),
+  ThreeDots: () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+      <path fillRule="evenodd" d="M10 6a2 2 0 110-4 2 2 0 010 4zm0 8a2 2 0 110-4 2 2 0 010 4zm0 8a2 2 0 110-4 2 2 0 010 4z" />
+    </svg>
+  ),
   CheckCircle: () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -71,6 +81,14 @@ const SVG = {
 };
 
 const App = () => {
+  // State to manage whether the sidebar is collapsed or not
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  // Function to toggle the sidebar's state
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   // Mock data for the dashboard content
   const dashboardData = {
     jobAnalysis: {
@@ -124,6 +142,7 @@ const App = () => {
     user: {
       name: 'Jane Doe',
       avatar: 'https://placehold.co/40x40/5e6777/ffffff?text=JD',
+      walletAddress: '0xDc16b_648Aa',
     },
   };
 
@@ -170,52 +189,73 @@ const App = () => {
   };
 
   return (
-    <div className="bg-[#121417] text-white min-h-screen flex font-[Inter]">
-      {/* Sidebar */}
-      <aside className="w-64 bg-[#1e2025] flex flex-col justify-between p-6 rounded-r-3xl">
+    <div className="bg-[#121417] text-white min-h-screen flex font-[Inter] overflow-hidden">
+      {/* Sidebar - Using transitions and conditions for width */}
+      <aside className={`bg-[#1e2025] flex flex-col justify-between p-6 rounded-r-3xl transition-all duration-300 ease-in-out ${isCollapsed ? 'w-24' : 'w-64'}`}>
         <div>
           <div className="flex items-center mb-10 pl-2">
-            <div className="w-10 h-10 bg-[#7252ff] rounded-full flex items-center justify-center mr-2">
-              <span className="text-xl font-bold">S</span>
+            {/* Logo container and text, only hide the text on collapse */}
+            <div className="w-10 h-10 rounded-full flex-shrink-0 overflow-hidden">
+              <img
+                src="https://res.cloudinary.com/dr5pehdsw/image/upload/v1755493528/Icon_-_Square_ouv0ti.png"
+                alt="Logo"
+                className="w-full h-full object-cover"
+              />
             </div>
-            <h1 className="text-xl font-bold">Skillsnap</h1>
+            <h1 className={`text-xl font-bold overflow-hidden whitespace-nowrap ml-2 ${isCollapsed ? 'hidden' : 'block'}`}>Skillsnap</h1>
+            <button
+              className={`ml-auto text-gray-400 hover:text-white transition-colors flex-shrink-0 ${isCollapsed ? 'rotate-180' : ''}`}
+              onClick={toggleSidebar}
+            >
+              {isCollapsed ? <SVG.ChevronRight /> : <SVG.ChevronLeft />}
+            </button>
           </div>
           <nav>
             <ul>
+              {/* Home link with hover classes */}
               <li className="mb-2">
+                {/* Updated to be the active link */}
                 <a href="#" className="flex items-center p-3 rounded-lg bg-[#27292f] text-[#7252ff]">
                   <SVG.Home />
-                  <span className="ml-4 font-semibold">Home</span>
+                  <span className={`ml-4 font-semibold overflow-hidden whitespace-nowrap ${isCollapsed ? 'hidden' : 'block'}`}>Home</span>
                 </a>
               </li>
+              {/* AI Chat link with permanent active classes */}
               <li className="mb-2">
-                <a href="#" className="flex items-center p-3 rounded-lg text-gray-400 hover:bg-[#27292f] transition-colors">
+                {/* Updated to be the inactive link */}
+                <a href="#" className="flex items-center p-3 rounded-lg text-gray-400 hover:bg-[#27292f] hover:text-white transition-colors">
                   <SVG.Chat />
-                  <span className="ml-4 font-semibold">AI Chat</span>
+                  <span className={`ml-4 font-semibold overflow-hidden whitespace-nowrap ${isCollapsed ? 'hidden' : 'block'}`}>AI Chat</span>
                 </a>
               </li>
+              {/* Course link with hover classes */}
               <li className="mb-2">
-                <a href="#" className="flex items-center p-3 rounded-lg text-gray-400 hover:bg-[#27292f] transition-colors">
+                <a href="#" className="flex items-center p-3 rounded-lg text-gray-400 hover:bg-[#27292f] hover:text-white transition-colors">
                   <SVG.Course />
-                  <span className="ml-4 font-semibold">Course</span>
+                  <span className={`ml-4 font-semibold overflow-hidden whitespace-nowrap ${isCollapsed ? 'hidden' : 'block'}`}>Course</span>
                 </a>
               </li>
+              {/* Job nearby link with hover classes */}
               <li className="mb-2">
-                <a href="#" className="flex items-center p-3 rounded-lg text-gray-400 hover:bg-[#27292f] transition-colors">
+                <a href="#" className="flex items-center p-3 rounded-lg text-gray-400 hover:bg-[#27292f] hover:text-white transition-colors">
                   <SVG.Job />
-                  <span className="ml-4 font-semibold">Job nearby</span>
+                  <span className={`ml-4 font-semibold overflow-hidden whitespace-now-wrap ${isCollapsed ? 'hidden' : 'block'}`}>Job nearby</span>
                 </a>
               </li>
             </ul>
           </nav>
         </div>
-        {/* User Profile */}
-        <div className="bg-[#27292f] rounded-xl p-4 flex items-center">
-          <img src={dashboardData.user.avatar} alt="User Avatar" className="w-10 h-10 rounded-full mr-3" />
-          <div className="flex-1">
+        {/* User Profile - Using conditions for display */}
+        <div className={`bg-[#27292f] rounded-xl p-4 flex items-center transition-all duration-300 ease-in-out ${isCollapsed ? 'flex-col justify-center' : 'flex-row'}`}>
+          <img src={dashboardData.user.avatar} alt="User Avatar" className={`w-10 h-10 rounded-full flex-shrink-0 ${isCollapsed ? '' : 'mr-3'}`} />
+          {/* Hide text when collapsed */}
+          <div className={`flex-1 overflow-hidden whitespace-nowrap transition-all duration-300 ease-in-out ${isCollapsed ? 'hidden' : 'block'}`}>
             <div className="text-sm font-semibold">{dashboardData.user.name}</div>
-            <div className="text-xs text-gray-400">jane.doe@example.com</div>
+            <div className="text-xs text-gray-400">{dashboardData.user.walletAddress}</div>
           </div>
+          <button className={`text-gray-400 ${isCollapsed ? 'mt-2' : ''}`}>
+            <SVG.ThreeDots />
+          </button>
         </div>
       </aside>
 
@@ -223,7 +263,7 @@ const App = () => {
       <main className="flex-1 p-8 overflow-y-auto">
         {/* Header */}
         <header className="flex justify-between items-center mb-8">
-          <div className="relative w-1/3">
+          <div className="relative w-full md:w-1/3">
             <input
               type="text"
               placeholder="Search for jobs, courses, and more"
@@ -249,7 +289,6 @@ const App = () => {
           {/* Job Analysis */}
           <div className="bg-[#1e2025] rounded-2xl p-6">
             <h2 className="text-xl font-bold mb-4 text-[#7ab0ff]">Job Analysis</h2>
-
             <div className="relative bg-[#27292f] rounded-2xl p-6 flex flex-col items-center">
               {/* Gambar */}
               <img
@@ -257,29 +296,24 @@ const App = () => {
                 alt="Job Path"
                 className="rounded-xl"
               />
-
-              {/* Text dalam card */}
+              {/* Text inside the card */}
               <div className="absolute bottom-4 left-4 text-white">
                 <div className="text-sm text-gray-400">Selected Path</div>
                 <div className="text-lg font-bold">{dashboardData.jobAnalysis.path}</div>
               </div>
-
               <div className="absolute bottom-4 right-4 text-white text-right">
                 <div className="text-sm text-gray-400">Type</div>
                 <div className="text-lg font-bold">{dashboardData.jobAnalysis.type}</div>
               </div>
             </div>
           </div>
-
-
           {/* Job Skill's Percentage */}
-          <div className="col-span-1 md:col-span-1 bg-[#1e2025] rounded-2xl p-6">
+          <div className="col-span-1 md:col-span-2 bg-[#1e2025] rounded-2xl p-6">
             <h2 className="text-xl font-bold mb-6 text-[#7ab0ff]">
               Job skill's percentage
             </h2>
-
-            {/* Flex baris panjang ke samping */}
-            <div className="flex flex-row justify-between items-center gap-12 w-full">
+            {/* Flex row with long horizontal bar */}
+            <div className="flex flex-wrap justify-between items-center gap-12 w-full">
               {dashboardData.jobSkills.map((skill, index) => (
                 <div key={index} className="flex flex-col items-center">
                   {/* Circle progress */}
@@ -308,13 +342,11 @@ const App = () => {
                       />
                     </svg>
                   </div>
-
-                  {/* Persentase (hanya di luar lingkaran) */}
+                  {/* Percentage (only outside the circle) */}
                   <span className="mt-2 text-lg font-bold text-white">
                     {skill.percentage}%
                   </span>
-
-                  {/* Nama skill */}
+                  {/* Skill name */}
                   <span className="text-sm text-gray-400 mt-1 text-center">
                     {skill.skill}
                   </span>
@@ -323,8 +355,6 @@ const App = () => {
             </div>
           </div>
         </div>
-
-
         {/* Learning & Jobs Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
           {/* Learning Roadmap */}
@@ -347,7 +377,6 @@ const App = () => {
               </div>
             ))}
           </div>
-
           {/* Continue Learning */}
           <div className="col-span-1 md:col-span-2 bg-[#1e2025] rounded-2xl p-6">
             <h2 className="text-xl font-bold mb-4">Continue learning</h2>
@@ -364,7 +393,6 @@ const App = () => {
             </div>
           </div>
         </div>
-
         {/* Job Nearby Section */}
         <div className="mt-6">
           <h2 className="text-xl font-bold mb-4">Job nearby</h2>
