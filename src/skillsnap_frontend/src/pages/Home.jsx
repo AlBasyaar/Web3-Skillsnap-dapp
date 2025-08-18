@@ -292,7 +292,7 @@ const App = () => {
             <div className="relative bg-[#27292f] rounded-2xl p-6 flex flex-col items-center">
               {/* Gambar */}
               <img
-                src="https://placehold.co/220x160/5e6777/ffffff?text=Design+Image"
+                src="https://res.cloudinary.com/dr5pehdsw/image/upload/v1755496797/ca51bcdee897ec6168c6693b95a013d3380a53ef_znl5pq.png"
                 alt="Job Path"
                 className="rounded-xl"
               />
