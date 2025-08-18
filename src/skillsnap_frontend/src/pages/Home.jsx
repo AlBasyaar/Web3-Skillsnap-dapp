@@ -76,7 +76,7 @@ const Home = () => {
       <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden z-10">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white text-white leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white text-leading-tight">
               The right jobs, perfectly aligned with what you love
             </h1>
             <p className="text-xl md:text-2xl mb-8 opacity-90 text-white max-w-3xl mx-auto">
