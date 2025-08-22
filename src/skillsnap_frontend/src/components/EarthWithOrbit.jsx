@@ -1,39 +1,100 @@
-import React from "react";
-import bumi from "../assets/images/world-human/bumi.png";
-import man2 from "../assets/images/world-human/man-2.png";
-import man from "../assets/images/world-human/man.png";
-import she2 from "../assets/images/world-human/she-2.png";
-import she from "../assets/images/world-human/she.png";
+import React, { useRef } from 'react';
+
+// Import images
+import bumiImg from '../assets/images/world-human/bumi.png';
+import manImg from '../assets/images/world-human/man.png';
+import man2Img from '../assets/images/world-human/man-2.png';
+import sheImg from '../assets/images/world-human/she.png';
+import she2Img from '../assets/images/world-human/she-2.png';
 
 const EarthWithOrbit = () => {
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-90 pointer-events-none">
-      <div className="relative w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 mx-auto my-auto">
-        {/* Earth Image */}
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 0,
+      pointerEvents: 'none',
+      backgroundColor: 'rgba(0,0,0,0.9)'
+    }}>
+      {/* Earth - Static and centered */}
+      <div style={{
+        position: 'relative',
+        width: '600px',
+        height: '600px',
+        marginTop: '200px', // Move Earth down further
+        zIndex: 1
+      }}>
         <img
-          src={bumi}
+          src={bumiImg}
           alt="Earth"
-          className="w-full h-full opacity-60 mx-auto my-auto"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+            animation: 'none',
+            filter: 'drop-shadow(0 0 20px rgba(65, 105, 225, 0.6))'
+          }}
         />
-
-        {/* Orbiting Human Images */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="relative w-full h-full flex items-center justify-center">
-            <div className="orbit orbit1">
-              <img src={man2} alt="Man 1" className="orbit-img" />
-            </div>
-            <div className="orbit orbit2">
-              <img src={man} alt="Man 2" className="orbit-img" />
-            </div>
-            <div className="orbit orbit3">
-              <img src={she2} alt="Woman 1" className="orbit-img" />
-            </div>
-            <div className="orbit orbit4">
-              <img src={she} alt="Woman 2" className="orbit-img" />
-            </div>
-          </div>
-        </div>
       </div>
+
+      {/* Orbiting Characters */}
+      <div style={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '1200px',
+        height: '1200px'
+      }}>
+        {/* Character heads - 2 on each side */}
+        {[
+          // Left side heads
+          { img: manImg, size: 160, left: '10%', top: '40%' },
+          { img: she2Img, size: 170, left: '10%', top: '70%' },
+          // Right side heads
+          { img: man2Img, size: 165, left: '90%', top: '40%' },
+          { img: sheImg, size: 175, left: '90%', top: '70%' }
+        ].map((item, index) => (
+          <div
+            key={index}
+            style={{
+              position: 'absolute',
+              left: item.left,
+              top: item.top,
+              width: `${item.size}px`,
+              height: `${item.size}px`,
+              transform: 'translate(-50%, -50%)',
+              zIndex: 2
+            }}
+          >
+            <img
+              src={item.img}
+              alt={`Character ${index + 1}`}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                animation: 'none',
+                filter: 'drop-shadow(0 0 10px rgba(255, 255, 255, 0.8))'
+              }}
+            />
+          </div>
+        ))}
+      </div>
+
+      <style>{
+        `* {
+          box-sizing: border-box;
+          animation: none !important;
+          transition: none !important;
+        }`
+      }</style>
     </div>
   );
 };
