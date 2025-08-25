@@ -57,7 +57,7 @@ const AIChat = () => {
 
   const handleSendMessage = (message = '') => {
     const userMessage = message || inputMessage.trim();
-    if (!userMessage) return;
+    if (!userMessage || !currentChatId) return;
 
     // Add user message
     const newUserMessage = {
@@ -189,11 +189,28 @@ const AIChat = () => {
         chatHistory={chatHistory}
         onSelectChat={loadChat}
         onDeleteChat={(chatId) => {
-          setChatHistory(prev => prev.filter(chat => chat.id !== chatId));
-          // If the deleted chat is the current one, start a new chat
-          if (currentChatId === chatId) {
-            startNewChat();
-          }
+          setChatHistory(prev => {
+            const updatedHistory = prev.filter(chat => chat.id !== chatId);
+            if (updatedHistory.length === 0) {
+              setCurrentChatId(null);
+              setMessages([
+                {
+                  id: 1,
+                  text: `Hi there! 👋\n\nI'm here to help with your career development. You can ask me to analyze your CV, match your interests to companies, analyze your code skills, or help create a cover letter.`,
+                  sender: 'ai',
+                  timestamp: new Date(),
+                  showQuickActions: true,
+                  isTyping: false
+                },
+              ]);
+            } else if (currentChatId === chatId) {
+              const nextChat = updatedHistory[0];
+              setCurrentChatId(nextChat.id);
+              setMessages(nextChat.messages);
+            }
+            return updatedHistory;
+          });
+          setShowSidebar(false);
         }}
       />
       {chatHistory.length === 0 && (
