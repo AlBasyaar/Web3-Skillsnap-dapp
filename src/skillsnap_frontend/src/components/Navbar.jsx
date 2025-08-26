@@ -102,6 +102,7 @@ const Navbar = () => {
   const fileInputRef = useRef(null);
   const profileRef = useRef(null);
   const modalRef = useRef(null);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   // Load profile from localStorage on component mount
   useEffect(() => {
@@ -114,7 +115,7 @@ const Navbar = () => {
       } catch (error) {
         console.error("Error parsing profile data:", error);
       }
-    };
+    }
   }, []);
 
   // Close profile dropdown when clicking outside
@@ -501,7 +502,6 @@ const Navbar = () => {
                 </button>
               )}
             </div>
-            
           </div>
         </div>
       </div>
@@ -606,6 +606,5 @@ const Navbar = () => {
     </nav>
   );
 };
-
 
 export default Navbar;
