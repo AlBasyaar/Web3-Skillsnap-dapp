@@ -1,46 +1,100 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import Notification from './Notification';
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import Notification from "./Notification";
 
 // Inline SVG Icons
 const UserIcon = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+  <svg
+    className="w-5 h-5"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+    />
   </svg>
 );
 
 const SettingsIcon = () => (
-  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+  <svg
+    className="w-4 h-4"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+    />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+    />
   </svg>
 );
 
 const LogOutIcon = () => (
-  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+  <svg
+    className="w-4 h-4"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+    />
   </svg>
 );
 
 const ChevronDownIcon = ({ isOpen }) => (
-  <svg className={`w-4 h-4 text-gray-300 transition-transform duration-200 ${isOpen ? 'transform rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+  <svg
+    className={`w-4 h-4 text-gray-300 transition-transform duration-200 ${
+      isOpen ? "transform rotate-180" : ""
+    }`}
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M19 9l-7 7-7-7"
+    />
   </svg>
 );
 
 // Default profile data
 const defaultProfile = {
-  name: 'John Doe',
-  email: 'john@example.com',
-  photo: null
+  name: "John Doe",
+  email: "john@example.com",
+  photo: null,
 };
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isWalletConnected, setIsWalletConnected] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
-  const [notification, setNotification] = useState({ message: '', type: 'info' });
+  const [notification, setNotification] = useState({
+    message: "",
+    type: "info",
+  });
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [profile, setProfile] = useState(defaultProfile);
@@ -51,14 +105,14 @@ const Navbar = () => {
 
   // Load profile from localStorage on component mount
   useEffect(() => {
-    const savedProfile = localStorage.getItem('userProfile');
+    const savedProfile = localStorage.getItem("userProfile");
     if (savedProfile) {
       try {
         const parsedProfile = JSON.parse(savedProfile);
         setProfile(parsedProfile);
         setEditProfile(parsedProfile);
       } catch (error) {
-        console.error('Error parsing profile data:', error);
+        console.error("Error parsing profile data:", error);
       }
     }
   }, []);
@@ -70,39 +124,45 @@ const Navbar = () => {
         setIsProfileOpen(false);
       }
     }
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
   const connectWallet = async () => {
     try {
       // Show notification that the feature is not yet available
-      showNotificationMessage('Fitur wallet connection belum tersedia. Akan segera hadir!', 'info');
-      
+      showNotificationMessage(
+        "Fitur wallet connection belum tersedia. Akan segera hadir!",
+        "info"
+      );
+
       // Simulate loading state
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       // In a real app, you would connect to the wallet here
       // For example, using Web3Modal, Web3React, or similar
       // const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      
+
       // Commented out actual connection since the feature is not available yet
       // setIsWalletConnected(true);
       // showNotificationMessage('Wallet connected successfully!', 'success');
     } catch (error) {
-      console.error('Error connecting wallet:', error);
-      showNotificationMessage('Gagal terhubung ke wallet. Silakan coba lagi nanti.', 'error');
+      console.error("Error connecting wallet:", error);
+      showNotificationMessage(
+        "Gagal terhubung ke wallet. Silakan coba lagi nanti.",
+        "error"
+      );
     }
   };
 
   const disconnectWallet = () => {
     setIsWalletConnected(false);
-    showNotificationMessage('Wallet disconnected', 'info');
+    showNotificationMessage("Wallet disconnected", "info");
   };
 
-  const showNotificationMessage = (message, type = 'info') => {
+  const showNotificationMessage = (message, type = "info") => {
     setNotification({ message, type });
     setShowNotification(true);
     setTimeout(() => setShowNotification(false), 3000);
@@ -113,9 +173,9 @@ const Navbar = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setEditProfile(prev => ({
+        setEditProfile((prev) => ({
           ...prev,
-          photo: reader.result
+          photo: reader.result,
         }));
       };
       reader.readAsDataURL(file);
@@ -124,24 +184,24 @@ const Navbar = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditProfile(prev => ({
+    setEditProfile((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSaveProfile = (e) => {
     e.preventDefault();
     if (!editProfile.name.trim()) {
-      showNotificationMessage('Nama tidak boleh kosong', 'error');
+      showNotificationMessage("Nama tidak boleh kosong", "error");
       return;
     }
-    
+
     const updatedProfile = { ...editProfile };
     setProfile(updatedProfile);
-    localStorage.setItem('userProfile', JSON.stringify(updatedProfile));
+    localStorage.setItem("userProfile", JSON.stringify(updatedProfile));
     setIsEditModalOpen(false);
-    showNotificationMessage('Profil berhasil diperbarui', 'success');
+    showNotificationMessage("Profil berhasil diperbarui", "success");
   };
 
   const handleOpenEditModal = () => {
@@ -151,11 +211,11 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Features', path: '/features' },
-    { name: 'Web3', path: '/web3' },
-    { name: 'AI', path: '/ai' },
-    { name: 'Commitments', path: '/commitments' },
+    { name: "Home", path: "/home" },
+    { name: "Features", path: "/features" },
+    { name: "Web3", path: "/web3" },
+    { name: "AI", path: "/ai" },
+    { name: "Commitments", path: "/commitments" },
   ];
 
   return (
@@ -168,7 +228,7 @@ const Navbar = () => {
               <span className="text-xl font-bold text-white">SkillSnap</span>
             </Link>
           </div>
-          
+
           {/* Desktop Navigation - Centered with Glow Effect */}
           <div className="hidden md:flex items-center justify-center flex-1">
             <div className="relative group">
@@ -187,12 +247,12 @@ const Navbar = () => {
               </div>
             </div>
           </div>
-          
+
           {/* Right side - Login/Register, Wallet & Profile */}
           <div className="hidden md:flex items-center space-x-4">
             {/* Login/Register Button */}
-            <Link 
-              to="/LoginRegisterPage"
+            <Link
+              to="/"
               className="flex items-center px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg font-medium hover:opacity-90 transition-all duration-200 text-sm shadow-lg shadow-purple-500/20"
             >
               <UserIcon />
@@ -204,9 +264,11 @@ const Navbar = () => {
               <div className="flex items-center space-x-4">
                 <div className="flex items-center">
                   <div className="h-2 w-2 rounded-full bg-green-500 mr-2"></div>
-                  <span className="text-sm font-medium text-gray-300">Connected</span>
+                  <span className="text-sm font-medium text-gray-300">
+                    Connected
+                  </span>
                 </div>
-                <button 
+                <button
                   onClick={disconnectWallet}
                   className="text-sm text-gray-400 hover:text-white transition-colors"
                 >
@@ -214,12 +276,23 @@ const Navbar = () => {
                 </button>
               </div>
             ) : (
-              <button 
+              <button
                 onClick={connectWallet}
                 className="flex items-center px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg font-medium hover:opacity-90 transition-all duration-200 text-sm shadow-lg shadow-purple-500/20"
               >
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                <svg
+                  className="w-5 h-5 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                  />
                 </svg>
                 Connect Wallet
               </button>
@@ -227,7 +300,7 @@ const Navbar = () => {
 
             {/* Profile Dropdown */}
             <div className="relative" ref={profileRef}>
-              <button 
+              <button
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
                 className="flex items-center space-x-2 focus:outline-none"
               >
@@ -239,20 +312,28 @@ const Navbar = () => {
 
               {/* Dropdown Menu */}
               {isProfileOpen && (
-                <div className="absolute right-0 mt-2 w-56 bg-gray-800 rounded-lg shadow-xl border border-gray-700 overflow-hidden z-50">
+                <div className="absolute right-0 bottom-full mb-2 w-56 bg-gray-800 rounded-lg shadow-xl border border-gray-700 overflow-hidden z-50">
                   <div className="px-4 py-3 border-b border-gray-700">
                     <div className="relative group">
                       <div className="flex items-center">
                         <div className="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white overflow-hidden">
                           {profile.photo ? (
-                            <img src={profile.photo} alt="Profile" className="w-full h-full object-cover" />
+                            <img
+                              src={profile.photo}
+                              alt="Profile"
+                              className="w-full h-full object-cover"
+                            />
                           ) : (
                             <UserIcon />
                           )}
                         </div>
                         <div className="ml-3">
-                          <p className="text-sm font-medium text-white">{profile.name}</p>
-                          <p className="text-xs text-gray-400">{profile.email}</p>
+                          <p className="text-sm font-medium text-white">
+                            {profile.name}
+                          </p>
+                          <p className="text-xs text-gray-400">
+                            {profile.email}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -271,7 +352,10 @@ const Navbar = () => {
                       onClick={(e) => {
                         e.preventDefault();
                         setIsProfileOpen(false);
-                        showNotificationMessage('Membuka halaman pengaturan...', 'info');
+                        showNotificationMessage(
+                          "Membuka halaman pengaturan...",
+                          "info"
+                        );
                         // Uncomment the line below when you have a settings page
                         // navigate('/settings');
                       }}
@@ -284,7 +368,7 @@ const Navbar = () => {
                     </button>
                   </div>
                   <div className="py-1 border-t border-gray-700">
-                    <button 
+                    <button
                       className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-gray-700 transition-colors flex items-center"
                       onClick={() => {
                         // Handle logout
@@ -309,22 +393,32 @@ const Navbar = () => {
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary focus:outline-none"
             >
               <svg
-                className={`${isOpen ? 'hidden' : 'block'} h-6 w-6`}
+                className={`${isOpen ? "hidden" : "block"} h-6 w-6`}
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               </svg>
               <svg
-                className={`${isOpen ? 'block' : 'hidden'} h-6 w-6`}
+                className={`${isOpen ? "block" : "hidden"} h-6 w-6`}
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
@@ -332,7 +426,7 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu with Glow Effect */}
-      <div className={`${isOpen ? 'block' : 'hidden'} md:hidden`}>
+      <div className={`${isOpen ? "block" : "hidden"} md:hidden`}>
         <div className="relative px-3 pt-2 pb-3 space-y-2 sm:px-4 bg-black/95 backdrop-blur-sm border-t border-purple-500/20">
           <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-400 to-purple-600 rounded-lg opacity-60 blur transition duration-300 pointer-events-none"></div>
           {navLinks.map((link) => (
@@ -348,7 +442,7 @@ const Navbar = () => {
           ))}
           <div className="pt-2 border-t border-gray-700">
             {/* Login/Register Button */}
-            <Link 
+            <Link
               to="/LoginRegisterPage"
               className="w-full flex items-center justify-center px-4 py-2 text-center rounded-md text-base font-medium text-white bg-gradient-to-r from-green-500 to-emerald-500 hover:opacity-90 transition-opacity mb-2"
               onClick={() => setIsOpen(false)}
@@ -362,9 +456,11 @@ const Navbar = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
                       <div className="h-2 w-2 rounded-full bg-green-500 mr-2"></div>
-                      <span className="text-sm font-medium">Wallet Connected</span>
+                      <span className="text-sm font-medium">
+                        Wallet Connected
+                      </span>
                     </div>
-                    <button 
+                    <button
                       onClick={() => {
                         disconnectWallet();
                         setIsOpen(false);
@@ -376,15 +472,26 @@ const Navbar = () => {
                   </div>
                 </div>
               ) : (
-                <button 
+                <button
                   onClick={() => {
                     connectWallet();
                     setIsOpen(false);
                   }}
                   className="w-full flex items-center justify-center px-4 py-2 text-center rounded-md text-base font-medium text-white bg-gradient-to-r from-purple-500 to-blue-500 hover:opacity-90 transition-opacity"
                 >
-                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                  <svg
+                    className="w-4 h-4 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                    />
                   </svg>
                   Connect Wallet
                 </button>
@@ -406,7 +513,7 @@ const Navbar = () => {
       {/* Edit Profile Modal */}
       {isEditModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div 
+          <div
             ref={modalRef}
             className="bg-gray-800 rounded-lg w-full max-w-md p-6 relative"
             onClick={(e) => e.stopPropagation()}
@@ -414,14 +521,14 @@ const Navbar = () => {
             <h2 className="text-xl font-bold text-white mb-4">Edit Profil</h2>
             <form onSubmit={handleSaveProfile}>
               <div className="mb-4 flex flex-col items-center">
-                <div 
+                <div
                   className="w-24 h-24 rounded-full bg-gray-700 mb-4 overflow-hidden cursor-pointer relative group"
                   onClick={() => fileInputRef.current?.click()}
                 >
                   {editProfile.photo ? (
-                    <img 
-                      src={editProfile.photo} 
-                      alt="Profile" 
+                    <img
+                      src={editProfile.photo}
+                      alt="Profile"
                       className="w-full h-full object-cover"
                     />
                   ) : (
@@ -430,7 +537,9 @@ const Navbar = () => {
                     </div>
                   )}
                   <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span className="text-white text-xs text-center">Ganti Foto</span>
+                    <span className="text-white text-xs text-center">
+                      Ganti Foto
+                    </span>
                   </div>
                 </div>
                 <input
@@ -441,9 +550,11 @@ const Navbar = () => {
                   className="hidden"
                 />
               </div>
-              
+
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-300 mb-1">Nama</label>
+                <label className="block text-sm font-medium text-gray-300 mb-1">
+                  Nama
+                </label>
                 <input
                   type="text"
                   name="name"
@@ -453,9 +564,11 @@ const Navbar = () => {
                   placeholder="Nama Anda"
                 />
               </div>
-              
+
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-300 mb-1">Email</label>
+                <label className="block text-sm font-medium text-gray-300 mb-1">
+                  Email
+                </label>
                 <input
                   type="email"
                   name="email"
@@ -465,7 +578,7 @@ const Navbar = () => {
                   placeholder="email@contoh.com"
                 />
               </div>
-              
+
               <div className="flex justify-end space-x-3">
                 <button
                   type="button"

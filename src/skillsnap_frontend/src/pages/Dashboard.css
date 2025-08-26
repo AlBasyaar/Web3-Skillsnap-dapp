@@ -1,0 +1,86 @@
+/* Orbit container */
+.orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  transform-origin: center;
+}
+
+/* Orbit images */
+.orbit-img {
+  position: absolute;
+  width: 4rem;
+  height: 4rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Individual orbit animations */
+.orbit1 {
+  animation-name: orbit;
+  animation-delay: 0s;
+}
+
+.orbit2 {
+  animation-name: orbit;
+  animation-delay: -5s;
+}
+
+.orbit3 {
+  animation-name: orbit;
+  animation-delay: -10s;
+}
+
+.orbit4 {
+  animation-name: orbit;
+  animation-delay: -15s;
+}
+
+/* Keyframes for the orbit animation */
+@keyframes orbit {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) translateX(5rem) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg) translateX(5rem) rotate(-360deg);
+  }
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .orbit-img {
+    width: 5rem;
+    height: 5rem;
+  }
+  
+  @keyframes orbit {
+    0% {
+      transform: translate(-50%, -50%) rotate(0deg) translateX(6rem) rotate(0deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg) translateX(6rem) rotate(-360deg);
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .orbit-img {
+    width: 6rem;
+    height: 6rem;
+  }
+  
+  @keyframes orbit {
+    0% {
+      transform: translate(-50%, -50%) rotate(0deg) translateX(8rem) rotate(0deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg) translateX(8rem) rotate(-360deg);
+    }
+  }
+}

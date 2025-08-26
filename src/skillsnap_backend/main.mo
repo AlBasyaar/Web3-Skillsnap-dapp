@@ -1,11 +1,12 @@
 import Array "mo:base/Array";
 import Debug "mo:base/Debug";
 import Nat "mo:base/Nat";
+import Principal "mo:base/Principal";
 
 actor {
-    // Struktur data proyek
     public type Project = {
         id: Nat;
+        owner: Principal; // identitas Internet Identity pemilik data
         bidang: Text;
         aktifitas: Text;
         keterampilan: Text;
@@ -13,13 +14,10 @@ actor {
         tipePekerjaan: Text;
         tantangan: Text;
         variasiPekerjaan: Text;
-
         pendidikan: Text;
         belajarSkillBaru: Text;
-
         tipeTempatKerja: Text;
         lokasiKerja: Text;
-
         waktuLuang: Text;
         kepercayaan: Text;
         pemecahanMasalah: Text;
@@ -30,18 +28,27 @@ actor {
         kenyamananKerja: Text;
         gayaKomunikasi: Text;
         gayaBelajar: Text;
-
-        aiRekomendasi: ?Text; // Menyimpan hasil rekomendasi oleh AI
+        aiRekomendasi: ?Text;
     };
 
-    // Penyimpanan proyek
     stable var projects : [Project] = [];
     stable var nextId : Nat = 1;
 
     // CREATE
-    public func createProject(bidang: Text, aktifitas: Text, keterampilan: Text, preferensiKerja: Text, tipePekerjaan: Text, tantangan: Text, variasiPekerjaan: Text, pendidikan: Text, belajarSkillBaru: Text, tipeTempatKerja: Text, lokasiKerja: Text, waktuLuang:Text, kepercayaan:Text, pemecahanMasalah:Text, gayaKerja:Text, acaraSosial:Text, preferensiPekerjaan:Text, pengambilanKeputusan:Text, kenyamananKerja:Text, gayaKomunikasi:Text, gayaBelajar:Text) : async Nat {
+    public shared(msg) func createProject(
+        bidang: Text, aktifitas: Text, keterampilan: Text,
+        preferensiKerja: Text, tipePekerjaan: Text, tantangan: Text,
+        variasiPekerjaan: Text, pendidikan: Text, belajarSkillBaru: Text,
+        tipeTempatKerja: Text, lokasiKerja: Text, waktuLuang: Text,
+        kepercayaan: Text, pemecahanMasalah: Text, gayaKerja: Text,
+        acaraSosial: Text, preferensiPekerjaan: Text, pengambilanKeputusan: Text,
+        kenyamananKerja: Text, gayaKomunikasi: Text, gayaBelajar: Text
+    ) : async Nat {
+        let callerPrincipal = msg.caller; // identitas II yang login
+
         let project : Project = {
             id = nextId;
+            owner = callerPrincipal;
             bidang = bidang;
             aktifitas = aktifitas;
             keterampilan = keterampilan;
@@ -63,12 +70,13 @@ actor {
             kenyamananKerja = kenyamananKerja;
             gayaKomunikasi = gayaKomunikasi;
             gayaBelajar = gayaBelajar;
-            aiRekomendasi = null; // Inisialisasi rekomendasi AI sebagai null
+            aiRekomendasi = null;
         };
         projects := Array.append<Project>(projects, [project]);
         nextId += 1;
         return project.id;
     };
+
 
     // READ - semua proyek
     public query func getProjects() : async [Project] {
@@ -85,6 +93,14 @@ actor {
         return null;
     };
 
+        // GET berdasarkan kode anchor (principal)
+    public query func getProjectsByOwner(ownerText: Text) : async [Project] {
+        let ownerPrincipal = Principal.fromText(ownerText);
+        return Array.filter<Project>(projects, func(p: Project) : Bool {
+            p.owner == ownerPrincipal
+        });
+    };
+
     // UPDATE
     public func updateProject(id: Nat, bidang: Text, aktifitas: Text, keterampilan: Text, preferensiKerja: Text, tipePekerjaan: Text, tantangan: Text, variasiPekerjaan: Text, pendidikan: Text, belajarSkillBaru: Text, tipeTempatKerja: Text, lokasiKerja: Text, waktuLuang:Text, kepercayaan:Text, pemecahanMasalah:Text, gayaKerja:Text, acaraSosial:Text, preferensiPekerjaan:Text, pengambilanKeputusan:Text, kenyamananKerja:Text, gayaKomunikasi:Text, gayaBelajar:Text) : async Bool {
         var found = false;
@@ -93,6 +109,7 @@ actor {
                 found := true;
                 {
                     id = id;
+                    owner = project.owner;
                     bidang = bidang;
                     aktifitas = aktifitas;
                     keterampilan = keterampilan;
@@ -156,6 +173,7 @@ actor {
                             let old = projects[i];
                             {
                                 id = old.id;
+                                owner = old.owner;
                                 bidang = old.bidang;
                                 aktifitas = old.aktifitas;
                                 keterampilan = old.keterampilan;

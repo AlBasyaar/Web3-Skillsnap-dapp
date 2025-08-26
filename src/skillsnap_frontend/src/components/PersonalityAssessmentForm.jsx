@@ -1,9 +1,32 @@
 import React, { useEffect, useState, useRef } from "react";
-import html2canvas from "html2canvas";
-import { saveAs } from "file-saver";
-import AI from "../pages/AI";
+import { AuthClient } from "@dfinity/auth-client";
+import { HttpAgent, Actor } from "@dfinity/agent";
+import {
+  idlFactory as backend_idl,
+  canisterId as backendId,
+} from "../../../declarations/skillsnap_backend";
+
+// let skillsnap_backend;
+
+// const initActor = async () => {
+//   const authClient = await AuthClient.create();
+//   const identity = authClient.getIdentity();
+//   const agent = new HttpAgent({ identity });
+
+//   // ⚡ Wajib untuk local development agar candid bisa di-fetch
+//   if (process.env.DFX_NETWORK !== "ic") {
+//     await agent.fetchRootKey();
+//   }
+
+//   skillsnap_backend = Actor.createActor(backend_idl, {
+//     agent,
+//     canisterId: backend_id,
+//   });
+// };
 
 const PersonalityAssessmentForm = () => {
+  const [actor, setActor] = useState(null);
+  const [principal, setPrincipal] = useState(null);
   const [currentSection, setCurrentSection] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showResults, setShowResults] = useState(false);
@@ -249,6 +272,29 @@ const PersonalityAssessmentForm = () => {
     },
   ];
 
+  // Saat komponen mount, cek apakah user sudah login
+  useEffect(() => {
+    const initAuth = async () => {
+      const authClient = await AuthClient.create();
+      if (await authClient.isAuthenticated()) {
+        const identity = authClient.getIdentity();
+        setPrincipal(identity.getPrincipal().toString());
+
+        // Buat actor dengan identity login
+        const agent = new HttpAgent({ identity });
+        if (process.env.DFX_NETWORK !== "ic") {
+          await agent.fetchRootKey(); // penting untuk lokal
+        }
+        const newActor = Actor.createActor(backend_idl, {
+          agent,
+          canisterId: backendId,
+        });
+        setActor(newActor);
+      }
+    };
+    initAuth();
+  }, []);
+
   const handleChange = (e) => {
     const { name, value, type } = e.target;
     setFormData((prev) => ({
@@ -391,84 +437,47 @@ const PersonalityAssessmentForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate the last section
-    if (validateSection(currentSection)) {
-      try {
-        // Siapkan array kunci kepribadian
-        const kepribadianKeys = [
-          "bidang",
-          "aktifitas",
-          "keterampilan",
-          "preferensiKerja",
-          "tipePekerjaan",
-          "tantangan",
-          "variasiPekerjaan",
-          "pendidikan",
-          "belajarSkillBaru",
-          "tipeTempatKerja",
-          "lokasiKerja",
-          "WaktuLuang",
-          "kepercayaan",
-          "pemecahanMasalah",
-          "gayaKerja",
-          "acaraSosial",
-          "preferensiPekerjaan",
-          "pengambilanKeputusan",
-          "kenyamananKerja",
-          "gayaKomunikasi",
-          "gayaBelajar",
-        ];
+    if (!window.skillsnap_backend) {
+      console.error("Actor belum ada, user belum login");
+      return;
+    }
 
-        console.log("Form data sebelum pengiriman:", formData);
+    try {
+      const result = await window.skillsnap_backend.createProject(
+        formData.bidang,
+        formData.aktifitas,
+        formData.keterampilan,
+        formData.preferensiKerja,
+        formData.tipePekerjaan,
+        formData.tantangan,
+        formData.variasiPekerjaan,
+        formData.pendidikan,
+        formData.belajarSkillBaru,
+        formData.tipeTempatKerja,
+        formData.lokasiKerja,
+        formData.waktuLuang,
+        formData.kepercayaan,
+        formData.pemecahanMasalah,
+        formData.gayaKerja,
+        formData.acaraSosial,
+        formData.preferensiPekerjaan,
+        formData.pengambilanKeputusan,
+        formData.kenyamananKerja,
+        formData.gayaKomunikasi,
+        formData.gayaBelajar
+      );
 
-        // Kirim data ke backend
-        const result = await skillsnap_backend.createProject(
-          formData.bidang || "",
-          formData.aktifitas || "",
-          formData.keterampilan || "",
-          formData.preferensiKerja || "",
-          formData.tipePekerjaan || "",
-          formData.tantangan || "",
-          formData.variasiPekerjaan || "",
-          formData.pendidikan || "",
-          formData.belajarSkillBaru || "",
-          formData.tipeTempatKerja || "",
-          formData.lokasiKerja || "",
-          formData.waktuLuang || "",
-          formData.kepercayaan || "",
-          formData.pemecahanMasalah || "",
-          formData.gayaKerja || "",
-          formData.acaraSosial || "",
-          formData.preferensiPekerjaan || "",
-          formData.pengambilanKeputusan || "",
-          formData.kenyamananKerja || "",
-          formData.gayaKomunikasi || "",
-          formData.gayaBelajar || ""
-        );
+      console.log("Hasil createProject:", result, typeof result);
 
-        // Tampilkan hasil sukses
-        alert(`Project berhasil dibuat dengan ID: ${result}`);
-        setIsSubmitted(true);
-        setProjectId(result);
-        console.log("Project ID:", result);
+      // result adalah BigInt, harus diubah manual ke string
+      const projectId = result.toString();
 
-        // Scroll ke atas
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      } catch (err) {
-        console.error("Gagal mengirim ke backend:", err);
-        alert("Gagal mengirim data.");
-      }
-    } else {
-      // Tampilkan error jika form belum valid
-      showErrorNotification("Harap lengkapi semua field yang wajib diisi");
-      // Scroll to the first error
-      const firstErrorField = Object.keys(errors)[0];
-      if (firstErrorField) {
-        const element = document.querySelector(`[name="${firstErrorField}"]`);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "center" });
-        }
-      }
+      alert(`Project berhasil dibuat dengan ID: ${projectId}`);
+      setProjectId(projectId);
+      setIsSubmitted(true);
+    } catch (err) {
+      console.error("Gagal mengirim ke backend:", err);
+      alert("Gagal mengirim data.");
     }
   };
 
