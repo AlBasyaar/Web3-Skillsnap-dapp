@@ -29,6 +29,7 @@ const AuthForm = () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
+
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: "",
@@ -58,8 +59,8 @@ const AuthForm = () => {
     }
   };
 
-  const toggleAuthMode = () => {
-    setIsLogin(!isLogin);
+  const toggleAuthMode = (mode) => {
+    setIsLogin(mode === "login");
     setFormData({
       email: "",
       password: "",
@@ -227,13 +228,22 @@ const AuthForm = () => {
           </button>
         </div>
 
-        <div className="text-center mt-3">
-          <Link
-            to="/register"
-            className="text-blue-400 hover:underline text-xs"
-          >
-            Don't have an account? Register
-          </Link>
+        <div className="flex justify-center items-center mt-3 text-xs">
+          {isLogin ? (
+            <span
+              onClick={() => toggleAuthMode("register")}
+              className="text-blue-400 hover:underline cursor-pointer"
+            >
+              Don't have an account? Register
+            </span>
+          ) : (
+            <span
+              onClick={() => toggleAuthMode("login")}
+              className="text-blue-400 hover:underline cursor-pointer"
+            >
+              Already have an account? Login
+            </span>
+          )}
         </div>
       </div>
     </div>
