@@ -36,6 +36,8 @@ const DashboardLayout = ({ children }) => {
 };
 
 function App() {
+  const [searchTerm, setSearchTerm] = useState("");
+
   return (
     <div className="min-h-screen">
       <Routes>

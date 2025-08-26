@@ -114,7 +114,7 @@ const Navbar = () => {
       } catch (error) {
         console.error("Error parsing profile data:", error);
       }
-    }
+    };
   }, []);
 
   // Close profile dropdown when clicking outside
@@ -204,11 +204,15 @@ const Navbar = () => {
     showNotificationMessage("Profil berhasil diperbarui", "success");
   };
 
-  const handleOpenEditModal = () => {
-    setEditProfile(profile);
-    setIsProfileOpen(false);
-    setIsEditModalOpen(true);
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const navLinks = [
     { name: "Home", path: "/home" },
@@ -497,6 +501,7 @@ const Navbar = () => {
                 </button>
               )}
             </div>
+            
           </div>
         </div>
       </div>
@@ -601,5 +606,6 @@ const Navbar = () => {
     </nav>
   );
 };
+
 
 export default Navbar;
