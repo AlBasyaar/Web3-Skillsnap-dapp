@@ -260,7 +260,7 @@ const Navbar = () => {
               to="/"
               className="flex items-center px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg font-medium hover:opacity-90 transition-all duration-200 text-sm shadow-lg shadow-purple-500/20"
             >
-              <UserIcon />
+              {/* <UserIcon /> */}
               <span className="ml-2">Login/Register</span>
             </Link>
 
@@ -303,7 +303,7 @@ const Navbar = () => {
               </button>
             )}
 
-            {/* Profile Dropdown */}
+            {/* Profile Dropdown
             <div className="relative" ref={profileRef}>
               <button
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
@@ -315,7 +315,7 @@ const Navbar = () => {
                 <ChevronDownIcon isOpen={isProfileOpen} />
               </button>
 
-              {/* Dropdown Menu */}
+              Dropdown Menu
               {isProfileOpen && (
                 <div className="absolute right-0 bottom-full mb-2 w-56 bg-gray-800 rounded-lg shadow-xl border border-gray-700 overflow-hidden z-50">
                   <div className="px-4 py-3 border-b border-gray-700">
@@ -388,7 +388,7 @@ const Navbar = () => {
                   </div>
                 </div>
               )}
-            </div>
+            </div> */}
           </div>
 
           {/* Mobile menu button */}
