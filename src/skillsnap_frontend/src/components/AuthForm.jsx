@@ -81,7 +81,7 @@ const AuthForm = () => {
 
     // URL Internet Identity
     const identityUrl = isLocal
-      ? "http://be2us-64aaa-aaaaa-qaabq-cai.localhost:4943/" // II lokal
+      ? "http://b77ix-eeaaa-aaaaa-qaada-cai.localhost:4943/" // II lokal
       : "https://identity.ic0.app/#authorize";
 
     // jalankan login
