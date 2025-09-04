@@ -3,7 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import ICPIcons from "./ICPIcon";
 import SpaceScene from "./SpaceScene";
 import WalletConnectModal from "./WalletConnectModal";
+import { HttpAgent } from "@dfinity/agent";
+import { createActor } from "../../../declarations/skillsnap_backend";
 import { AuthClient } from "@dfinity/auth-client";
+import { skillsnap_backend } from "../../../declarations/skillsnap_backend";
 
 const AuthForm = () => {
   const [showWalletModal, setShowWalletModal] = useState(false);
@@ -96,6 +99,28 @@ const AuthForm = () => {
         setPrincipal(principal);
         // simpan ke state/localStorage
         localStorage.setItem("ii_principal", principal);
+
+        // 🔹 Buat agent pakai identity yang sudah login
+        const agent = new HttpAgent({
+          host: isLocal ? "http://127.0.0.1:4943" : "https://icp0.io",
+          identity,
+        });
+
+        // 🔹 Wajib untuk local dev (fetch root key)
+        if (isLocal) {
+          await agent.fetchRootKey();
+        }
+
+        // 🔹 Buat actor dengan agent yang sudah ada identity
+        window.skillsnap_backend = createActor(
+          process.env.CANISTER_ID_SKILLSNAP_BACKEND,
+          {
+            agent,
+          }
+        );
+
+        console.log("🎭 Actor berhasil dibuat dengan identity II");
+
         navigate("/Dashboard");
       },
       onError: (err) => {
