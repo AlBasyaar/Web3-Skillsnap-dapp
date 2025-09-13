@@ -141,14 +141,6 @@ const Navbar = () => {
 
       // Simulate loading state
       await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // In a real app, you would connect to the wallet here
-      // For example, using Web3Modal, Web3React, or similar
-      // const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-
-      // Commented out actual connection since the feature is not available yet
-      // setIsWalletConnected(true);
-      // showNotificationMessage('Wallet connected successfully!', 'success');
     } catch (error) {
       console.error("Error connecting wallet:", error);
       showNotificationMessage(
@@ -217,10 +209,8 @@ const Navbar = () => {
 
   const navLinks = [
     { name: "Home", path: "/home" },
-    { name: "Features", path: "/features" },
-    { name: "Web3", path: "/web3" },
-    { name: "AI", path: "/ai" },
     { name: "Commitments", path: "/commitments" },
+    { name: "Dashboard", path: "/dashboard" },
   ];
 
   return (
@@ -255,15 +245,6 @@ const Navbar = () => {
 
           {/* Right side - Login/Register, Wallet & Profile */}
           <div className="hidden md:flex items-center space-x-4">
-            {/* Login/Register Button */}
-            <Link
-              to="/"
-              className="flex items-center px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg font-medium hover:opacity-90 transition-all duration-200 text-sm shadow-lg shadow-purple-500/20"
-            >
-              {/* <UserIcon /> */}
-              <span className="ml-2">Login/Register</span>
-            </Link>
-
             {/* Wallet Connection Button */}
             {isWalletConnected ? (
               <div className="flex items-center space-x-4">

@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
@@ -13,6 +18,8 @@ import LoginRegisterPage from "./pages/LoginRegisterPage";
 import Course from "./pages/Course";
 import AIChat from "./pages/AIChat";
 import JobNearby from "./pages/JobNearby";
+import Recommendation from "./pages/Recommendation";
+import Profile from "./pages/Profile";
 
 // Layout umum (Navbar + Footer)
 const MainLayout = ({ children }) => (
@@ -35,6 +42,17 @@ const DashboardLayout = ({ children }) => {
   );
 };
 
+// Protected Route
+const ProtectedRoute = ({ children }) => {
+  const iiPrincipal = localStorage.getItem("ii_principal");
+  const token = localStorage.getItem("token");
+  const isAuthenticated = iiPrincipal || token;
+  if (!isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
+  return children;
+};
+
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -42,25 +60,19 @@ function App() {
     <div className="min-h-screen">
       <Routes>
         {/* Login */}
-        <Route
-          path="/"
-          element={
-            <MainLayout>
-              <LoginRegisterPage />
-            </MainLayout>
-          }
-        />
+        <Route path="/" element={<LoginRegisterPage />} />
 
         {/* Halaman umum */}
         <Route
           path="/home"
           element={
-            <MainLayout>
-              <Home />
-            </MainLayout>
+            <ProtectedRoute>
+              <MainLayout>
+                <Home />
+              </MainLayout>
+            </ProtectedRoute>
           }
         />
-
         <Route
           path="/features"
           element={
@@ -69,7 +81,6 @@ function App() {
             </MainLayout>
           }
         />
-
         <Route
           path="/web3"
           element={
@@ -78,7 +89,6 @@ function App() {
             </MainLayout>
           }
         />
-
         <Route
           path="/ai"
           element={
@@ -91,9 +101,11 @@ function App() {
         <Route
           path="/commitments"
           element={
-            <MainLayout>
-              <Commitments />
-            </MainLayout>
+            <ProtectedRoute>
+              <MainLayout>
+                <Commitments />
+              </MainLayout>
+            </ProtectedRoute>
           }
         />
 
@@ -101,38 +113,71 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            <DashboardLayout>
-              <Dashboard />
-            </DashboardLayout>
+            <ProtectedRoute>
+              <DashboardLayout>
+                <Dashboard />
+              </DashboardLayout>
+            </ProtectedRoute>
           }
         />
 
         <Route
           path="/ai-chat"
           element={
-            <DashboardLayout>
-              <AIChat />
-            </DashboardLayout>
+            <ProtectedRoute>
+              <DashboardLayout>
+                <AIChat />
+              </DashboardLayout>
+            </ProtectedRoute>
           }
         />
 
         <Route
           path="/course"
           element={
-            <DashboardLayout>
-              <Course />
-            </DashboardLayout>
+            <ProtectedRoute>
+              <DashboardLayout>
+                <Course />
+              </DashboardLayout>
+            </ProtectedRoute>
           }
         />
 
         <Route
           path="/job-nearby"
           element={
-            <DashboardLayout>
-              <JobNearby />
-            </DashboardLayout>
+            <ProtectedRoute>
+              <DashboardLayout>
+                <JobNearby />
+              </DashboardLayout>
+            </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/recommendation"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <Recommendation />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <Profile />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/*Default redirect to login */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>
   );

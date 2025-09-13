@@ -256,10 +256,12 @@ const Sidebar = () => {
   };
 
   const menuItems = [
-    { name: "Home", path: "/home", icon: <HomeIcon /> },
+    { name: "Home", path: "/dashboard", icon: <HomeIcon /> },
     { name: "AI Chat", path: "/ai-chat", icon: <ChatIcon /> },
     { name: "Course", path: "/course", icon: <CourseIcon /> },
     { name: "Job Nearby", path: "/job-nearby", icon: <JobIcon /> },
+    { name: "Recommendation", path: "/recommendation", icon: <JobIcon /> },
+    { name: "Profile", path: "/profile", icon: <UserIcon /> },
   ];
 
   return (
@@ -430,95 +432,6 @@ const Sidebar = () => {
             })}
           </ul>
         </nav>
-
-        {/* User Section */}
-        <div className="mt-auto p-4 border-t border-gray-700/50 bg-gray-900/30 backdrop-blur-sm">
-          <div className="relative" ref={profileRef}>
-            <button
-              onClick={() => setIsProfileOpen(!isProfileOpen)}
-              className="flex items-center space-x-2 focus:outline-none"
-            >
-              <div className="w-9 h-9 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white">
-                <UserIcon />
-              </div>
-              <ChevronDownIcon isOpen={isProfileOpen} />
-            </button>
-
-            {/* Dropdown Menu */}
-            {isProfileOpen && (
-              <div className="absolute right-0 mt-2 w-56 bg-gray-800 rounded-lg shadow-xl border border-gray-700 overflow-hidden z-50">
-                {/* Profile Info */}
-                <div className="px-4 py-3 border-b border-gray-700">
-                  <div className="flex items-center">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white overflow-hidden">
-                      {profile.photo ? (
-                        <img
-                          src={profile.photo}
-                          alt="Profile"
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <UserIcon />
-                      )}
-                    </div>
-                    <div className="ml-3">
-                      <p className="text-sm font-medium text-white">
-                        {profile.name}
-                      </p>
-                      <p className="text-xs text-gray-400">{profile.email}</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Menu Items */}
-                <div className="py-1">
-                  <button
-                    onClick={handleOpenEditModal}
-                    className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 transition-colors flex items-center"
-                  >
-                    <span className="w-4 h-4 mr-3 flex items-center justify-center">
-                      <UserIcon />
-                    </span>
-                    Edit Profil
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setIsProfileOpen(false);
-                      showNotificationMessage(
-                        "Membuka halaman pengaturan...",
-                        "info"
-                      );
-                      // navigate('/settings') bila sudah ada halaman settings
-                    }}
-                    className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 transition-colors flex items-center"
-                  >
-                    <span className="w-4 h-4 mr-3 flex items-center justify-center">
-                      <SettingsIcon />
-                    </span>
-                    Settings
-                  </button>
-                </div>
-
-                {/* Sign Out */}
-                <div className="py-1 border-t border-gray-700">
-                  <button
-                    className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-gray-700 transition-colors flex items-center"
-                    onClick={() => {
-                      handleLogout();
-                      setIsProfileOpen(false);
-                    }}
-                  >
-                    <span className="w-4 h-4 mr-3 flex items-center justify-center">
-                      <LogOutIcon />
-                    </span>
-                    Sign out
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
       </div>
     </>
   );

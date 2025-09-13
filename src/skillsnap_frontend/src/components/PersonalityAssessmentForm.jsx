@@ -1,28 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
+import html2canvas from "html2canvas";
+import { saveAs } from "file-saver";
 import { AuthClient } from "@dfinity/auth-client";
 import { HttpAgent, Actor } from "@dfinity/agent";
 import {
   idlFactory as backend_idl,
   canisterId as backendId,
 } from "../../../declarations/skillsnap_backend";
-
-// let skillsnap_backend;
-
-// const initActor = async () => {
-//   const authClient = await AuthClient.create();
-//   const identity = authClient.getIdentity();
-//   const agent = new HttpAgent({ identity });
-
-//   // ⚡ Wajib untuk local development agar candid bisa di-fetch
-//   if (process.env.DFX_NETWORK !== "ic") {
-//     await agent.fetchRootKey();
-//   }
-
-//   skillsnap_backend = Actor.createActor(backend_idl, {
-//     agent,
-//     canisterId: backend_id,
-//   });
-// };
 
 const PersonalityAssessmentForm = () => {
   const [actor, setActor] = useState(null);
@@ -420,7 +404,11 @@ const PersonalityAssessmentForm = () => {
       alert("Berhasil mendapatkan rekomendasi: ");
       console.log("Hasil analisis AI:", hasil);
 
-      await skillsnap_backend.saveAIRecommendation(projectId, hasil);
+      await window.skillsnap_backend.saveAIRecommendation(
+        Number(projectId),
+        hasil
+      );
+
       // const rekomendasi = await skillsnap_backend.getAIRecommendation(
       //   projectId
       // );

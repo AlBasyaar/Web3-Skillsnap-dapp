@@ -50,14 +50,11 @@ const AuthForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!isLogin) {
-      // Handle registration
       console.log("Registration submitted:", formData);
-      // Redirect to verification page after successful registration
       window.location.href = "/verify-account";
+      
     } else {
-      // Handle login
       console.log("Login submitted:", formData);
     }
   };
