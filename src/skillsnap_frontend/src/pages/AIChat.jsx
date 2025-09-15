@@ -1,10 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FiSend, FiPaperclip, FiGithub, FiMenu } from 'react-icons/fi';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { FiSend, FiPaperclip, FiGithub, FiMenu, FiUser, FiMessageSquare } from 'react-icons/fi';
 import ChatHistorySidebar from '../components/ChatHistorySidebar';
 import TypingAnimation from '../components/TypingAnimation';
+import PersonalityAssessmentForm from '../components/PersonalityAssessmentForm';
 
 const AIChat = () => {
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState('chat'); // 'chat' or 'assessment'
   const [chatHistory, setChatHistory] = useState([]);
   const [messages, setMessages] = useState([
     {
@@ -25,26 +28,27 @@ const AIChat = () => {
   const [currentChatId, setCurrentChatId] = useState(null);
 
   const startNewChat = () => {
-    const newChatId = Date.now();
-    const newChat = {
-      id: newChatId,
-      title: `New Chat ${chatHistory.length + 1}`,
-      messages: [
-        {
-          id: 1,
-          text: `Hi, I'm here to help with your career development. You can ask me to analyze your CV, match your interests to companies, analyze your code skills, or help create a cover letter.`,
-          sender: 'ai',
-          timestamp: new Date(),
-          showQuickActions: true
-        }
-      ]
-    };
-    
-    setChatHistory([newChat, ...chatHistory]);
-    setMessages(newChat.messages);
-    setCurrentChatId(newChatId);
-    setInputMessage('');
-    setShowOptions(false);
+    setChatHistory(prev => {
+      const newChatId = Date.now();
+      const newChat = {
+        id: newChatId,
+        title: `New Chat ${prev.length + 1}`,
+        messages: [
+          {
+            id: 1,
+            text: `Hi there! 👋\n\nI'm here to help with your career development. You can ask me to analyze your CV, match your interests to companies, analyze your code skills, or help create a cover letter.`,
+            sender: 'ai',
+            timestamp: new Date(),
+            showQuickActions: true
+          }
+        ]
+      };
+      setMessages(newChat.messages);
+      setCurrentChatId(newChatId);
+      setInputMessage('');
+      setShowOptions(false);
+      return [newChat, ...prev];
+    });
   };
 
   const loadChat = (chatId) => {
@@ -172,8 +176,57 @@ const AIChat = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  useEffect(() => {
+    // Check URL for tab parameter
+    const params = new URLSearchParams(location.search);
+    const tab = params.get('tab');
+    if (tab === 'assessment') {
+      setActiveTab('assessment');
+    } else {
+      setActiveTab('chat');
+    }
+  }, [location.search]);
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    window.history.pushState({}, '', `?tab=${tab}`);
+  };
+
   return (
-    <div className="relative max-w-4xl mx-auto h-screen flex flex-col">
+    <div className="flex flex-col h-screen bg-gray-900 text-white">
+      {/* Tab Navigation */}
+      <div className="flex border-b border-gray-700 bg-gray-800">
+        <button
+          onClick={() => handleTabChange('chat')}
+          className={`flex-1 py-4 px-6 text-center font-medium transition-colors duration-200 ${
+            activeTab === 'chat' 
+              ? 'text-blue-400 border-b-2 border-blue-400' 
+              : 'text-gray-400 hover:text-white hover:bg-gray-700'
+          }`}
+        >
+          <div className="flex items-center justify-center gap-2">
+            <FiMessageSquare className="w-5 h-5" />
+            <span>AI Chat</span>
+          </div>
+        </button>
+        <button
+          onClick={() => handleTabChange('assessment')}
+          className={`flex-1 py-4 px-6 text-center font-medium transition-colors duration-200 ${
+            activeTab === 'assessment' 
+              ? 'text-purple-400 border-b-2 border-purple-400' 
+              : 'text-gray-400 hover:text-white hover:bg-gray-700'
+          }`}
+        >
+          <div className="flex items-center justify-center gap-2">
+            <FiUser className="w-5 h-5" />
+            <span>Personality Assessment</span>
+          </div>
+        </button>
+      </div>
+      
+      {activeTab === 'chat' ? (
+        <div className="flex-1 overflow-hidden">
+          <div className="relative max-w-4xl mx-auto h-full flex flex-col">
       <button 
         onClick={() => setShowSidebar(true)}
         className="fixed right-4 top-4 bg-gray-700 p-2 rounded-lg text-white z-40 hover:bg-gray-600 transition-colors"
@@ -189,11 +242,31 @@ const AIChat = () => {
         chatHistory={chatHistory}
         onSelectChat={loadChat}
         onDeleteChat={(chatId) => {
-          setChatHistory(prev => prev.filter(chat => chat.id !== chatId));
-          // If the deleted chat is the current one, start a new chat
-          if (currentChatId === chatId) {
-            startNewChat();
-          }
+          setChatHistory(prev => {
+            const filtered = prev.filter(chat => chat.id !== chatId);
+            if (currentChatId === chatId) {
+              setInputMessage('');
+              setShowOptions(false);
+              if (filtered.length > 0) {
+                const nextChat = filtered[0];
+                setMessages(nextChat.messages);
+                setCurrentChatId(nextChat.id);
+              } else {
+                setMessages([
+                  {
+                    id: 1,
+                    text: `Hi there! 👋\n\nI'm here to help with your career development. You can ask me to analyze your CV, match your interests to companies, analyze your code skills, or help create a cover letter.`,
+                    sender: 'ai',
+                    timestamp: new Date(),
+                    showQuickActions: true,
+                    isTyping: false
+                  },
+                ]);
+                setCurrentChatId(null);
+              }
+            }
+            return filtered;
+          });
         }}
       />
       {chatHistory.length === 0 && (
@@ -213,7 +286,7 @@ const AIChat = () => {
           </div>
         </div>
       )}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-24 border-b border-gray-700">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-24">
         {messages.map((message) => (
           <div
             key={message.id}
@@ -283,7 +356,7 @@ const AIChat = () => {
       </div>
 
       {/* Chat Input Area */}
-      <div className="p-4 border-t border-gray-700 bg-gray-800 mt-auto">
+      <div className="p-4 border-t border-gray-700 bg-gray-800">
         {showOptions && (
           <div className="bg-gray-700 rounded-lg p-3 mb-3 grid grid-cols-2 gap-2">
             <button
@@ -314,37 +387,32 @@ const AIChat = () => {
         )}
         
         <div className="flex flex-col gap-2">
-          <div className="relative">
+          <div className="relative flex items-center gap-2">
             <input
               type="text"
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
               placeholder="Type your message..."
-              className="w-full bg-gray-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex-1 bg-gray-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-          </div>
-          
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <label className="p-2 rounded-full hover:bg-gray-700 cursor-pointer flex items-center">
-                <FiPaperclip className="w-5 h-5 text-gray-400 hover:text-white" />
-                <span className="ml-1 text-sm text-gray-300">Attach</span>
-                <input
-                  type="file"
-                  className="hidden"
-                  onChange={handleFileUpload}
-                  accept=".pdf,.doc,.docx,.txt"
-                />
-              </label>
-              
-              <button
-                onClick={() => setShowOptions(!showOptions)}
-                className="p-2 rounded-full hover:bg-gray-700 flex items-center"
-              >
-                <FiGithub className="w-5 h-5 text-gray-400 hover:text-white" />
-                <span className="ml-1 text-sm text-gray-300">Git</span>
-              </button>
+            <label className="flex items-center p-2 rounded-full hover:bg-gray-700 cursor-pointer">
+              <FiPaperclip className="w-5 h-5 text-gray-400 hover:text-white" />
+              <span className="ml-1 text-sm text-gray-300">Attach</span>
+              <input
+                type="file"
+                className="hidden"
+                onChange={handleFileUpload}
+                accept=".pdf,.doc,.docx,.txt"
+              />
+            </label>
+            <button
+              onClick={() => setShowOptions(!showOptions)}
+              className="p-2 rounded-full hover:bg-gray-700 flex items-center"
+            >
+              <FiGithub className="w-5 h-5 text-gray-400 hover:text-white" />
+              <span className="ml-1 text-sm text-gray-300">Git</span>
+            </button>
             </div>
             
             <button
@@ -363,6 +431,25 @@ const AIChat = () => {
         </div>
       </div>
     </div>
+  ) : (
+    <div className="flex-1 overflow-y-auto p-6">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
+            Personality Assessment
+          </h1>
+          <p className="text-gray-300 max-w-2xl mx-auto">
+            Complete this assessment to discover your personality traits and
+            career matches
+          </p>
+        </div>
+        <div className="bg-gray-900/70 backdrop-blur-sm rounded-xl p-6 md:p-8 border border-gray-700/50 shadow-xl">
+          <PersonalityAssessmentForm />
+        </div>
+      </div>
+    </div>
+  )}
+</div>
   );
 };
 
