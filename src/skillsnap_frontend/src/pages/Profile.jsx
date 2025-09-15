@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { AuthClient } from "@dfinity/auth-client";
 import { useNavigate } from "react-router-dom";
-import { FaUserCircle, FaSignOutAlt, FaHome, FaPencilAlt, FaPlus, FaMapMarkerAlt, FaGlobe, FaCamera, FaBolt } from "react-icons/fa";
+import { FaUserCircle, FaSignOutAlt, FaHome, FaPencilAlt, FaPlus, FaMapMarkerAlt, FaGlobe, FaCamera, FaTrash } from "react-icons/fa";
 
 const Profile = () => {
   const [principal, setPrincipal] = useState(null);
@@ -196,6 +196,14 @@ const Profile = () => {
     setShowingAddExp(false);
   };
 
+  const handleDeleteExp = (index) => {
+    if (window.confirm("Apakah Anda yakin ingin menghapus pengalaman ini?")) {
+      const newExps = experiences.filter((_, i) => i !== index);
+      setExperiences(newExps);
+      saveExperiencesToStorage(newExps);
+    }
+  };
+
   // Education functions
   const startEditEdu = (index) => {
     setTempEdu({ ...educations[index] });
@@ -229,6 +237,14 @@ const Profile = () => {
     setShowingAddEdu(false);
   };
 
+  const handleDeleteEdu = (index) => {
+    if (window.confirm("Apakah Anda yakin ingin menghapus pendidikan ini?")) {
+      const newEdus = educations.filter((_, i) => i !== index);
+      setEducations(newEdus);
+      saveEducationsToStorage(newEdus);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       {/* Header with background */}
@@ -238,15 +254,15 @@ const Profile = () => {
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb')" }}
         />
         <div className="absolute inset-0 bg-black/70" /> {/* Dark overlay */}
-        <div className="relative z-10 max-w-4xl mx-auto p-6">
+        <div className="relative z-10 max-w-4xl mx-auto p-4 sm:p-6">
           {/* Profile Header */}
-          <div className="mb-8 flex justify-between items-start">
-            <div className="flex items-start">
-              <div className="relative">
+          <div className="mb-8 flex flex-col sm:flex-row sm:justify-between sm:items-start">
+            <div className="flex flex-col sm:flex-row sm:items-start">
+              <div className="relative mx-auto sm:mx-0">
                 {profilePic ? (
-                  <img src={profilePic} alt="Profile" className="w-32 h-32 rounded-full object-cover" />
+                  <img src={profilePic} alt="Profile" className="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover" />
                 ) : (
-                  <FaUserCircle className="text-9xl text-gray-300" />
+                  <FaUserCircle className="text-7xl sm:text-9xl text-gray-300" />
                 )}
                 <div
                   className="absolute bottom-0 right-0 bg-white rounded-full p-1 cursor-pointer"
@@ -262,17 +278,17 @@ const Profile = () => {
                   onChange={handleProfilePicChange}
                 />
               </div>
-              <div className="ml-6">
+              <div className="mt-4 sm:mt-0 sm:ml-6 text-center sm:text-left">
                 {editingProfile ? (
                   <input
-                    className="text-3xl font-bold bg-transparent border-b border-gray-400 w-full text-white"
+                    className="text-2xl sm:text-3xl font-bold bg-transparent border-b border-gray-400 w-full text-white"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
                 ) : (
-                  <h1 className="text-3xl font-bold">{name}</h1>
+                  <h1 className="text-2xl sm:text-3xl font-bold">{name}</h1>
                 )}
-                <p className="text-lg mt-1 break-words">
+                <p className="text-base sm:text-lg mt-1 break-words">
                   {principal || token || "0xDc16b...648Aa"}
                 </p>
                 {editingProfile ? (
@@ -284,31 +300,35 @@ const Profile = () => {
                 ) : (
                   <p className="mt-2 text-gray-300">{bio}</p>
                 )}
-                <div className="flex items-center mt-2 text-gray-300">
-                  <FaMapMarkerAlt className="mr-2" />
-                  {editingProfile ? (
-                    <input
-                      className="bg-transparent border-b border-gray-400 flex-1"
-                      value={location}
-                      onChange={(e) => setLocation(e.target.value)}
-                    />
-                  ) : (
-                    <span>{location}</span>
-                  )}
-                  <FaGlobe className="ml-4 mr-2" />
-                  {editingProfile ? (
-                    <input
-                      className="bg-transparent border-b border-gray-400 flex-1"
-                      value={website}
-                      onChange={(e) => setWebsite(e.target.value)}
-                    />
-                  ) : (
-                    <a href={website} className="hover:underline">{website}</a>
-                  )}
+                <div className="flex flex-col sm:flex-row sm:items-center mt-2 text-gray-300">
+                  <div className="flex items-center justify-center sm:justify-start mb-2 sm:mb-0">
+                    <FaMapMarkerAlt className="mr-2" />
+                    {editingProfile ? (
+                      <input
+                        className="bg-transparent border-b border-gray-400 flex-1"
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                      />
+                    ) : (
+                      <span>{location}</span>
+                    )}
+                  </div>
+                  <div className="flex items-center justify-center sm:justify-start sm:ml-4">
+                    <FaGlobe className="mr-2" />
+                    {editingProfile ? (
+                      <input
+                        className="bg-transparent border-b border-gray-400 flex-1"
+                        value={website}
+                        onChange={(e) => setWebsite(e.target.value)}
+                      />
+                    ) : (
+                      <a href={website} className="hover:underline">{website}</a>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-            <FaPencilAlt className="cursor-pointer text-gray-300 hover:text-white" onClick={startEditingProfile} />
+            <FaPencilAlt className="cursor-pointer text-gray-300 hover:text-white mt-4 sm:mt-0 mx-auto sm:mx-0" onClick={startEditingProfile} />
           </div>
           {editingProfile && (
             <button
@@ -322,7 +342,7 @@ const Profile = () => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-4xl mx-auto p-6">
+      <div className="max-w-4xl mx-auto p-4 sm:p-6">
         {/* Login Info */}
         {loading ? (
           <p className="text-center text-gray-300">Memuat profil...</p>
@@ -349,11 +369,11 @@ const Profile = () => {
         )}
 
         {/* Sections */}
-        <div className="flex space-x-8 mb-8">
+        <div className="flex flex-col md:flex-row md:space-x-8 space-y-8 md:space-y-0 mb-8">
           {/* Experience Section */}
           <div className="flex-1">
             <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold">Experience</h2>
+              <h2 className="text-xl sm:text-2xl font-bold">Experience</h2>
               <div className="flex space-x-2">
                 <FaPlus className="cursor-pointer" onClick={startAddExp} />
               </div>
@@ -401,10 +421,16 @@ const Profile = () => {
                           <p className="text-gray-300">{exp.company}</p>
                           <p className="text-gray-300">{exp.date}</p>
                         </div>
-                        <FaPencilAlt
-                          className="cursor-pointer text-gray-400 hover:text-white"
-                          onClick={() => startEditExp(index)}
-                        />
+                        <div className="flex space-x-2">
+                          <FaPencilAlt
+                            className="cursor-pointer text-gray-400 hover:text-white"
+                            onClick={() => startEditExp(index)}
+                          />
+                          <FaTrash
+                            className="cursor-pointer text-gray-400 hover:text-white"
+                            onClick={() => handleDeleteExp(index)}
+                          />
+                        </div>
                       </div>
                     )}
                   </div>
@@ -451,7 +477,7 @@ const Profile = () => {
           {/* Education Section */}
           <div className="flex-1">
             <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold">Education</h2>
+              <h2 className="text-xl sm:text-2xl font-bold">Education</h2>
               <div className="flex space-x-2">
                 <FaPlus className="cursor-pointer" onClick={startAddEdu} />
               </div>
@@ -499,10 +525,16 @@ const Profile = () => {
                           <p className="text-gray-300">{edu.major}</p>
                           <p className="text-gray-300">{edu.date}</p>
                         </div>
-                        <FaPencilAlt
-                          className="cursor-pointer text-gray-400 hover:text-white"
-                          onClick={() => startEditEdu(index)}
-                        />
+                        <div className="flex space-x-2">
+                          <FaPencilAlt
+                            className="cursor-pointer text-gray-400 hover:text-white"
+                            onClick={() => startEditEdu(index)}
+                          />
+                          <FaTrash
+                            className="cursor-pointer text-gray-400 hover:text-white"
+                            onClick={() => handleDeleteEdu(index)}
+                          />
+                        </div>
                       </div>
                     )}
                   </div>
