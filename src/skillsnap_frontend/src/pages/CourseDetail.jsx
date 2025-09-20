@@ -12,7 +12,7 @@ const courses = [
     rating: 4.5,
     level: 'Beginner',
     thumbnail: 'https://res.cloudinary.com/dr5pehdsw/image/upload/v1755737708/64c00daed63bef0e1a4cfc3dca3033760fa02447_aggnyq.png',
-    fullDescription: 'Lorem ipsum dolor sit amet consectetur. Lobortis id mattis nibh mi semper nunc sit nulla magna. Mauris proin turpis ut pretium id est. Fringilla purus ornare lacus arcu et vitae bibendum donec euismod.',
+    fullDescription: 'Master the fundamentals of user interface design to create clean, structured, and user-friendly experiences. Learn layout principles, visual hierarchy, typography, and effective color usage to optimize user engagement.',
     whatYoullLearn: [
       'UI/UX Design',
       'Prototyping',
@@ -63,6 +63,11 @@ const courses = [
         tests: 4,
         hours: 6
       }
+    ],
+    overviewParagraphs: [
+      "Kursus ini dirancang untuk membantu Anda meningkatkan keterampilan desain UI dengan memahami prinsip-prinsip dasar yang esensial. Anda akan belajar bagaimana menciptakan antarmuka yang intuitif dan menarik, yang dapat meningkatkan pengalaman pengguna secara signifikan.",
+      "Dengan fokus pada tata letak, hierarki, dan elemen visual lainnya, kursus ini akan membekali Anda dengan pengetahuan praktis untuk diterapkan dalam proyek desain nyata, sehingga Anda dapat menghasilkan desain yang lebih profesional.",
+      "Selain itu, melalui latihan dan contoh kasus, Anda akan mengasah kemampuan untuk menganalisis dan memperbaiki desain yang ada, memastikan bahwa setiap elemen berkontribusi pada tujuan keseluruhan aplikasi atau website."
     ]
   },
   {
@@ -74,7 +79,7 @@ const courses = [
     rating: 4.7,
     level: 'Intermediate',
     thumbnail: 'https://res.cloudinary.com/dr5pehdsw/image/upload/v1755702051/Advanced_JavaScript_eff1nh.webp',
-    fullDescription: 'Lorem ipsum dolor sit amet consectetur. Lobortis id mattis nibh mi semper nunc sit nulla magna. Mauris proin turpis ut pretium id est. Fringilla purus ornare lacus arcu et vitae bibendum donec euismod.',
+    fullDescription: 'Dive deep into modern JavaScript concepts, from ES6+ features and async/await to closures and design patterns. Learn how to structure and build scalable, complex applications effectively.',
     whatYoullLearn: [
       'ES6+ Features',
       'Async Programming',
@@ -125,6 +130,11 @@ const courses = [
         tests: 4,
         hours: 6
       }
+    ],
+    overviewParagraphs: [
+      "Kursus JavaScript lanjutan ini bertujuan untuk memperdalam pemahaman Anda tentang bahasa pemrograman yang dinamis ini. Anda akan mengeksplorasi fitur modern yang memungkinkan pembuatan aplikasi yang lebih efisien dan scalable.",
+      "Melalui pembelajaran tentang async programming dan design patterns, Anda akan belajar cara menangani operasi kompleks dengan lebih baik, mengurangi bug, dan meningkatkan performa kode Anda.",
+      "Kursus ini juga menekankan praktik terbaik dalam pengembangan, membantu Anda membangun fondasi yang kuat untuk karir di bidang pengembangan web dan aplikasi."
     ]
   },
   {
@@ -136,7 +146,7 @@ const courses = [
     rating: 4.8,
     level: 'Advanced',
     thumbnail: 'https://res.cloudinary.com/dr5pehdsw/image/upload/v1755702051/React_Masterclass_j1rmj1.webp',
-    fullDescription: 'Lorem ipsum dolor sit amet consectetur. Lobortis id mattis nibh mi semper nunc sit nulla magna. Mauris proin turpis ut pretium id est. Fringilla purus ornare lacus arcu et vitae bibendum donec euismod.',
+    fullDescription: 'Master React from the ground up by building real-world projects. Explore hooks, Context API, advanced state management, and performance optimization techniques for production-ready apps.',
     whatYoullLearn: [
       'React Hooks',
       'Context API',
@@ -187,6 +197,11 @@ const courses = [
         tests: 4,
         hours: 6
       }
+    ],
+    overviewParagraphs: [
+      "Dalam masterclass React ini, Anda akan meningkatkan keterampilan membangun aplikasi front-end yang responsif dan interaktif. Fokus pada hooks dan state management akan membantu Anda mengelola data dengan lebih efektif.",
+      "Anda akan mempelajari teknik optimasi untuk memastikan aplikasi berjalan lancar, bahkan pada skala besar, sambil menerapkan best practices dalam pengembangan React.",
+      "Dengan proyek nyata sebagai inti kursus, Anda akan mendapatkan pengalaman langsung yang dapat langsung diterapkan dalam pekerjaan atau portofolio Anda."
     ]
   },
   {
@@ -198,7 +213,7 @@ const courses = [
     rating: 4.6,
     level: 'Intermediate',
     thumbnail: 'https://res.cloudinary.com/dr5pehdsw/image/upload/v1755702051/Node.js_Backend_Development_zpstbw.webp',
-    fullDescription: 'Lorem ipsum dolor sit amet consectetur. Lobortis id mattis nibh mi semper nunc sit nulla magna. Mauris proin turpis ut pretium id est. Fringilla purus ornare lacus arcu et vitae bibendum donec euismod.',
+    fullDescription: 'Learn to develop scalable back-end applications using Node.js and Express. Topics include REST API development, user authentication, middleware, and database integration with SQL and NoSQL systems.',
     whatYoullLearn: [
       'Express Framework',
       'REST APIs',
@@ -249,6 +264,11 @@ const courses = [
         tests: 4,
         hours: 6
       }
+    ],
+    overviewParagraphs: [
+      "Kursus pengembangan backend dengan Node.js ini akan membantu Anda membangun server yang kuat dan scalable. Anda akan belajar framework Express untuk menciptakan API yang efisien.",
+      "Topik autentikasi dan integrasi database akan meningkatkan kemampuan Anda dalam menangani keamanan data dan pengelolaan pengguna, yang krusial untuk aplikasi modern.",
+      "Dengan penekanan pada praktik pengembangan terbaik, kursus ini mempersiapkan Anda untuk tantangan nyata di dunia backend development."
     ]
   },
   {
@@ -260,7 +280,7 @@ const courses = [
     rating: 4.9,
     level: 'Beginner',
     thumbnail: 'https://res.cloudinary.com/dr5pehdsw/image/upload/v1755702051/Blockchain_Fullcourse_qihhwm.webp',
-    fullDescription: 'Lorem ipsum dolor sit amet consectetur. Lobortis id mattis nibh mi semper nunc sit nulla magna. Mauris proin turpis ut pretium id est. Fringilla purus ornare lacus arcu et vitae bibendum donec euismod.',
+    fullDescription: 'Gain a complete understanding of blockchain technology—from core concepts and consensus mechanisms to smart contracts. Learn how to build decentralized applications (DApps) from scratch.',
     whatYoullLearn: [
       'Blockchain Basics',
       'Smart Contracts',
@@ -311,6 +331,11 @@ const courses = [
         tests: 4,
         hours: 6
       }
+    ],
+    overviewParagraphs: [
+      "Kursus blockchain komprehensif ini akan meningkatkan pemahaman Anda tentang teknologi desentralisasi. Mulai dari dasar hingga pembuatan smart contract, Anda akan mendapatkan wawasan mendalam.",
+      "Anda akan belajar mekanisme konsensus dan bagaimana membangun DApps, yang dapat diterapkan dalam berbagai industri seperti keuangan dan supply chain.",
+      "Melalui proyek hands-on, kursus ini membantu Anda mengembangkan keterampilan untuk inovasi di bidang blockchain yang sedang berkembang pesat."
     ]
   },
   {
@@ -322,7 +347,7 @@ const courses = [
     rating: 4.7,
     level: 'Advanced',
     thumbnail: 'https://res.cloudinary.com/dr5pehdsw/image/upload/v1755702051/Mobile_App_Development_atiije.webp',
-    fullDescription: 'Lorem ipsum dolor sit amet consectetur. Lobortis id mattis nibh mi semper nunc sit nulla magna. Mauris proin turpis ut pretium id est. Fringilla purus ornare lacus arcu et vitae bibendum donec euismod.',
+    fullDescription: 'Learn how to build cross-platform mobile apps with React Native. Topics include UI development, API integration, native modules, debugging, and deploying apps to the App Store and Google Play.',
     whatYoullLearn: [
       'React Native Basics',
       'Cross-Platform Development',
@@ -373,6 +398,11 @@ const courses = [
         tests: 4,
         hours: 6
       }
+    ],
+    overviewParagraphs: [
+      "Kursus pengembangan aplikasi mobile ini fokus pada React Native untuk menciptakan app cross-platform. Anda akan meningkatkan keterampilan dalam membangun UI yang responsif untuk iOS dan Android.",
+      "Dengan pembelajaran tentang native modules dan deployment, Anda akan siap menghadapi tantangan pengembangan mobile nyata.",
+      "Kursus ini menekankan optimasi performa dan best practices, memastikan aplikasi Anda berfungsi baik tetapi juga user-friendly."
     ]
   }
 ];
@@ -449,6 +479,9 @@ const CourseDetail = () => {
       <div className="bg-gray-800 rounded-xl p-8 mb-8">
         <div className="flex flex-col md:flex-row gap-8">
           <div className="md:w-2/3">
+            <Link to="/course" className="text-purple-400 hover:underline mb-4 inline-block">
+              ← Back to Courses
+            </Link>
             <h1 className="text-3xl font-bold text-white mb-4">{course.title}</h1>
             <p className="text-gray-300 mb-6">{course.fullDescription}</p>
             <div className="flex items-center space-x-4 mb-6">
@@ -463,7 +496,7 @@ const CourseDetail = () => {
                 <div className="bg-green-100 text-green-800 px-4 py-2 rounded-lg font-medium">
                   You're enrolled in this course!
                 </div>
-                <Link 
+                <Link
                   to={`/learn/${course.id}`}
                   className="block w-full text-center bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
                 >
@@ -520,7 +553,7 @@ const CourseDetail = () => {
               <div className="pt-4 border-t border-gray-600">
                 <div className="flex items-center space-x-2">
                   <span className="text-yellow-400 text-2xl">★★★★★</span>
-                  <span className="text-gray-400">{course.rating} ({Math.floor(course.rating * 20)} reviews)</span>
+                  <span className="text-gray-400 text-sm ml-1">{course.rating} ({Math.floor(course.rating * 20)} reviews)</span>
                 </div>
               </div>
             </div>
@@ -533,15 +566,11 @@ const CourseDetail = () => {
           <div className="bg-gray-800 rounded-xl p-8 mb-8">
             <h2 className="text-2xl font-bold text-white mb-6">Overview</h2>
             <h3 className="text-xl font-semibold text-white mb-4">Improving skill for</h3>
-            <p className="text-gray-300 mb-6">
-              Lorem ipsum dolor sit amet consectetur. In est nulla arcu tempus sed id. Quisque pulvinar et lorem nunc pulvinar non facilisi ornare. Faucibus velit odio et ut. Montes mauris dignissim ultrices dui in ullamcorper sem vestibulum id. Iaculis sed orci sapien pulvinar donec scelerisque augue. In morbi tristique ornare fusce eu. Netus viverra eget sollicitudin lectus potenti sed id sollicitudin.
-            </p>
-            <p className="text-gray-300 mb-6">
-              Laoreet quis vestibulum dui vitae sem. Tellus nulla ut rhoncus ipsum. Mauris adipiscing dui maecenas morbi ipsum ullamcorper fusce elementum. Condimentum fringilla nunc in cras risus convallis nunc massa. Aliquam blandit suspendisse faucibus arcu. Urna eget aliquam nec ullamcorper malesuada. Est et lacus pretium amet. Massa at natoque vivamus blandit egestas nunc quam dolor. Semper sed tempor enim ut massa diam nibh elementum. Sodales felis mattis elementum in aliquam urna quis dolor vehicula. Neque iaculis eget ultrices dictumst faucibus id in. Integer venenatis dolor in vel. Ultrices malesuada massa donec aliquam lectus orci sit.
-            </p>
-            <p className="text-gray-300">
-              Tellus netus donec nascetur dictum commodo ultrices. Leo sed dis ultrices adipiscing pellentesque. Sagittis malesuada nisl tristique ultrices a. Ultrices lectus aliquam vitae amet mus in tincidunt ac. Urna est aliquet ut in nisi egestas ultricies. Quis id justo arcu tellus natoque. Eu at enim cras ut sed mauris tristique ornare. Amet ante aliquet augue dapibus et mauris adipiscing. Vitae sapien sit vel lacus nunc pellentesque faucibus. Lectus amet donec suspendisse velit. Id sapien scelerisque at in urna enim. Tempus tortor vitae lorem placerat. Risus vitae fermentum ut faucibus.
-            </p>
+            {course.overviewParagraphs.map((para, index) => (
+              <p key={index} className={`text-gray-300 ${index < course.overviewParagraphs.length - 1 ? 'mb-6' : ''}`}>
+                {para}
+              </p>
+            ))}
           </div>
 
           <div className="bg-gray-800 rounded-xl p-8 mb-8">
@@ -602,11 +631,10 @@ const CourseDetail = () => {
                       <div key={vIndex} className="group">
                         <button
                           onClick={() => openVideoModal(video.url)}
-                          className={`w-full text-left px-3 py-2 rounded-md text-sm flex items-center justify-between ${
-                            isUserEnrolled || isEnrolled 
-                              ? 'text-blue-400 hover:bg-gray-600 hover:text-white' 
-                              : 'text-gray-500 cursor-not-allowed group-hover:bg-gray-600/50'
-                          }`}
+                          className={`w-full text-left px-3 py-2 rounded-md text-sm flex items-center justify-between ${isUserEnrolled || isEnrolled
+                            ? 'text-blue-400 hover:bg-gray-600 hover:text-white'
+                            : 'text-gray-500 cursor-not-allowed group-hover:bg-gray-600/50'
+                            }`}
                           disabled={!(isUserEnrolled || isEnrolled)}
                           title={!(isUserEnrolled || isEnrolled) ? 'Enroll to access this content' : `Watch: ${video.title}`}
                         >
@@ -626,7 +654,7 @@ const CourseDetail = () => {
               ))}
             </div>
           </div>
-          
+
           {/* Course Instructor */}
           <div className="bg-gray-800 rounded-xl p-6 mt-6">
             <h3 className="text-lg font-semibold text-white mb-4">Instructor</h3>

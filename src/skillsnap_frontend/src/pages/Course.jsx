@@ -5,13 +5,13 @@ import CourseDetail from './CourseDetail';
 const courses = [
   {
     id: 1,
-    title: 'JavaScript Programming Full Course',
-    description: 'Master JavaScript from the ground up with our comprehensive course. Learn everything from basic syntax to advanced concepts.',
+    title: 'UI Design Fundamental',
+    description: 'A beginner-friendly guide to UI design essentials. Learn how to create clean, user-friendly interfaces using core principles like layout, hierarchy, color, and typography.',
     duration: '120 hours',
     lessons: '80 course',
-    rating: 4.7,
+    rating: 4.5,
     level: 'Beginner',
-    thumbnail: 'https://img.youtube.com/vi/W6NZfCO5SIk/maxresdefault.jpg',
+    thumbnail: 'https://res.cloudinary.com/dr5pehdsw/image/upload/v1755737708/64c00daed63bef0e1a4cfc3dca3033760fa02447_aggnyq.png',
     sessions: [
       {
         title: 'JavaScript Mastery',

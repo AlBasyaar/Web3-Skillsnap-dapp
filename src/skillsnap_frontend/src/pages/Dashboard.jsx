@@ -258,7 +258,7 @@ const Dashboard = () => {
           newPrev[index] = current;
           return newPrev;
         });
-      }, 20);
+      }, 60);
       return interval;
     });
 
