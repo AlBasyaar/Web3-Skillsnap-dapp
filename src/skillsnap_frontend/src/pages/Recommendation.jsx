@@ -56,8 +56,6 @@ const Recommendation = () => {
             allRekomendasi = [...allRekomendasi, ...parsed];
           }
         });
-
-        console.log("📦 Semua rekomendasi:", allRekomendasi);
         setProjects(allRekomendasi);
       } catch (err) {
         console.error("❌ Gagal ambil projects:", err);

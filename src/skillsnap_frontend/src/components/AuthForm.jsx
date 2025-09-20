@@ -51,11 +51,8 @@ const AuthForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!isLogin) {
-      console.log("Registration submitted:", formData);
       window.location.href = "/verify-account";
-      
     } else {
-      console.log("Login submitted:", formData);
     }
   };
 
@@ -91,8 +88,6 @@ const AuthForm = () => {
         const identity = authClient.getIdentity();
         const principal = identity.getPrincipal().toText();
 
-        console.log("✅ Logged in as Principal:", principal);
-
         setPrincipal(principal);
         // simpan ke state/localStorage
         localStorage.setItem("ii_principal", principal);
@@ -115,8 +110,6 @@ const AuthForm = () => {
             agent,
           }
         );
-
-        console.log("🎭 Actor berhasil dibuat dengan identity II");
 
         navigate("/Dashboard");
       },

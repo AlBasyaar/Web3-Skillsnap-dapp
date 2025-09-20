@@ -385,7 +385,7 @@ const PersonalityAssessmentForm = () => {
         (key) => `${key}: ${formData[key] || ""} `
       );
 
-      const response = await fetch("http://127.0.0.1:5000/ai/rekomendasi", {
+      const response = await fetch("http://172.18.0.2:5000/ai/rekomendasi", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -402,7 +402,6 @@ const PersonalityAssessmentForm = () => {
       const hasil = data.rekomendasi;
 
       alert("Berhasil mendapatkan rekomendasi: ");
-      console.log("Hasil analisis AI:", hasil);
 
       await window.skillsnap_backend.saveAIRecommendation(
         Number(projectId),
@@ -454,8 +453,6 @@ const PersonalityAssessmentForm = () => {
         formData.gayaKomunikasi,
         formData.gayaBelajar
       );
-
-      console.log("Hasil createProject:", result, typeof result);
 
       // result adalah BigInt, harus diubah manual ke string
       const projectId = result.toString();

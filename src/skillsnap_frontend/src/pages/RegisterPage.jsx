@@ -32,7 +32,6 @@ const RegisterPage = () => {
     // Listen for messages from the popup
     const handleMessage = (event) => {
       if (event.origin === 'https://identity.ic0.app' && event.data) {
-        console.log('Received identity:', event.data);
         window.removeEventListener('message', handleMessage);
       }
     };
