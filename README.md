@@ -6,7 +6,7 @@ This project consists of a **Motoko** backend and a **React** frontend, running 
 
 ### Dashboard Page
 
-![Dashboard Page](./src/asset/dashboard.png)
+![Dashboard Page](./src/asset/dahsboard.png)
 
 The dashboard provides an overview of the platform, allowing users to quickly access key features and track their activities.
 
