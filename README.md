@@ -39,7 +39,7 @@ This section displays a list of job recommendations, helping users explore relev
 The profile page allows users to manage their personal information, track progress, and customize their experience.
 
 ### Home Page
-![Home Page](./src/asset/home.png)
+![Home Page](./src/asset/Home.png)
 
 The SkillSnap homepage introduces the platform as an innovative AI and Web3-based solution that helps users find jobs that match their interests and verify their skills through secure and reliable decentralized certificates. The first page can be scrolled to learn more about the platform.
 
