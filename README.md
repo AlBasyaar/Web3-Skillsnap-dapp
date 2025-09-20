@@ -48,31 +48,28 @@ This page showcases SkillSnap's long-term commitment to shaping a more equitable
 - Basic Documentation : https://drive.google.com/drive/folders/1y3KtvmFWUei_SZQ3RYBmHrDNe6mz8_Dj
 - Pitch Deck : https://drive.google.com/drive/folders/1GC1exH2SivdmdTGboEZH6waDzLq_xmt7
 - Demo Video : https://drive.google.com/drive/folders/1V_R0owWebW1_WZ7VQ_DfHG4B4am8wMS0
+- Frontend (UI): https://iem4x-7yaaa-aaaap-qqdxq-cai.icp0.io/
+- Backend (Candid Interface): https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=idn2d-saaaa-aaaap-qqdxa-cai
 
 ---
 
-## 🛠️ Requirements
+## 🛠️ Requirements (for local development)
 
 - [Docker](https://www.docker.com/) is already installed
 - The project folder has been cloned from this repository
 - If you are using Windows, we recommend using Windows PowerShell or Git Bash.
+- DFINITY SDK (dfx) is already installed.
 - Ports **3000** (for the frontend) and **4943** (for DFX) are not currently in use
 
 ---
 
-## 🧱 1. Building Containers
+## 🧱 1. Run with Docker
 
 Go to the cloned folder and run the following command to build the container:
 
 ```bash
 docker-compose up --build -d
-```
 
-## 🐳 2. Enter the Container
-
-Use this command to enter the container:
-
-```bash
 docker container exec -it icp-dev-env /bin/bash
 ```
 
@@ -104,7 +101,7 @@ Open and edit the .env.gemini file by adding the gemini token.
 
 ---
 
-## 🔧 4. Running DFX
+## 🔧 4. Running Locally with DFX
 
 Place the directory into the project folder:
 
@@ -114,15 +111,7 @@ cd /root/app
 npm install
 
 dfx start --background --host 0.0.0.0:4943
-```
 
----
-
-## 🚀 5. Deploying DFX
-
-If an error occurs, just ignore it (because the frontend environment may not be fully ready):
-
-```bash
 dfx deploy
 
 dfx generate
@@ -130,79 +119,25 @@ dfx generate
 
 ---
 
-## 📁 6. Go to the Frontend Directory
+## 📁 6. Frontend
 
-Move to the React frontend directory:
+Frontend setup configuration:
 
 ```bash
 cd src/skillsnap_frontend
-```
 
----
-
-## 📦 7. Install Frontend Dependencies
-
-Install all dependencies:
-
-```bash
 npm install
-```
 
----
-
-## 🏗️ 8. Build the frontend structure
-
-Build a React app:
-
-```bash
 npm run build
-```
-
----
-
-## 🔙 9. Back to Main Directory
-
-Return to the main project directory:
-
-```bash
-cd /root/app
-```
-
----
-
-## 🔄 10. Generate DFX Bindings
-
-Run the following command to generate the binding canister:
-
-```bash
-dfx generate
-```
-
----
-
-## ▶️ 11. Run the React Application
-
-Move back to the frontend folder and run the React server:
-
-```bash
-cd src/skillsnap_frontend
 
 npm run start
 ```
 
 ---
 
-## 🚀 12. Redeploy DFX (if necessary)
+## 🐍 13. AI Proxy
 
-```bash
-cd /root/app
-
-dfx deploy
-```
-
-## 🐍 13. Creating a Virtual Environment (Python)
-
-Place it in the project directory:
+AI Proxy with python setup configuration:
 
 ```bash
 cd /src/skillsnap_frontend/
@@ -214,31 +149,18 @@ apt install python3.11-venv
 python3 -m venv venv
 
 source venv/bin/activate
-```
 
----
-
-## 📄 14. Installing Python Dependencies
-
-Run this command to enter the appropriate folder:
-
-```bash
 cd src/AI/
-```
 
-Install dependencies for smooth Python program execution
-
-```bash
 pip install -r requirements.txt
-```
 
----
-## ⚡ 15. Running the AI Proxy (Gemini)
-
-```bash
 python gemini_proxy.py
 ```
 
 ---
 
-## 🔄 16. Deploy and regenerate DFX, restart AI proxy and frontend
+## 🔄 16. Deployment to Mainnet (ICP)
+
+```bash
+dfx deploy --network ic
+```
