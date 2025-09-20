@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import PaymentModal from '../components/PaymentModal';
 
@@ -22,43 +22,43 @@ const courses = [
     tools: ['Figma', 'Sketch', 'Notion'],
     sessions: [
       {
-        title: 'Introduction',
-        description: 'Lorem ipsum dolor sit amet consectetur. Nam facilisis ultrices dapibus imperdiet tellus.',
+        title: 'Introduction to UI/UX Design',
+        description: 'Get started with the fundamentals of UI/UX design and understand the difference between UI and UX.',
         videos: [
-          { title: 'Video 1: Welcome', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-          { title: 'Video 2: Basics', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-          { title: 'Video 3: Overview', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-          { title: 'Video 4: Setup', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-          { title: 'Video 5: First Steps', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' }
+          { title: 'UI/UX Design Crash Course', url: 'https://www.youtube.com/embed/_Hp_dI0DzY4' },
+          { title: 'UI Design Principles', url: 'https://www.youtube.com/embed/c9WgQF8rB6s' },
+          { title: 'The Design Process', url: 'https://www.youtube.com/embed/68w2VwalD5w' },
+          { title: 'Introduction to Figma', url: 'https://www.youtube.com/embed/FTFaQWZBqQ8' },
+          { title: 'First UI Project Setup', url: 'https://www.youtube.com/embed/kbZejnPXyLM' }
         ],
         tests: 3,
         hours: 4
       },
       {
-        title: 'Design Principles',
-        description: 'Learn the core principles of good design and how to apply them.',
+        title: 'Design Principles & Color Theory',
+        description: 'Master the core principles of design and learn how to effectively use color in your UI projects.',
         videos: [
-          { title: 'Video 1: Principle 1', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-          { title: 'Video 2: Principle 2', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-          { title: 'Video 3: Principle 3', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-          { title: 'Video 4: Application', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-          { title: 'Video 5: Examples', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-          { title: 'Video 6: Practice', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' }
+          { title: 'Visual Design Principles', url: 'https://www.youtube.com/embed/a5KYlHNKQB8' },
+          { title: 'Color Theory for Designers', url: 'https://www.youtube.com/embed/_2LLXnUdUIc' },
+          { title: 'Typography in UI Design', url: 'https://www.youtube.com/embed/sByzHfoY2Ws' },
+          { title: 'Layout & Composition', url: 'https://www.youtube.com/embed/ZVYQzH5h0BQ' },
+          { title: 'Design Systems', url: 'https://www.youtube.com/embed/1xZ3YlPdL-k' },
+          { title: 'Practical Exercise', url: 'https://www.youtube.com/embed/1HThB9CghRw' }
         ],
         tests: 2,
         hours: 5
       },
       {
-        title: 'Advanced Techniques',
-        description: 'Master advanced UI design techniques and workflows.',
+        title: 'Advanced UI Techniques',
+        description: 'Enhance your UI skills with advanced techniques and real-world workflows.',
         videos: [
-          { title: 'Video 1: Technique 1', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-          { title: 'Video 2: Technique 2', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-          { title: 'Video 3: Technique 3', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-          { title: 'Video 4: Workflow 1', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-          { title: 'Video 5: Workflow 2', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-          { title: 'Video 6: Advanced Tips', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-          { title: 'Video 7: Case Study', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' }
+          { title: 'Microinteractions', url: 'https://www.youtube.com/embed/ZFQkb26UD1Y' },
+          { title: 'Responsive Design', url: 'https://www.youtube.com/embed/p0bGHP-PXD4' },
+          { title: 'Accessibility in UI', url: 'https://www.youtube.com/embed/7mqqgIkwXoU' },
+          { title: 'UI Animation', url: 'https://www.youtube.com/embed/YKtiJQ2HdDc' },
+          { title: 'Prototyping', url: 'https://www.youtube.com/embed/wIuQYXGcabY' },
+          { title: 'Design Handoff', url: 'https://www.youtube.com/embed/7SihHX76huw' },
+          { title: 'Case Study: Redesign', url: 'https://www.youtube.com/embed/68w2VwalD5w' }
         ],
         tests: 4,
         hours: 6
@@ -382,8 +382,19 @@ const CourseDetail = () => {
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [enrolledCourses, setEnrolledCourses] = useState(() => {
+    // Load enrolled courses from localStorage if available
+    const saved = localStorage.getItem('enrolledCourses');
+    return saved ? JSON.parse(saved) : [];
+  });
 
   const course = courses.find(c => c.id === parseInt(id));
+  const isUserEnrolled = enrolledCourses.includes(parseInt(id));
+
+  useEffect(() => {
+    // Save enrolled courses to localStorage whenever it changes
+    localStorage.setItem('enrolledCourses', JSON.stringify(enrolledCourses));
+  }, [enrolledCourses]);
 
   const handleEnrollClick = () => {
     setIsPaymentModalOpen(true);
@@ -391,12 +402,31 @@ const CourseDetail = () => {
 
   const handlePaymentSuccess = () => {
     setIsPaymentModalOpen(false);
-    setIsEnrolled(true);
-    // Here you would typically make an API call to register the user for the course
+    if (!isUserEnrolled) {
+      const updatedEnrolledCourses = [...enrolledCourses, parseInt(id)];
+      setEnrolledCourses(updatedEnrolledCourses);
+      localStorage.setItem('enrolledCourses', JSON.stringify(updatedEnrolledCourses));
+      setIsEnrolled(true);
+    }
   };
 
   const openVideoModal = (url) => {
-    setSelectedVideo(url);
+    if (isUserEnrolled || isEnrolled) {
+      // Ensure the URL is properly formatted for YouTube embedding
+      let videoUrl = url;
+      if (url.includes('youtube.com/watch?v=')) {
+        const videoId = url.split('v=')[1];
+        const ampersandPosition = videoId.indexOf('&');
+        if (ampersandPosition !== -1) {
+          videoUrl = `https://www.youtube.com/embed/${videoId.substring(0, ampersandPosition)}`;
+        } else {
+          videoUrl = `https://www.youtube.com/embed/${videoId}`;
+        }
+      }
+      setSelectedVideo(videoUrl);
+    } else {
+      setIsPaymentModalOpen(true);
+    }
   };
 
   const closeVideoModal = () => {
@@ -428,16 +458,24 @@ const CourseDetail = () => {
               <span className="text-gray-400">{course.duration}</span>
               <span className="text-gray-400">{course.lessons}</span>
             </div>
-            {isEnrolled ? (
-              <div className="bg-green-100 text-green-800 px-4 py-2 rounded-lg font-medium">
-                You're enrolled in this course!
+            {isEnrolled || isUserEnrolled ? (
+              <div className="space-y-4">
+                <div className="bg-green-100 text-green-800 px-4 py-2 rounded-lg font-medium">
+                  You're enrolled in this course!
+                </div>
+                <Link 
+                  to={`/learn/${course.id}`}
+                  className="block w-full text-center bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
+                >
+                  Continue Learning
+                </Link>
               </div>
             ) : (
               <button
                 onClick={handleEnrollClick}
-                className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
+                className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
               >
-                Enroll now!
+                Enroll Now - IDR 199,000
               </button>
             )}
 
@@ -452,11 +490,38 @@ const CourseDetail = () => {
           </div>
           <div className="md:w-1/3">
             <div className="bg-gray-700 p-6 rounded-lg h-full">
-              <h3 className="text-lg font-semibold text-white mb-4">Shareable Certificate</h3>
-              <p className="text-gray-300 mb-4">Earn a certificate upon completion that you can share with your professional network.</p>
-              <div className="flex items-center space-x-2">
-                <span className="text-yellow-400">★★★★★</span>
-                <span className="text-gray-400">({course.rating})</span>
+              <h3 className="text-lg font-semibold text-white mb-4">This Course Includes:</h3>
+              <ul className="space-y-3 text-gray-300 mb-6">
+                <li className="flex items-start space-x-2">
+                  <svg className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Full lifetime access</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <svg className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Access on mobile and TV</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <svg className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Certificate of completion</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <svg className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>24/7 support</span>
+                </li>
+              </ul>
+              <div className="pt-4 border-t border-gray-600">
+                <div className="flex items-center space-x-2">
+                  <span className="text-yellow-400 text-2xl">★★★★★</span>
+                  <span className="text-gray-400">{course.rating} ({Math.floor(course.rating * 20)} reviews)</span>
+                </div>
               </div>
             </div>
           </div>
@@ -507,31 +572,80 @@ const CourseDetail = () => {
 
         <div className="lg:col-span-1">
           <div className="bg-gray-800 rounded-xl p-6 sticky top-6">
-            <h2 className="text-xl font-bold text-white mb-6">Course session</h2>
-            <div className="space-y-4">
+            <h2 className="text-xl font-bold text-white mb-6">Course Content</h2>
+            <div className="mb-4 flex justify-between items-center">
+              <span className="text-sm text-gray-400">{course.sessions.length} sections • {course.lessons}</span>
+              <span className="text-sm text-purple-400">Expand All</span>
+            </div>
+            <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2">
+              {!isUserEnrolled && !isEnrolled && (
+                <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4 rounded">
+                  <p className="font-bold">Enroll to unlock all videos</p>
+                  <p>Complete your payment to access all course content</p>
+                </div>
+              )}
               {course.sessions.map((session, index) => (
-                <div key={index} className="bg-gray-700 rounded-lg p-4">
-                  <h3 className="font-semibold text-white mb-2">{session.title}</h3>
-                  <p className="text-gray-300 text-sm mb-3">{session.description}</p>
-                  <div className="space-y-2 mb-3">
-                    {session.videos.map((video, vIndex) => (
-                      <button
-                        key={vIndex}
-                        onClick={() => openVideoModal(video.url)}
-                        className="w-full text-left text-blue-400 hover:text-blue-300 text-sm"
-                      >
-                        {video.title}
-                      </button>
-                    ))}
+                <div key={index} className="bg-gray-700 rounded-lg overflow-hidden">
+                  <div className="p-4 border-b border-gray-600">
+                    <h3 className="font-semibold text-white">{index + 1}. {session.title}</h3>
+                    <div className="flex justify-between items-center mt-2">
+                      <div className="flex items-center space-x-4 text-sm text-gray-400">
+                        <span>{session.videos.length} lessons</span>
+                        <span>•</span>
+                        <span>{session.tests} quizzes</span>
+                      </div>
+                      <span className="text-sm text-gray-400">{session.hours}h</span>
+                    </div>
                   </div>
-                  <div className="flex items-center justify-between text-sm text-gray-400">
-                    <span>{session.videos.length} Videos</span>
-                    <span>{session.tests} Tests</span>
-                    <span>{session.hours} Hours</span>
+                  <div className="space-y-1 p-2">
+                    {session.videos.map((video, vIndex) => (
+                      <div key={vIndex} className="group">
+                        <button
+                          onClick={() => openVideoModal(video.url)}
+                          className={`w-full text-left px-3 py-2 rounded-md text-sm flex items-center justify-between ${
+                            isUserEnrolled || isEnrolled 
+                              ? 'text-blue-400 hover:bg-gray-600 hover:text-white' 
+                              : 'text-gray-500 cursor-not-allowed group-hover:bg-gray-600/50'
+                          }`}
+                          disabled={!(isUserEnrolled || isEnrolled)}
+                          title={!(isUserEnrolled || isEnrolled) ? 'Enroll to access this content' : `Watch: ${video.title}`}
+                        >
+                          <div className="flex items-center">
+                            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span>{vIndex + 1}. {video.title}</span>
+                          </div>
+                          <span className="text-xs text-gray-400">5:30</span>
+                        </button>
+                      </div>
+                    ))}
                   </div>
                 </div>
               ))}
             </div>
+          </div>
+          
+          {/* Course Instructor */}
+          <div className="bg-gray-800 rounded-xl p-6 mt-6">
+            <h3 className="text-lg font-semibold text-white mb-4">Instructor</h3>
+            <div className="flex items-center space-x-4">
+              <div className="w-16 h-16 rounded-full bg-purple-600 flex items-center justify-center text-white text-2xl font-bold">
+                {course.instructor?.name?.charAt(0) || 'I'}
+              </div>
+              <div>
+                <h4 className="font-semibold text-white">{course.instructor?.name || 'Instructor Name'}</h4>
+                <p className="text-sm text-gray-400">{course.instructor?.title || 'Senior Instructor'}</p>
+                <div className="flex items-center mt-1">
+                  <span className="text-yellow-400 text-sm">★★★★★</span>
+                  <span className="text-gray-400 text-sm ml-1">4.8</span>
+                </div>
+              </div>
+            </div>
+            <p className="mt-4 text-sm text-gray-300">
+              {course.instructor?.bio || 'Experienced professional with years of industry experience in teaching and mentoring students.'}
+            </p>
           </div>
         </div>
       </div>

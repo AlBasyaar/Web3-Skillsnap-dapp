@@ -1,16 +1,57 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import CourseDetail from './CourseDetail';
 
 const courses = [
   {
     id: 1,
-    title: 'UI Design Fundamental',
-    description: 'A beginner-friendly guide to UI design essentials. Learn how to create clean, user-friendly interfaces using core principles like layout, hierarchy, color, and typography.',
+    title: 'JavaScript Programming Full Course',
+    description: 'Master JavaScript from the ground up with our comprehensive course. Learn everything from basic syntax to advanced concepts.',
     duration: '120 hours',
     lessons: '80 course',
-    rating: 4.5,
+    rating: 4.7,
     level: 'Beginner',
-    thumbnail: 'https://res.cloudinary.com/dr5pehdsw/image/upload/v1755737708/64c00daed63bef0e1a4cfc3dca3033760fa02447_aggnyq.png'
+    thumbnail: 'https://img.youtube.com/vi/W6NZfCO5SIk/maxresdefault.jpg',
+    sessions: [
+      {
+        title: 'JavaScript Mastery',
+        description: 'Learn JavaScript from scratch with our comprehensive tutorial series.',
+        videos: [
+          { 
+            title: 'JavaScript Tutorial for Beginners', 
+            url: 'https://youtu.be/W6NZfCO5SIk',
+            thumbnail: 'https://img.youtube.com/vi/W6NZfCO5SIk/maxresdefault.jpg',
+            embedUrl: 'https://www.youtube.com/embed/W6NZfCO5SIk'
+          },
+          { 
+            title: 'JavaScript Crash Course', 
+            url: 'https://youtu.be/SqcY0GlETPk',
+            thumbnail: 'https://img.youtube.com/vi/SqcY0GlETPk/maxresdefault.jpg',
+            embedUrl: 'https://www.youtube.com/embed/SqcY0GlETPk'
+          },
+          { 
+            title: 'JavaScript DOM Manipulation', 
+            url: 'https://youtu.be/_6Tl2_eM0DE',
+            thumbnail: 'https://img.youtube.com/vi/_6Tl2_eM0DE/maxresdefault.jpg',
+            embedUrl: 'https://www.youtube.com/embed/_6Tl2_eM0DE'
+          },
+          { 
+            title: 'JavaScript Asynchronous Programming', 
+            url: 'https://youtu.be/5U6IjWXq0Yw',
+            thumbnail: 'https://img.youtube.com/vi/5U6IjWXq0Yw/maxresdefault.jpg',
+            embedUrl: 'https://www.youtube.com/embed/5U6IjWXq0Yw'
+          },
+          { 
+            title: 'JavaScript ES6+ Features', 
+            url: 'https://youtu.be/fF_yTe7h1hQ',
+            thumbnail: 'https://img.youtube.com/vi/fF_yTe7h1hQ/maxresdefault.jpg',
+            embedUrl: 'https://www.youtube.com/embed/fF_yTe7h1hQ'
+          }
+        ],
+        tests: 3,
+        hours: 4
+      }
+    ]
   },
   {
     id: 2,
@@ -139,6 +180,16 @@ const Course = () => {
   );
 };
 
+// Helper function to get the first video URL for a course
+const getFirstVideoUrl = (courseId) => {
+  const course = courses.find(c => c.id === courseId);
+  if (course && course.sessions && course.sessions.length > 0 && 
+      course.sessions[0].videos && course.sessions[0].videos.length > 0) {
+    return course.sessions[0].videos[0].url;
+  }
+  return null;
+};
+
 const CourseCard = ({ course }) => {
   const navigate = useNavigate();
 
@@ -200,7 +251,14 @@ const CourseCard = ({ course }) => {
             className="w-full py-2 border-2 border-purple-500 text-purple-500 rounded-lg font-medium hover:bg-purple-500 hover:text-white transition-colors duration-300"
             onClick={(e) => {
               e.stopPropagation();
-              navigate(`/course/${course.id}`);
+              // Redirect to the first video in the course
+              const firstVideoUrl = getFirstVideoUrl(course.id);
+              if (firstVideoUrl) {
+                window.open(firstVideoUrl, '_blank');
+              } else {
+                // Fallback to course detail page if no video URL is found
+                navigate(`/course/${course.id}`);
+              }
             }}
           >
             Start

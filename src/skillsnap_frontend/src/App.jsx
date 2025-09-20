@@ -20,6 +20,7 @@ import AIChat from "./pages/AIChat";
 import JobNearby from "./pages/JobNearby";
 import Recommendation from "./pages/Recommendation";
 import Profile from "./pages/Profile";
+import CourseDetail from "./pages/CourseDetail";
 
 // Layout umum (Navbar + Footer)
 const MainLayout = ({ children }) => (
@@ -138,6 +139,17 @@ function App() {
             <ProtectedRoute>
               <DashboardLayout>
                 <Course />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/course/:id"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <CourseDetail />
               </DashboardLayout>
             </ProtectedRoute>
           }
