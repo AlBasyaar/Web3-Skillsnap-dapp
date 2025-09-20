@@ -4,40 +4,47 @@ This project consists of a **Motoko** backend and a **React** frontend, running 
 
 ---
 
+### Dashboard Page
 
+![Dashboard Page](./src/asset/dashboard.png)
 
-### Home Page
-![Home Page 1](./src/asset/Home.png)
-![Home Page 2](./src/asset/Home%201.png)
-![Home Page 3](./src/asset/Home%202.png)
-![Home Page 4](./src/asset/Home%204.png)
+The dashboard provides an overview of the platform, allowing users to quickly access key features and track their activities.
 
-The SkillSnap homepage introduces the platform as an innovative AI and Web3-based solution that helps users find jobs that match their interests and verify their skills through secure and reliable decentralized certificates. The first page can be scrolled to learn more about the platform.
+### Analysis Certificate Course with AI Chat
 
-### Features Page
-![Features Page](./src/asset/Features.png)
+![AI Chat Feature](./src/asset/ai-chat.png)
 
-This page will be the hub for SkillSnap's advanced features, which aim to expand the platform's functionality in supporting Web3 and artificial intelligence-based career development.
+This feature enables users to analyze certificate courses using an interactive AI-powered chat assistant for deeper insights.
 
-### Web3 Page
-![Web3 Page](./src/asset/WEB%203.png)
+### Work Recommendation with AI
 
-This page highlights SkillSnap's commitment to providing a transparent, secure, and decentralized skill validation system through the integration of Web3 technology.
+![Form AI Feature](./src/asset/Home.png)
 
-### AI Page
-![AI Page 1](./src/asset/AI.png)
-![AI Page 2](./src/asset/AI%201.png)
-![AI Page 3](./src/asset/AI%202.png)
-![AI Page 4](./src/asset/AI%203.png)
+Users can input their skills and preferences into the AI form to receive tailored work recommendations.
 
-This page is designed to collect personal information and user preferences through a survey form processed by AI to generate the most suitable career recommendations. Through strategic questions about work style, interests, personality, and professional goals, the SkillSnap AI system will analyze user responses and present relevant, personalized, and data-driven job options.
-
-![AI Results](./src/asset/AI%204.png)
+![AI Results](./src/asset/certificate.png)
 
 Shows the work recommendations provided by AI. The results can be downloaded in jpg format so that they can be easily viewed again if forgotten.
 
+### Job Recommendation Realtion
+
+![Job List](./src/asset/job.png)
+
+This section displays a list of job recommendations, helping users explore relevant opportunities based on their profile.
+
+### Profile Page
+
+![Profile Page](./src/asset/profile.png)
+
+The profile page allows users to manage their personal information, track progress, and customize their experience.
+
+### Home Page
+![Home Page](./src/asset/home.png)
+
+The SkillSnap homepage introduces the platform as an innovative AI and Web3-based solution that helps users find jobs that match their interests and verify their skills through secure and reliable decentralized certificates. The first page can be scrolled to learn more about the platform.
+
 ### Commitments Page
-![Commitments Page](./src/asset/Comitmen.png)
+![Commitments Page](./src/asset/commitment.png)
 
 This page showcases SkillSnap's long-term commitment to shaping a more equitable, open, and technology-driven future for careers.
 
