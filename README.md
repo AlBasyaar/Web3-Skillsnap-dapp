@@ -18,7 +18,7 @@ This feature enables users to analyze certificate courses using an interactive A
 
 ### Work Recommendation with AI
 
-![Form AI Feature](./src/asset/Home.png)
+![Form AI Feature](./src/asset/ai.png)
 
 Users can input their skills and preferences into the AI form to receive tailored work recommendations.
 
