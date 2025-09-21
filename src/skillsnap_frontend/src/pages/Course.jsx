@@ -12,46 +12,6 @@ const courses = [
     rating: 4.5,
     level: 'Beginner',
     thumbnail: 'https://res.cloudinary.com/dr5pehdsw/image/upload/v1755737708/64c00daed63bef0e1a4cfc3dca3033760fa02447_aggnyq.png',
-    sessions: [
-      {
-        title: 'JavaScript Mastery',
-        description: 'Learn JavaScript from scratch with our comprehensive tutorial series.',
-        videos: [
-          { 
-            title: 'JavaScript Tutorial for Beginners', 
-            url: 'https://youtu.be/W6NZfCO5SIk',
-            thumbnail: 'https://img.youtube.com/vi/W6NZfCO5SIk/maxresdefault.jpg',
-            embedUrl: 'https://www.youtube.com/embed/W6NZfCO5SIk'
-          },
-          { 
-            title: 'JavaScript Crash Course', 
-            url: 'https://youtu.be/SqcY0GlETPk',
-            thumbnail: 'https://img.youtube.com/vi/SqcY0GlETPk/maxresdefault.jpg',
-            embedUrl: 'https://www.youtube.com/embed/SqcY0GlETPk'
-          },
-          { 
-            title: 'JavaScript DOM Manipulation', 
-            url: 'https://youtu.be/_6Tl2_eM0DE',
-            thumbnail: 'https://img.youtube.com/vi/_6Tl2_eM0DE/maxresdefault.jpg',
-            embedUrl: 'https://www.youtube.com/embed/_6Tl2_eM0DE'
-          },
-          { 
-            title: 'JavaScript Asynchronous Programming', 
-            url: 'https://youtu.be/5U6IjWXq0Yw',
-            thumbnail: 'https://img.youtube.com/vi/5U6IjWXq0Yw/maxresdefault.jpg',
-            embedUrl: 'https://www.youtube.com/embed/5U6IjWXq0Yw'
-          },
-          { 
-            title: 'JavaScript ES6+ Features', 
-            url: 'https://youtu.be/fF_yTe7h1hQ',
-            thumbnail: 'https://img.youtube.com/vi/fF_yTe7h1hQ/maxresdefault.jpg',
-            embedUrl: 'https://www.youtube.com/embed/fF_yTe7h1hQ'
-          }
-        ],
-        tests: 3,
-        hours: 4
-      }
-    ]
   },
   {
     id: 2,

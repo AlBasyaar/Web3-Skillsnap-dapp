@@ -65,9 +65,11 @@ const courses = [
       }
     ],
     overviewParagraphs: [
-      "Kursus ini dirancang untuk membantu Anda meningkatkan keterampilan desain UI dengan memahami prinsip-prinsip dasar yang esensial. Anda akan belajar bagaimana menciptakan antarmuka yang intuitif dan menarik, yang dapat meningkatkan pengalaman pengguna secara signifikan.",
-      "Dengan fokus pada tata letak, hierarki, dan elemen visual lainnya, kursus ini akan membekali Anda dengan pengetahuan praktis untuk diterapkan dalam proyek desain nyata, sehingga Anda dapat menghasilkan desain yang lebih profesional.",
-      "Selain itu, melalui latihan dan contoh kasus, Anda akan mengasah kemampuan untuk menganalisis dan memperbaiki desain yang ada, memastikan bahwa setiap elemen berkontribusi pada tujuan keseluruhan aplikasi atau website."
+      "This course is designed to provide beginners with a strong foundation in user interface (UI) design. It introduces you to the essential concepts of creating user-centered designs that are both functional and visually appealing.",
+      "You will learn to apply principles such as layout, hierarchy, and typography, ensuring your designs communicate information clearly while maintaining aesthetic balance.",
+      "Practical exercises and real-world case studies will help you understand how design decisions impact user experience, preparing you to tackle real UI challenges.",
+      "By exploring tools like Figma and Sketch, you will gain hands-on experience in wireframing, prototyping, and storyboarding, which are crucial steps in the design workflow.",
+      "By the end of the course, you will not only have a solid understanding of design fundamentals but also the confidence to create professional and engaging UI designs for digital products."
     ]
   },
   {
@@ -90,7 +92,7 @@ const courses = [
     sessions: [
       {
         title: 'Introduction',
-        description: 'Lorem ipsum dolor sit amet consectetur. Nam facilisis ultrices dapibus imperdiet tellus.',
+        description: 'Refresh your JavaScript basics and set up the environment for advanced learning.',
         videos: [
           { title: 'Video 1: JS Basics Review', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
           { title: 'Video 2: ES6 Intro', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
@@ -132,9 +134,11 @@ const courses = [
       }
     ],
     overviewParagraphs: [
-      "Kursus JavaScript lanjutan ini bertujuan untuk memperdalam pemahaman Anda tentang bahasa pemrograman yang dinamis ini. Anda akan mengeksplorasi fitur modern yang memungkinkan pembuatan aplikasi yang lebih efisien dan scalable.",
-      "Melalui pembelajaran tentang async programming dan design patterns, Anda akan belajar cara menangani operasi kompleks dengan lebih baik, mengurangi bug, dan meningkatkan performa kode Anda.",
-      "Kursus ini juga menekankan praktik terbaik dalam pengembangan, membantu Anda membangun fondasi yang kuat untuk karir di bidang pengembangan web dan aplikasi."
+      "This advanced JavaScript course is designed to take your skills to the next level by covering modern features and concepts essential for today’s web development.",
+      "You will dive into ES6+ features, closures, promises, and async/await, which will allow you to write cleaner, more efficient, and maintainable code.",
+      "The course also introduces design patterns and best practices that help in building scalable and organized applications, making your projects easier to manage as they grow.",
+      "By working with tools like Node.js and Webpack, you’ll gain practical knowledge in managing dependencies, bundling assets, and setting up efficient workflows.",
+      "At the end of this course, you’ll have the expertise and confidence to handle advanced JavaScript challenges, preparing you for building real-world applications and progressing in your career as a developer."
     ]
   },
   {
@@ -157,7 +161,7 @@ const courses = [
     sessions: [
       {
         title: 'Introduction',
-        description: 'Lorem ipsum dolor sit amet consectetur. Nam facilibus ultrices dapibus imperdiet tellus.',
+        description: 'Understand what React is, how it works, and why it is popular in modern web development.',
         videos: [
           { title: 'Video 1: React Basics', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
           { title: 'Video 2: Setup', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
@@ -199,9 +203,11 @@ const courses = [
       }
     ],
     overviewParagraphs: [
-      "Dalam masterclass React ini, Anda akan meningkatkan keterampilan membangun aplikasi front-end yang responsif dan interaktif. Fokus pada hooks dan state management akan membantu Anda mengelola data dengan lebih efektif.",
-      "Anda akan mempelajari teknik optimasi untuk memastikan aplikasi berjalan lancar, bahkan pada skala besar, sambil menerapkan best practices dalam pengembangan React.",
-      "Dengan proyek nyata sebagai inti kursus, Anda akan mendapatkan pengalaman langsung yang dapat langsung diterapkan dalam pekerjaan atau portofolio Anda."
+      "This beginner-friendly course introduces React, one of the most widely used libraries for building modern web applications.",
+      "You will learn the fundamentals of creating reusable components, managing data with props and state, and handling user interactions effectively.",
+      "As you progress, you’ll explore hooks and routing to build more dynamic and interactive applications.",
+      "With practical exercises, you’ll gain hands-on experience and confidence in building small projects and scaling them into larger apps.",
+      "By completing this course, you’ll be equipped with the skills needed to start building your own React-based web projects."
     ]
   },
   {
@@ -224,7 +230,7 @@ const courses = [
     sessions: [
       {
         title: 'Introduction',
-        description: 'Lorem ipsum dolor sit amet consectetur. Nam facilitus ultrices dapibus imperdiet tellus.',
+        description: 'Get started with Node.js and understand its role in server-side development.',
         videos: [
           { title: 'Video 1: Node Basics', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
           { title: 'Video 2: Setup', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
@@ -266,9 +272,11 @@ const courses = [
       }
     ],
     overviewParagraphs: [
-      "Kursus pengembangan backend dengan Node.js ini akan membantu Anda membangun server yang kuat dan scalable. Anda akan belajar framework Express untuk menciptakan API yang efisien.",
-      "Topik autentikasi dan integrasi database akan meningkatkan kemampuan Anda dalam menangani keamanan data dan pengelolaan pengguna, yang krusial untuk aplikasi modern.",
-      "Dengan penekanan pada praktik pengembangan terbaik, kursus ini mempersiapkan Anda untuk tantangan nyata di dunia backend development."
+      "This course is tailored for developers who want to gain mastery in backend development using Node.js.",
+      "You’ll start by learning the fundamentals of Node.js, asynchronous programming, and the power of JavaScript on the server side.",
+      "The course will then guide you through building RESTful APIs with Express, integrating databases, and managing application data.",
+      "You’ll also explore advanced topics such as authentication, middleware, and strategies for scaling applications.",
+      "By the end, you will be confident in designing and deploying full-fledged backend systems for real-world use cases."
     ]
   },
   {
@@ -291,7 +299,7 @@ const courses = [
     sessions: [
       {
         title: 'Introduction',
-        description: 'Lorem ipsum dolor sit amet consectetur. Nam facilisis ultrices dapibus imperdiet tellus.',
+        description: 'Get familiar with blockchain, its importance, and its real-world applications.',
         videos: [
           { title: 'Video 1: Blockchain Intro', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
           { title: 'Video 2: History', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
@@ -333,9 +341,11 @@ const courses = [
       }
     ],
     overviewParagraphs: [
-      "Kursus blockchain komprehensif ini akan meningkatkan pemahaman Anda tentang teknologi desentralisasi. Mulai dari dasar hingga pembuatan smart contract, Anda akan mendapatkan wawasan mendalam.",
-      "Anda akan belajar mekanisme konsensus dan bagaimana membangun DApps, yang dapat diterapkan dalam berbagai industri seperti keuangan dan supply chain.",
-      "Melalui proyek hands-on, kursus ini membantu Anda mengembangkan keterampilan untuk inovasi di bidang blockchain yang sedang berkembang pesat."
+      "This course provides a comprehensive introduction to blockchain technology and its transformative potential.",
+      "You’ll learn how Ethereum works, the role of smart contracts, and how decentralization changes traditional systems.",
+      "Through hands-on practice, you will gain experience in writing smart contracts using Solidity and deploying them on the Ethereum blockchain.",
+      "You’ll also explore dApp development and Web3 integration, enabling you to connect applications to blockchain networks.",
+      "By completing the course, you’ll have the foundational knowledge required to pursue blockchain development or create your own decentralized applications."
     ]
   },
   {
@@ -358,7 +368,7 @@ const courses = [
     sessions: [
       {
         title: 'Introduction',
-        description: 'Lorem ipsum dolor sit amet consectetur. Nam facilisis ultrices dapibus imperdiet tellus.',
+        description: 'Understand the mobile app ecosystem and get started with development tools.',
         videos: [
           { title: 'Video 1: RN Intro', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
           { title: 'Video 2: Setup', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
@@ -400,9 +410,11 @@ const courses = [
       }
     ],
     overviewParagraphs: [
-      "Kursus pengembangan aplikasi mobile ini fokus pada React Native untuk menciptakan app cross-platform. Anda akan meningkatkan keterampilan dalam membangun UI yang responsif untuk iOS dan Android.",
-      "Dengan pembelajaran tentang native modules dan deployment, Anda akan siap menghadapi tantangan pengembangan mobile nyata.",
-      "Kursus ini menekankan optimasi performa dan best practices, memastikan aplikasi Anda berfungsi baik tetapi juga user-friendly."
+       "This course is designed for beginners who want to learn how to build mobile applications for multiple platforms.",
+      "You’ll gain a solid understanding of mobile UI design, navigation patterns, and how to handle user input effectively.",
+      "The course introduces frameworks like React Native and Flutter, which allow you to build apps for both iOS and Android using a single codebase.",
+      "You’ll also learn how to connect mobile apps with backend services and APIs, making your applications dynamic and functional.",
+      "By the end, you’ll be able to design, develop, and deploy mobile apps to app stores with confidence."
     ]
   }
 ];
