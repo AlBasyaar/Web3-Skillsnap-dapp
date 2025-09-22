@@ -1,7 +1,6 @@
-# 🚀 Internet Computer Project Guide + Frontend Containerized
+# 🚀 Skillsnap: Skill Intelligence Engine with Interest-Based Matching & Wallet Sync
 
-This project consists of a **Motoko** backend and a **React** frontend, running inside a **Docker** container. This guide helps you build, log in, and run the entire system locally using `dfx` inside a container via Docker Desktop.
-
+Skillsnap is a comprehensive Web3 platform that integrates a career intelligence engine, an online learning portal, and a job marketplace into a single, cohesive ecosystem. Our core mission is to bridge the skills gap and solve the problem of job mismatch by providing a personalized, verifiable, and secure path from learning to employment. By leveraging AI to understand individual potential and Web3 to verify skills, Skillsnap empowers users to find a career they love while providing companies with a pipeline of pre-vetted, qualified talent.
 ---
 
 ### Dashboard Page
@@ -54,11 +53,20 @@ This page showcases SkillSnap's long-term commitment to shaping a more equitable
 
 - Basic Documentation : [Go To File](https://drive.google.com/file/d/1WMWw51RaSzWJEMexqw_rmEcyA8eMpuaZ/view?usp=sharing) 
 - Pitch Deck : [Go To File](https://drive.google.com/file/d/19g_9K4jlUA9tzT1ZZM5zDl4XuXW7cQH1/view?usp=sharing)
-- Demo Video : [Go To Video](https://drive.google.com/file/d/1NSzQQplC1hyz__ct9LaCAo78e2gzpfBN/view?usp=drive_link)
-- Frontend (UI): https://iem4x-7yaaa-aaaap-qqdxq-cai.icp0.io/
-- Backend (Candid Interface): https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=idn2d-saaaa-aaaap-qqdxa-cai
+- Video Demo : [Go To Video](https://drive.google.com/file/d/1NSzQQplC1hyz__ct9LaCAo78e2gzpfBN/view?usp=drive_link)
+- Mainnet: https://iem4x-7yaaa-aaaap-qqdxq-cai.icp0.io/
 
 ---
+
+## Features of Skillsnap
+  1. Job Recommendation
+     - High personalization: Job recommendations are tailored to the user’s profile, interests, and skills.
+     - Time efficiency: Reduces the need to manually search for job listings.
+     - Skill-based relevance: Focuses on matching skills rather than just education or work experience.
+  3. Certificate and Skill Validation
+     - Enhanced credibility: Proves the authenticity of users’ certificates and skills.
+     - Data security: Certificates are digitally validated, reducing the risk of forgery.
+     - Employer trust: Recruiters gain more confidence in the applicant’s qualifications.
 
 ## 🛠️ Requirements (for local development)
 
