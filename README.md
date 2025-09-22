@@ -54,7 +54,7 @@ This page showcases SkillSnap's long-term commitment to shaping a more equitable
 
 - Basic Documentation : [Go To File](https://drive.google.com/file/d/1WMWw51RaSzWJEMexqw_rmEcyA8eMpuaZ/view?usp=sharing) 
 - Pitch Deck : [Go To File](https://drive.google.com/file/d/19g_9K4jlUA9tzT1ZZM5zDl4XuXW7cQH1/view?usp=sharing)
-- Demo Video : [Go To Video](https://drive.google.com/file/d/1N-cZLSmkSdf3KGvBjh3VO8dsOCi9LwOn/view?usp=sharing)
+- Demo Video : [Go To Video](https://drive.google.com/file/d/1NSzQQplC1hyz__ct9LaCAo78e2gzpfBN/view?usp=drive_link)
 - Frontend (UI): https://iem4x-7yaaa-aaaap-qqdxq-cai.icp0.io/
 - Backend (Candid Interface): https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=idn2d-saaaa-aaaap-qqdxa-cai
 
