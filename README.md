@@ -17,13 +17,13 @@ This feature enables users to analyze certificate courses using an interactive A
 
 ### Work Recommendation with AI
 
-![Form AI Feature](./src/asset/AI.png)
+<p align="center">
+  <img src="./src/asset/AI.png" alt="Form AI Feature" width="45%">
+  <img src="./src/asset/certificate.png" alt="AI Results" width="45%">
+</p>
 
-Users can input their skills and preferences into the AI form to receive tailored work recommendations.
-
-![AI Results](./src/asset/certificate.png)
-
-Shows the work recommendations provided by AI. The results can be downloaded in jpg format so that they can be easily viewed again if forgotten.
+Users can input their skills and preferences into the AI form to receive tailored work recommendations.  
+The results can be downloaded in jpg format so that they can be easily viewed again if forgotten.
 
 ### Job Recommendation Realtion
 
@@ -38,11 +38,13 @@ This section displays a list of job recommendations, helping users explore relev
 The profile page allows users to manage their personal information, track progress, and customize their experience.
 
 ### Home Page
+
 ![Home Page](./src/asset/Home.png)
 
 The SkillSnap homepage introduces the platform as an innovative AI and Web3-based solution that helps users find jobs that match their interests and verify their skills through secure and reliable decentralized certificates. The first page can be scrolled to learn more about the platform.
 
 ### Commitments Page
+
 ![Commitments Page](./src/asset/commitment.png)
 
 This page showcases SkillSnap's long-term commitment to shaping a more equitable, open, and technology-driven future for careers.
